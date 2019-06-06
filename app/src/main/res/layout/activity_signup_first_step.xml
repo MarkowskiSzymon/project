@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:windowSoftInputMode="stateVisible"
+    android:layout_height="match_parent"
+    tools:context=".activity_fragments_class.Registration.SignupActivity_FirstStep">
+
+    <TextView
+        android:id="@+id/textView_ActivitySignupFirstStep_NumberAndCodeYoursDellyCard"
+        android:layout_width="312dp"
+        android:layout_height="63dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="207dp"
+        android:text="@string/numberKodTwojejKartyDelly"
+        android:textSize="20dp">
+
+    </TextView>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_ActivitySignupFirstStep_Number"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="141dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_ActivitySignupFirstStep_NumberAndCodeYoursDellyCard"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_border_edittext">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_ActivitySignupFirstStep_Number"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_alignStart="@+id/textInputLayout_ActivitySignupFirstStep_Number"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
+            android:background="@null"
+            android:ems="12"
+            android:hint="Numer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502">
+
+        </android.support.design.widget.TextInputEditText>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_ActivitySignupFirstStep_Code"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_ActivitySignupFirstStep_NumberAndCodeYoursDellyCard"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="107dp"
+        android:layout_toEndOf="@+id/textInputLayout_ActivitySignupFirstStep_Number"
+        android:background="@drawable/rounded_border_edittext">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_ActivitySignupFirstStep_Code"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
+            android:background="@null"
+            android:ems="12"
+            android:hint="Kod"
+            app:layout_constraintHorizontal_bias="0.502">
+
+        </android.support.design.widget.TextInputEditText>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/button-ActivitySignupFirstStep-Dalej"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayout_ActivitySignupFirstStep_Number"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="78dp"
+        android:background="@drawable/rounded_border_edittext"
+        android:backgroundTint="@color/colorDellyGreen"
+        android:ems="10"
+        android:text="@string/dalejPrzycisk"
+        android:textColor="@color/colorWhite" />
+
+
+
+
+</RelativeLayout>

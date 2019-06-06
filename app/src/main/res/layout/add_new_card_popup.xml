@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup_background">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="343dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_search_black_24dp"
+ />
+
+    <TextView
+        android:id="@+id/textView-addNewCardPopup-NumberIKodTwojejKartyDelly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="206dp"
+        android:text="@string/numberKodTwojejKartyDelly"
+        android:textSize="30dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_addNewCardPopup_Number"
+        android:layout_width="180dp"
+        android:layout_height="69dp"
+        android:layout_below="@+id/textView-addNewCardPopup-NumberIKodTwojejKartyDelly"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/rounded_border_edittext">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_addNewCardPopup_Number"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_alignStart="@+id/textInputLayout_addNewCardPopup_Number"
+            android:layout_alignTop="@+id/textInputLayout_addNewCardPopup_Number"
+            android:ems="12"
+            android:hint="Numer">
+
+        </android.support.design.widget.TextInputEditText>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_addNewCardPopup_Code"
+        android:layout_width="132dp"
+        android:layout_height="66dp"
+        android:layout_below="@+id/textView-addNewCardPopup-NumberIKodTwojejKartyDelly"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="34dp"
+        android:layout_toEndOf="@+id/textInputLayout_addNewCardPopup_Number"
+        android:background="@drawable/rounded_border_edittext">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_addNewCardPopup_Code"
+            android:layout_width="171dp"
+            android:layout_height="66dp"
+            android:layout_alignStart="@+id/textInputLayout_addNewCardPopup_Code"
+            android:layout_alignBottom="@+id/textInputLayout_addNewCardPopup_Code"
+            android:background="@null"
+            android:ems="4"
+            android:hint="Kod">
+
+        </android.support.design.widget.TextInputEditText>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView_addNewCardPopup_WhereCanIFindCard"
+        android:layout_width="349dp"
+        android:layout_height="66dp"
+        android:layout_below="@+id/textInputLayout_addNewCardPopup_Number"
+        android:layout_alignEnd="@+id/imageView2"
+        android:layout_marginTop="31dp"
+        android:text="@string/SkadDostacKarte"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/button_addNewCardPopup_Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="516dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_border_edittext"
+        android:backgroundTint="@color/colorDellyGreen"
+        android:ems="10"
+        android:text="@string/buttonAddNewCard"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</RelativeLayout>

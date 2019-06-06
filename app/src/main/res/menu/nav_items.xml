@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_menu_gallery"
+        android:id="@+id/nav_home"
+        android:enabled="true"
+        android:title="Home" />
+    <item
+        android:icon="@drawable/ic_history_black_24dp"
+        android:id="@+id/nav_history"
+        android:enabled="true"
+        android:title="@string/nav_history" />
+    <item
+        android:icon="@drawable/ic_partners_black_24dp"
+        android:id="@+id/nav_partners"
+        android:enabled="true"
+        android:title="@string/nav_partners" />
+    <item
+        android:icon="@drawable/ic_card_giftcard_black_24dp"
+        android:id="@+id/nav_presents"
+        android:enabled="true"
+        android:title="@string/nav_presents" />
+    <item
+        android:icon="@drawable/icon_test1"
+        android:id="@+id/nav_test"
+        android:enabled="true"
+        android:title="@string/nav_test" />
+</menu>

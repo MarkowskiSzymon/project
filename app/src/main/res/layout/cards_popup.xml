@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/popup_background">
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/imageViewPopupKarty"
+        android:layout_width="match_parent"
+        android:layout_height="251dp"
+        android:layout_centerHorizontal="true">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/textViewNumerKartyPopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/imageViewPopupKarty"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-30dp"
+        android:text="Numer Karty">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textViewTypKartyPopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/textViewNumerKartyPopup"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="Typ karty">
+    </TextView>
+
+
+</RelativeLayout>

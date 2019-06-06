@@ -1,0 +1,54 @@
+<resources>
+    <string name="internetConnectionWarning_title">There is no Internet connection</string>
+    <string name="internetConnectionWarning_message">Check your mobile data or WI-FI connection</string>
+    <string name="terms"><![CDATA[Terms & Conditions]]></string>
+    <string name="Cards">Cards</string>
+    <string name="nav_cards">Cards</string>
+    <string name="nav_history">History</string>
+    <string name="nav_partners">Partners</string>
+    <string name="nav_presents">Partnerzy</string>
+    <string name="cofnijPrzycisk">Cofnij</string>
+    <string name="dalejPrzycisk">Dalej</string>
+    <string name="numerKarty">Numer karty</string>
+    <string name="imageViewQrCode">QR_CODE</string>
+    <string name="kodKarty">Kod Karty</string>
+    <string name="numerTelefonu">Numer Telefonu</string>
+    <string name="email">Email</string>
+    <string name="registerButton">Zarejestruj</string>
+    <string name="formatDaty">xxxx-xx-xx</string>
+    <string name="dataUrodzenia">Data urodzenia:</string>
+    <string name="płeć">Płeć:</string>
+    <string name="imie">Imie:</string>
+    <string name="akceptacjaRegulaminu">Akceptuje regulamin dostępny na www.delly.pl</string>
+    <string name="kodPocztowy">Kod Pocztowy:</string>
+    <string name="facet">Mezczyzna   </string>
+    <string name="kobieta">Kobieta</string>
+    <string name="gratulacje">Gratulacje!</string>
+    <string name="podsumowanieInformacja">To już prawie koniec, teraz sprawdź swoją skrzynkę mailową aby dokończyć rejestrace.</string>
+    <string name="login">Zaloguj</string>
+    <string name="kartaInfo">Twoja karta główna</string>
+    <string name="title_activity_main">fragment_Cards_2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="delly_name">Delly</string>
+    <string name="title_activity_drawer">activity_drawer</string>
+    <string name="nav_test">Karty</string>
+    <string name="title_activity_basic">BasicActivity</string>
+    <string name="title_activity_drawable">drawable</string>
+    <string name="title_activity_main_activityy">MainActivityy</string>
+    <string name="ZalogujSieDoDelly">Zaloguj się do Delly</string>
+    <string name="buttonZalogujSie">Zaloguj się</string>
+    <string name="nieMaszJeszczeKonta">Nie masz konta? Zarejestruj się!</string>
+    <string name="rules">Regulamin</string>
+    <string name="numberKodTwojejKartyDelly">Numer i kod Twojej karty Delly</string>
+    <string name="SkadDostacKarte">Kartę Delly można otrzymać u naszych Partnerów, których listę znajdziesz na partnerzy.delly.pl</string>
+    <string name="buttonAddNewCard">Dodaj Kartę</string>
+    <string name="settings">Ustawienia</string>
+    <string name="dellyRules">Regulamin programu Delly</string>
+    <string name="logout">Wyloguj</string>
+
+
+</resources>

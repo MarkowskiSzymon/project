@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutOpis"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/kafelek_partnera_tlo"
+    android:paddingBottom="5dp">
+
+    <RelativeLayout
+        android:id="@+id/kafelek_opisu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/opisPromcji"
+            android:layout_width="327dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/punktyPromocji"
+            android:text="OPIS PROMOCJI" />
+
+        <TextView
+            android:id="@+id/punktyPromocji"
+            android:layout_width="74dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="ILOSC PUNKTOW" />
+
+        <View
+            android:id="@+id/linia"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@+id/opisPromcji"
+            android:layout_marginStart="-73dp"
+            android:layout_marginTop="1dp"
+            android:layout_toEndOf="@+id/punktyPromocji"
+            android:background="#F5F5F5" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

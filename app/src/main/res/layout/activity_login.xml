@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_fragments_class.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView-ActivityLogin-DellyLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp"
+        android:src="@drawable/delly_logo" />
+
+    <TextView
+        android:id="@+id/textView-ActivityLogin-ZalogujSieDoDelly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView-ActivityLogin-DellyLogo"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="71dp"
+        android:text="@string/ZalogujSieDoDelly"
+        android:textSize="30sp" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_ActivityLogin_Number"
+        android:background="@drawable/rounded_border_edittext"
+        android:layout_width="300dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView-ActivityLogin-ZalogujSieDoDelly"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_ActivityLogin_LoginCardNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:background="@null"
+            android:ems="12"
+            android:text="3522355"
+            android:hint="Numer karty"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+
+            android:drawableEnd="@drawable/ic_ico_credit_card" >
+        </android.support.design.widget.TextInputEditText>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/relativeLayoutPassword"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayout_ActivityLogin_Number"
+        android:background="@drawable/rounded_border_edittext"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editText_ActivityLogin_LoginPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:background="@null"
+                android:ems="12"
+                android:hint="Numer karty"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                android:inputType="textPassword"
+                android:text="Boniek1233"
+                android:drawableEnd="@drawable/ic_ico_visibility">
+
+            </android.support.design.widget.TextInputEditText>
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_AcitivityLogin_Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_below="@id/relativeLayoutPassword"
+        android:backgroundTint="@color/colorDellyGreen"
+        android:ems="10"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/rounded_border_edittext"
+        android:text="@string/buttonZalogujSie" />
+
+    <TextView
+        android:id="@+id/textView_ActivityLogin_GoToRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_AcitivityLogin_Login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="@string/nieMaszJeszczeKonta"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView_ActivityLogin_Rules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_ActivityLogin_GoToRegistration"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="@string/rules"
+        android:textSize="15sp" />
+
+</RelativeLayout>
