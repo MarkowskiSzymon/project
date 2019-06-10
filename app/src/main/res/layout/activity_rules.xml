@@ -10,16 +10,14 @@
     tools:context="com.example.project.activity_fragments_class.RulesActivity">
 
     <Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_activityRules"
         android:background="@color/colorDellyGradientBlue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
+        android:layout_height="wrap_content">
     </Toolbar>
 
     <ScrollView
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/toolbar_activityRules"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
