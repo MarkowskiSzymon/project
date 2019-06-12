@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+        <activity android:name=".activity_fragments_class.CreatePasswordActivity"></activity>
         <activity android:name=".activity_fragments_class.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -10,6 +10,7 @@
         <item name="android:windowSoftInputMode">stateHidden</item>
         <item name="android:fontFamily">@font/dosis_medium</item>
         <item name="actionMenuTextColor">@color/green_complete</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

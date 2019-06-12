@@ -2,7 +2,6 @@ package com.example.project.activity_fragments_class.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -16,25 +15,22 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.project.R;
-import com.example.project.Utils.Adaptery.RecyclerViewAdapter_history;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
 import com.example.project.Utils.QrCodeGenerator;
 import com.example.project.Utils.Adaptery.RecyclerViewAdapter_home;
-import com.example.project.Utils.listaPartnerow;
 import com.example.project.activity_fragments_class.StartActivity;
-import com.example.project.model.HistoryModel;
+import com.example.project.model.CardsModel;
+import com.example.project.model.LoginModel;
 import com.example.project.model.PartnersModel;
 
 import org.w3c.dom.Document;
@@ -60,10 +56,13 @@ public class HomeFragment extends Fragment{
         qrCode_image = rootView.findViewById(R.id.imageViewQRCodeGenerator);
         textViewNumerKarty = rootView.findViewById(R.id.textViewNumerKarty);
 
+        LoginModel loginModel = new LoginModel();
+        CardsModel cardsModel = new CardsModel();
+
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
-        textViewNumerKarty.setText("Numer karty: " + myPrefs.getString("cardNumber", ""));
+        textViewNumerKarty.setText("Numer karty: " + loginModel.getmCardsNumber().get(0));
         QrCodeGenerator qrCodeGenerator = new QrCodeGenerator();
-        qrCode_image.setImageBitmap(qrCodeGenerator.QrCodeGenerator(myPrefs.getString("cardNumber", "")));
+        qrCode_image.setImageBitmap(qrCodeGenerator.QrCodeGenerator(loginModel.getmCardsNumber().get(0)));
 
         conn = new Connection_INTERNET(getContext());
         new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();

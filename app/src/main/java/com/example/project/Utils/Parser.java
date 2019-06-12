@@ -5,7 +5,6 @@ import android.util.Log;
 import com.example.project.model.CardsModel;
 import com.example.project.model.LoginModel;
 import com.example.project.model.PartnersModel;
-import com.example.project.model.Stringi;
 import com.example.project.model.HistoryModel;
 
 import org.w3c.dom.Document;
@@ -128,36 +127,6 @@ public class Parser {
     </dane>
 */
 
-/*    public List<String> parserCardsXML(Document doc, String name) {
-        NodeList dane = doc.getElementsByTagName(name);
-        CardsModel cardsModel = new CardsModel();
-        for (int i = 0; i < dane.getLength(); i++) {
-            NodeList nList1 = dane.item(i).getChildNodes();
-            for (int j = 0; j < nList1.getLength(); j++) {
-                NodeList nList2 = nList1.item(j).getChildNodes();
-                if (nList2.getLength() > 1) {
-                    for (int k = 0; k < nList2.getLength(); k++) {
-                        NodeList nList3 = nList2.item(k).getChildNodes();
-                        if (nList3.getLength() > 1) {
-                            for (int l = 0; l < nList3.getLength(); l++) {
-                                if (nList3.item(l).getChildNodes().getLength() < 2) {
-                                    if(nList3.item(l).getNodeName().equals("nr")){
-                                        cardsModel.addToListCardNumbers(nList3.item(l).getTextContent());
-                                    }else{
-                                        cardsModel.addToListCardIcons(nList3.item(l).getTextContent());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            Log.v("parser", "cardsIcons: " + cardsModel.getmCardIconList());
-            Log.v("parser", "cardsNumbers: " + cardsModel.getmCardNumberList());
-        }
-        return null;
-    }*/
-
     public List<String> parserCardsXML(Document doc, String name) {
         NodeList dane = doc.getElementsByTagName(name);
         CardsModel cardsModel = new CardsModel();
@@ -212,21 +181,55 @@ public class Parser {
 */
 
     public List<String> parserLoginXML(Document doc, String name) {
-        NodeList dane = doc.getElementsByTagName(name);
-        LoginModel loginModel = new LoginModel();
-        for (int i = 0; i < dane.getLength(); i++) {
-            NodeList nList1 = dane.item(i).getChildNodes();
-            for (int j = 0; j < nList1.getLength(); j++) {
-                if (nList1.item(j).getChildNodes().getLength() < 2 ) {
-                    Stringi stringi = new Stringi();
-                    stringi.setValues(nList1.item(j).getTextContent());
-                    loginModel.addToListValues(nList1.item(j).getTextContent());
-                    lista.add(nList1.item(j).getTextContent());
+            NodeList dane = doc.getElementsByTagName(name);
+            LoginModel loginModel = new LoginModel();
+                for (int i = 0; i < dane.getLength(); i++) {
+                    NodeList nList1 = dane.item(i).getChildNodes();
+                    for (int j = 0; j < nList1.getLength(); j++) {
+                        if (nList1.item(j).getNodeName().equals("id")) {
+                            loginModel.setId(nList1.item(j).getTextContent());
+                        } else if (nList1.item(j).getNodeName().equals("imie")) {
+                            loginModel.setName(nList1.item(j).getTextContent());
+                        }else if (nList1.item(j).getNodeName().equals("telefon")) {
+                            loginModel.setPhone(nList1.item(j).getTextContent());
+                        }else if (nList1.item(j).getNodeName().equals("email")) {
+                            loginModel.setEmail(nList1.item(j).getTextContent());
+                        }else if (nList1.item(j).getNodeName().equals("kod_pocztowy")) {
+                            loginModel.setZip_code(nList1.item(j).getTextContent());
+                        }else if (nList1.item(j).getNodeName().equals("data_urodzenia")) {
+                            loginModel.setDate_of_birth(nList1.item(j).getTextContent());
+                        }else if (nList1.item(j).getNodeName().equals("plec")) {
+                            loginModel.setGender(nList1.item(j).getTextContent());
+                        }else if (nList1.item(j).getNodeName().equals("data_rejestracji")) {
+                            loginModel.setDate_of_registration(nList1.item(j).getTextContent());
+                        }else if (nList1.item(j).getNodeName().equals("czy_zarejestrowany")) {
+                            loginModel.setRegister_status(nList1.item(j).getTextContent());
+                        }else if (nList1.item(j).getNodeName().equals("czy_aktywny")) {
+                            loginModel.setActivity_status(nList1.item(j).getTextContent());
+                        }
+                        NodeList nList2 = nList1.item(j).getChildNodes();
+                        if (nList2.getLength() > 1) {
+                            for (int k = 0; k < nList2.getLength(); k++) {
+                                NodeList nList3 = nList2.item(k).getChildNodes();
+                                if (nList3.getLength() > 1) {
+                                    for (int l = 0; l < nList3.getLength(); l++) {
+                                        if (nList3.item(l).getChildNodes().getLength() < 2) {
+                                            if (nList3.item(l).getNodeName().equals("nr")) {
+                                                loginModel.addToListCardsNumber(nList3.item(l).getTextContent());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-        }
         return null;
-    }
+}
+
+
+
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -239,7 +242,6 @@ public class Parser {
 
     public String parserSimpleXML(Document doc, String name) {
         NodeList dane = doc.getElementsByTagName(name);
-        LoginModel listaStringow = new LoginModel();
         String result = null;
         for (int i = 0; i < dane.getLength(); i++) {
             NodeList nList1 = dane.item(i).getChildNodes();

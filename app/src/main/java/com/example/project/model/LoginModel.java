@@ -4,48 +4,107 @@ import java.util.ArrayList;
 
 public class LoginModel {
 
-    public static ArrayList<String> listaStringow = new ArrayList<>();
-    public static ArrayList<String> mCardNumberList = new ArrayList<>();
-    public static ArrayList<String> mCardIconList = new ArrayList<>();
+    public static  String id;
+    public static  String name;
+    public static  String phone;
+    public static  String email;
+    public static  String zip_code;
+    public static  String date_of_birth;
+    public static  String gender;
+    public static  String date_of_registration;
+    public static  String register_status;
+    public static  String activity_status;
+    public static ArrayList<String> mCardsNumber = new ArrayList<>();
 
     public LoginModel(){
     }
 
-    public void clearAllList(){
-        mCardNumberList.clear();
-        mCardIconList.clear();
+    public void addToListCardsNumber(String string){
+        this.mCardsNumber.add(string);
+    }
+
+    public static ArrayList<String> getmCardsNumber() {
+        return mCardsNumber;
     }
 
 
-    public ArrayList<String> getmCardNumberList() {
-        return mCardNumberList;
-    }
-    public ArrayList<String> getmCardIconList() {
-        return mCardIconList;
+    public String getId() {
+        return id;
     }
 
-    public static ArrayList<String> getListaStringow() {
-        return listaStringow;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void addToListValues(String string){
-        this.listaStringow.add(string);
+    public String getName() {
+        return name;
     }
 
-    public void addToListCardNumbers(String string){
-        this.mCardNumberList.add(string);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void addToListCardIcons(String string){
-        this.mCardIconList.add(string);
+    public String getPhone() {
+        return phone;
     }
 
-
-
-
-    @Override
-    public String toString() {
-        return super.toString();
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getZip_code() {
+        return zip_code;
+    }
+
+    public void setZip_code(String zip_code) {
+        this.zip_code = zip_code;
+    }
+
+    public String getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(String date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDate_of_registration() {
+        return date_of_registration;
+    }
+
+    public void setDate_of_registration(String date_of_registration) {
+        this.date_of_registration = date_of_registration;
+    }
+
+    public String getRegister_status() {
+        return register_status;
+    }
+
+    public void setRegister_status(String register_status) {
+        this.register_status = register_status;
+    }
+
+    public String getActivity_status() {
+        return activity_status;
+    }
+
+    public void setActivity_status(String activity_status) {
+        this.activity_status = activity_status;
+    }
 }

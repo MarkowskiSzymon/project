@@ -11,8 +11,8 @@ import android.widget.Toolbar;
 import com.example.project.R;
 
 public class RulesActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    WebView webView;
+    private Toolbar toolbar;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

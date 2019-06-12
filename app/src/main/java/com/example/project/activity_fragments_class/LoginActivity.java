@@ -1,19 +1,19 @@
 package com.example.project.activity_fragments_class;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.renderscript.ScriptGroup;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
+import android.transition.Fade;
 import android.view.*;
 import android.widget.*;
 import com.example.project.Utils.Connection_INTERNET;
@@ -27,18 +27,17 @@ import com.example.project.model.LoginModel;
 
 import org.w3c.dom.Document;
 
-import java.util.ArrayList;
-
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText editTextCardNumber;
-    private TextInputEditText editTextPassword;
+    private EditText editTextCardNumber, editTextPassword;
     private Connection_INTERNET conn;
     private Password_hash hash;
     private SharedPreferences myPrefs;
     private TextView textViewGoToRegistration, textViewGoToRules, text_dummy_hint_cardNumber, text_dummy_hint_password;
     private Button button_AcitivityLogin_Login;
     private TextInputLayout textinputlayout_activitySettings_cardNumber, textinputlayout_activitySettings_password;
+    private RelativeLayout transLayout;
+    public Toolbar toolbar;
 
 
 
@@ -47,27 +46,37 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        toolbar = findViewById(R.id.toolbar);
+
+        Fade fade = new Fade();
+        View decor = getWindow().getDecorView();
+        fade.excludeTarget(decor.findViewById(R.id.toolbar), true);
+
+        getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
+
         conn = new Connection_INTERNET(getApplicationContext());
         hash = new Password_hash();
 
+        transLayout = findViewById(R.id.layout_transiston_login);
 
-        textinputlayout_activitySettings_cardNumber = findViewById(R.id.textinputlayout_activitySettings_cardNumber);
-        textinputlayout_activitySettings_password = findViewById(R.id.textinputlayout_activitySettings_password);
+        textinputlayout_activitySettings_cardNumber = findViewById(R.id.textinputlayout_activityLogin_cardNumber);
+        textinputlayout_activitySettings_password = findViewById(R.id.textinputlayout_activityLogin_password);
 
-        editTextCardNumber = findViewById(R.id.editText_activitySettings_cardNumber);
-        editTextPassword = findViewById(R.id.editText_activitySettings_password);
+        editTextCardNumber = findViewById(R.id.editText_activityLogin_cardNumber);
+        editTextPassword = findViewById(R.id.editText_activityLogin_password);
 
 
 
 
         textViewGoToRegistration = findViewById(R.id.textView_ActivityLogin_GoToRegistration);
         textViewGoToRules = findViewById(R.id.textView_ActivityLogin_Rules);
+
         text_dummy_hint_cardNumber = findViewById(R.id.textView_activityLogin_dummyHintCardNumber);
         text_dummy_hint_password = findViewById(R.id.textView_activityLogin_dummyHintPassword);
 
         button_AcitivityLogin_Login = findViewById(R.id.button_AcitivityLogin_Login);
-
-
 
         button_AcitivityLogin_Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +195,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public class Logowanie extends AsyncTask<String, String, String> {
-
         Connection_API C_api = new Connection_API(LoginActivity.this);
 
         private String pTabid;
@@ -200,8 +208,6 @@ public class LoginActivity extends AppCompatActivity {
             this.pusername = username;
             this.ppassword = password;
         }
-
-
 
         @Override
         protected String doInBackground(String... strings)  {
@@ -219,27 +225,21 @@ public class LoginActivity extends AppCompatActivity {
             String xs = par.parserXML(doc, "xs");
 
             par.parserLoginXML(doc, "xd");
+            LoginModel loginModel = new LoginModel();
 
-            LoginModel listaStringow = new LoginModel();
-            ArrayList<String> listOfValues = listaStringow.getListaStringow();
+
 
             if(xs.equals("1")){
-                edit.putString("cardNumber", listOfValues.get(0));
-                edit.putString("name", listOfValues.get(1));
-                edit.putString("phoneNumber", listOfValues.get(2));
-                edit.putString("email", listOfValues.get(3));
-                edit.putString("zipCode", listOfValues.get(4));
-                edit.putString("dateOfBirth", listOfValues.get(5));
-                edit.putString("sex", listOfValues.get(6));
-                edit.putString("creationDate", listOfValues.get(7));
-                edit.putString("registerAccountLevel", listOfValues.get(8));
-                edit.putString("niewiemcoto", listOfValues.get(9));
                 edit.putString("login", editTextCardNumber.getText().toString());
                 edit.putString("password", hash.tryHash(editTextPassword.getText().toString()));
-                Log.v("parser", listOfValues.get(8));
                 edit.commit();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            }else{
+            }else if(loginModel.getRegister_status().equals("2")){
+                Intent intent = new Intent(LoginActivity.this, CreatePasswordActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
+
+                startActivity(intent, options.toBundle());
+            } else{
                 AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this)
                         .setMessage("Blędny login/hasło. ")
                         .setTitle("Warning!")
