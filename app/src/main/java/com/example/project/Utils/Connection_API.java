@@ -105,6 +105,8 @@ public class Connection_API {
                 .addFormDataPart("dID", dID)
                 .addFormDataPart("login", login)
                 .addFormDataPart("haslo", password)
+                .addFormDataPart("ver", versionName)
+                .addFormDataPart("rev", String.valueOf(versionCode))
                 .build();
         return connect(requestBody);
     }

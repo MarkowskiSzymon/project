@@ -13,8 +13,11 @@ public class StartActivity extends AppCompatActivity {
     public static String accountRegistration_fID = "101";
     public static String checkingTransactions_fID = "100";
     public static String checkingOwnedCards_fID = "99";
+    public static String login_fID = "99";
     public static String checkingPartners_fID = "104";
     public static String scr_url = "https://api.delly.pl/Dkli_0_1_0.php";
+    public static String cards_layout_url = "http://delly.pl/layout/images/karty/";
+    public static String partners_layout_url = "http://delly.pl/layout/images/partnerzy/";
     public static String lostInternet = "Cannot connect with internet.";
     public static String SharedP_LOGIN = "myPrefsLogin";
     public static String SharedP_REGISTER = "myPrefsRegister";
@@ -28,6 +31,8 @@ public class StartActivity extends AppCompatActivity {
 
         listaPartnerow listaPartnerow = new listaPartnerow();
         listaPartnerow.dodajPartnera();
+
+
 
     }
 

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.project.model.CardsModel;
 import com.example.project.model.LoginModel;
+import com.example.project.model.PartnersModel;
 import com.example.project.model.Stringi;
 import com.example.project.model.HistoryModel;
 
@@ -31,7 +32,7 @@ public class Parser {
         Document doc = null;
         try {
             builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            doc = builder.parse(new InputSource(new StringReader(response.toString())));
+            doc = builder.parse(new InputSource(new StringReader(response)));
         } catch (IOException e) {
             Log.v("App", "Err" + e.getMessage());
         } catch (ParserConfigurationException e) {
@@ -255,28 +256,53 @@ public class Parser {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public List<String> parserPartnersXML(Document doc, String name) {
-        NodeList dane = doc.getElementsByTagName(name);
-            for (int i = 0; i < dane.getLength(); i++) {
-                NodeList nList1 = dane.item(i).getChildNodes();
-                for (int j = 0; j < nList1.getLength(); j++) {
-                    NodeList nList2 = nList1.item(j).getChildNodes();
-                    if (nList2.getLength() > 1) {
-                        for (int k = 0; k < nList2.getLength(); k++) {
-                            NodeList nList3 = nList2.item(k).getChildNodes();
-                            if (nList3.getLength() > 1) {
-                                for (int l = 0; l < nList3.getLength(); l++) {
-                                    if (nList3.item(l).getChildNodes().getLength() < 2) {
+        public List<String> parserPartnersXML(Document doc, String name) {
+        Log.v("parser", "jestem w parserPartnersXML");
+            NodeList dane = doc.getElementsByTagName(name);
+            PartnersModel partnersModel = new PartnersModel();
+            if(partnersModel.mPartners_Id.isEmpty()) {
+                for (int i = 0; i < dane.getLength(); i++) {
+                    NodeList nList1 = dane.item(i).getChildNodes();
+                    for (int j = 0; j < nList1.getLength(); j++) {
+                        NodeList nList2 = nList1.item(j).getChildNodes();
+                        if (nList2.getLength() > 1) {
+                            for (int k = 0; k < nList2.getLength(); k++) {
+                                NodeList nList3 = nList2.item(k).getChildNodes();
+                                if (nList3.getLength() > 1) {
+                                    for (int l = 0; l < nList3.getLength(); l++) {
+                                        if (nList3.item(l).getChildNodes().getLength() < 2) {
+                                            if (nList3.item(l).getNodeName().equals("id")) {
+                                                partnersModel.addToListPartnersId(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("wid")) {
+                                                partnersModel.addToListPartnersWId(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("nazwa")) {
+                                                partnersModel.addToListPartnersName(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("alt")) {
+                                                partnersModel.addToListPartnersLongitude(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("lat")) {
+                                                partnersModel.addToListPartnersLatitude(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("opis")) {
+                                                partnersModel.addToListPartnersDescription(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("pic")) {
+                                                partnersModel.addToListPartnersPicture(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("miasto")) {
+                                                partnersModel.addToListPartnersCity(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("przelicznik")) {
+                                                partnersModel.addToListPartnersMultiplier(nList3.item(l).getTextContent());
+                                            } else if (nList3.item(l).getNodeName().equals("ilosc_pkt")) {
+                                                partnersModel.addToListPartnersOwnedPoints(nList3.item(l).getTextContent());
+                                            }
 
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                }
             }
+            return null;
         }
-        return null;
-    }
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

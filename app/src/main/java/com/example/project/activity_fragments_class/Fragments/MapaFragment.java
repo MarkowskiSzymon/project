@@ -2,6 +2,7 @@ package com.example.project.activity_fragments_class.Fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Camera;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,21 +20,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.project.R;
 
+import com.example.project.model.PartnersModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapaFragment extends Fragment implements SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
+import java.util.ArrayList;
+
+public class MapaFragment extends Fragment implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, OnMapReadyCallback {
 
     private View rootView;
     private SearchView searchView;
     private MenuItem searchItem;
     private GoogleMap mMap;
+    private ArrayList<String> Latitude;
+    private ArrayList<String> Longitude;
+    private ArrayList<String> Title;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,8 +63,8 @@ public class MapaFragment extends Fragment implements SearchView.OnQueryTextList
         inflater.inflate(R.menu.toolbar_menu_mapy_fragment, menu);
         searchItem = menu.findItem(R.id.action_szukaj_partnerow_w_mapie);
         searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("Search");
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -75,19 +86,30 @@ public class MapaFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
     public void onMapReady(GoogleMap googleMap) {
+        PartnersModel partnersModel = new PartnersModel();
+        Latitude = partnersModel.getmPartners_Latitude();
+        Longitude = partnersModel.getmPartners_Longitude();
+        Title = partnersModel.getmPartners_Name();
+
         mMap = googleMap;
+        // TODO: Before enabling the My Location layer, you must request
+        // location permission from the user. This sample does not include
+        // a request for location permission.
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        }else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            Toast.makeText(getActivity(), "brak uprawnien", Toast.LENGTH_SHORT).show();
 
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
         }
-
-        mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.setOnMyLocationClickListener(this);
+
+        for(int i =0; i<partnersModel.getmPartners_Id().size(); i++){
+            LatLng name = new LatLng(Double.valueOf(Longitude.get(i)), Double.valueOf(Latitude.get(i)));
+            googleMap.addMarker(new MarkerOptions().position(name).title(Title.get(i)));
+        }
     }
-
-
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
@@ -97,21 +119,9 @@ public class MapaFragment extends Fragment implements SearchView.OnQueryTextList
 
     @Override
     public boolean onMyLocationButtonClick() {
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
         return false;
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
 }

@@ -54,14 +54,15 @@ public class HistoryFragment extends Fragment {
         new checkingTransactions(StartActivity.checkingTransactions_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
 
         final HistoryModel partnersModel = new HistoryModel();
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //partnersModel.clearAllList();
-                        new checkingTransactions(StartActivity.checkingOwnedCards_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
+                        partnersModel.clearAllList();
+                        new checkingTransactions(StartActivity.checkingTransactions_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 2000);
@@ -105,7 +106,6 @@ public class HistoryFragment extends Fragment {
 
         }
         private void initRecyclerView() {
-            Log.v("historia", "Dlugosc type: " + partnersModel.getmTransactionType());
             adapter_transactions_history = new RecyclerViewAdapter_history(getContext(), partnersModel.getmTransactionData(), partnersModel.getmTransactionType(), partnersModel.getmTransactionExpense(), partnersModel.getmTransactionAmount(), partnersModel.getmTransactionCardNumber(), partnersModel.getmTransactionPicture(), partnersModel.getmTransactionName());
             recyclerView.setAdapter(adapter_transactions_history);
             recyclerView.setHasFixedSize(true);

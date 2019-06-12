@@ -4,9 +4,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.renderscript.ScriptGroup;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.example.project.Utils.Connection_INTERNET;
@@ -24,15 +31,15 @@ import java.util.ArrayList;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText editTextUsername, editTextPassword;
-    private String Tabid = null;
-    private String pfID = "99";
+    private EditText editTextCardNumber;
+    private TextInputEditText editTextPassword;
     private Connection_INTERNET conn;
     private Password_hash hash;
     private SharedPreferences myPrefs;
-    private TextView textViewGoToRegistration, textViewGoToRules;
+    private TextView textViewGoToRegistration, textViewGoToRules, text_dummy_hint_cardNumber, text_dummy_hint_password;
     private Button button_AcitivityLogin_Login;
-    public ArrayList<String> listaStringow2 = new ArrayList<>();
+    private TextInputLayout textinputlayout_activitySettings_cardNumber, textinputlayout_activitySettings_password;
+
 
 
     @Override
@@ -42,13 +49,25 @@ public class LoginActivity extends AppCompatActivity {
 
         conn = new Connection_INTERNET(getApplicationContext());
         hash = new Password_hash();
-        Tabid = conn.getDeviceId();
 
-        editTextUsername = findViewById(R.id.editText_ActivityLogin_LoginCardNumber);
-        editTextPassword = findViewById(R.id.editText_ActivityLogin_LoginPassword);
+
+        textinputlayout_activitySettings_cardNumber = findViewById(R.id.textinputlayout_activitySettings_cardNumber);
+        textinputlayout_activitySettings_password = findViewById(R.id.textinputlayout_activitySettings_password);
+
+        editTextCardNumber = findViewById(R.id.editText_activitySettings_cardNumber);
+        editTextPassword = findViewById(R.id.editText_activitySettings_password);
+
+
+
+
         textViewGoToRegistration = findViewById(R.id.textView_ActivityLogin_GoToRegistration);
         textViewGoToRules = findViewById(R.id.textView_ActivityLogin_Rules);
+        text_dummy_hint_cardNumber = findViewById(R.id.textView_activityLogin_dummyHintCardNumber);
+        text_dummy_hint_password = findViewById(R.id.textView_activityLogin_dummyHintPassword);
+
         button_AcitivityLogin_Login = findViewById(R.id.button_AcitivityLogin_Login);
+
+
 
         button_AcitivityLogin_Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,16 +75,21 @@ public class LoginActivity extends AppCompatActivity {
                 DoubleClickBlock.preventTwoClick(view);
 
                 if (conn.isInternetAvailable()) {
-                    if (TextUtils.isEmpty(editTextUsername.getText())) {
-                        editTextUsername.setError("Username is required!");
-                    }else if(editTextUsername.getText().toString().contains(" ")){
-                        editTextUsername.setError("Space is not allowed!");
+                    if (TextUtils.isEmpty(editTextCardNumber.getText())) {
+                        editTextCardNumber.requestFocus();
+                        textinputlayout_activitySettings_cardNumber.setError("Username is required!");
+                    }else if(editTextCardNumber.getText().toString().contains(" ")){
+                        textinputlayout_activitySettings_cardNumber.requestFocus();
+                        textinputlayout_activitySettings_cardNumber.setError("Space is not allowed!");
                     }else if (TextUtils.isEmpty(editTextPassword.getText())) {
-                        editTextPassword.setError("Password is required!");
+                        textinputlayout_activitySettings_password.requestFocus();
+                        textinputlayout_activitySettings_password.setError("sdfsdfsdfsdf");
                     }else if(editTextPassword.getText().toString().contains(" ")){
+                        editTextPassword.requestFocus();
+                        textinputlayout_activitySettings_password.requestFocus();
                         editTextPassword.setError("Space is not allowed");
                     }else{
-                        new Logowanie(Tabid, pfID, editTextUsername.getText().toString(), hash.tryHash(editTextPassword.getText().toString())).execute();
+                        new Logowanie(conn.getDeviceId(), StartActivity.login_fID, editTextCardNumber.getText().toString(), hash.tryHash(editTextPassword.getText().toString())).execute();
                     }
                 } else {
                     new AlertDialog.Builder(LoginActivity.this)
@@ -103,6 +127,57 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        editTextCardNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            text_dummy_hint_cardNumber.setVisibility(View.VISIBLE);
+                            textinputlayout_activitySettings_password.setError(null);
+
+                        }
+                    }, 100);
+                } else {
+                    if (editTextCardNumber.getText().length() > 0){
+                        text_dummy_hint_cardNumber.setVisibility(View.VISIBLE);
+                    } else{
+                        text_dummy_hint_cardNumber.setVisibility(View.INVISIBLE);
+                    }
+
+                }
+            }
+        });
+
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // Show white background behind floating label
+                            text_dummy_hint_password.setVisibility(View.VISIBLE);
+                            textinputlayout_activitySettings_cardNumber.setError(null);
+                        }
+                    }, 100);
+                } else {
+                    // Required to show/hide white background behind floating label during focus change
+                    if (editTextPassword.getText().length() > 0)
+                        text_dummy_hint_password.setVisibility(View.VISIBLE);
+                    else
+                        text_dummy_hint_password.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -159,8 +234,9 @@ public class LoginActivity extends AppCompatActivity {
                 edit.putString("creationDate", listOfValues.get(7));
                 edit.putString("registerAccountLevel", listOfValues.get(8));
                 edit.putString("niewiemcoto", listOfValues.get(9));
-                edit.putString("login", editTextUsername.getText().toString());
+                edit.putString("login", editTextCardNumber.getText().toString());
                 edit.putString("password", hash.tryHash(editTextPassword.getText().toString()));
+                Log.v("parser", listOfValues.get(8));
                 edit.commit();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }else{

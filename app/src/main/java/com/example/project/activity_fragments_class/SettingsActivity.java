@@ -24,7 +24,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         toolbar = findViewById(R.id.toolbar_activitySetting);
-
         text_dummy_hint_username = findViewById(R.id.text_dummy_hint_username);
         text_dummy_hint_date = findViewById(R.id.text_dummy_hint_date);
         text_dummy_hint_zipCode = findViewById(R.id.text_dummy_hint_zipCode);

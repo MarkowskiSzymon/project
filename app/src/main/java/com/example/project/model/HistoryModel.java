@@ -3,8 +3,8 @@ package com.example.project.model;
 import java.util.ArrayList;
 
 public class HistoryModel {
-
     public static ArrayList<String> mTransactionData = new ArrayList<>();
+
     public static ArrayList<String> mTransactionType = new ArrayList<>();
     public static ArrayList<String> mTransactionExpense = new ArrayList<>();
     public static ArrayList<String> mTransactionAmount = new ArrayList<>();

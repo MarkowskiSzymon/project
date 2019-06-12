@@ -1,5 +1,10 @@
 package com.example.project.activity_fragments_class.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,27 +24,42 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.project.R;
+import com.example.project.Utils.Adaptery.RecyclerViewAdapter_home;
 import com.example.project.Utils.Adaptery.RecyclerViewAdapter_partners;
+import com.example.project.Utils.Connection_API;
+import com.example.project.Utils.Connection_INTERNET;
+import com.example.project.Utils.Parser;
 import com.example.project.Utils.listaPartnerow;
+import com.example.project.activity_fragments_class.StartActivity;
+import com.example.project.model.PartnersModel;
 
+import org.w3c.dom.Document;
+
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class PartnersFragment extends Fragment implements SearchView.OnQueryTextListener {
-
+    private Connection_INTERNET conn;
     private View rootView;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerViewAdapter_partners adapter_partnerzy;
     private SearchView searchView;
     private MenuItem searchItem;
+    private SharedPreferences myPrefs;
+    public ArrayList<String> filteredValues;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_partnerzy, container, false);
         setHasOptionsMenu(true);
 
-        zmienne();
+        recyclerView = rootView.findViewById(R.id.recyclerViewFragmentPartnerzy);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeLayoutPartnerzy);
 
-        initRecyclerView();
+        myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
+        conn = new Connection_INTERNET(getContext());
+        new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -48,7 +68,7 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        initRecyclerView();
+                        new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 2000);
@@ -58,26 +78,6 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
     }
 
 
-    private void zmienne() {
-        recyclerView = rootView.findViewById(R.id.recyclerViewFragmentPartnerzy);
-        swipeRefreshLayout = rootView.findViewById(R.id.swipeLayoutPartnerzy);
-
-    }
-
-    private void initRecyclerView() {
-        adapter_partnerzy = new RecyclerViewAdapter_partners(getContext(), listaPartnerow.listaNazw, listaPartnerow.listaZdjecUrl, listaPartnerow.listaOpisow, listaPartnerow.listaPunktow);
-        recyclerView.setAdapter(adapter_partnerzy);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    private void initRecyclerView(ArrayList<String> filter) {
-        listaPartnerow listaPartnerow = new listaPartnerow();
-        adapter_partnerzy = new RecyclerViewAdapter_partners(getContext(), filter, listaPartnerow.listaZdjecUrl, listaPartnerow.listaOpisow, listaPartnerow.listaPunktow);
-        recyclerView.setAdapter(adapter_partnerzy);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -97,15 +97,15 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
 
     @Override
     public boolean onQueryTextChange(String s) {
-        listaPartnerow listaPartnerow = new listaPartnerow();
+        PartnersModel partnersModel = new PartnersModel();
         if (s == null || s.trim().isEmpty()) {
             initRecyclerView();
         }
-        ArrayList<String> filteredValues = new ArrayList<String>(listaPartnerow.listaNazw);
-        for (String value : listaPartnerow.listaNazw) {
+        filteredValues = new ArrayList<String>(partnersModel.getmPartners_Name());
+        for (String value : partnersModel.getmPartners_Name()) {
             if (!value.toLowerCase().contains(s.toLowerCase())) {
-                filteredValues.remove(value);
                 Log.v("App", value);
+                filteredValues.contains(value);
             }
             initRecyclerView(filteredValues);
         }
@@ -130,4 +130,64 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
         return super.onOptionsItemSelected(item);
     }
 
+    public class checkingPartners extends AsyncTask<String, String, String> {
+
+        Connection_API C_api = new Connection_API(getActivity());
+        private String p_fID;
+        private String p_dID;
+        private String p_login;
+        private String p_haslo;
+
+        checkingPartners(String fID, String dID, String login, String password){
+            this.p_fID = fID;
+            this.p_dID = dID;
+            this.p_login = login;
+            this.p_haslo = password;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return C_api.checkingPartners_API(p_fID, p_dID, p_login, p_haslo);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            Parser par = new Parser();
+
+            //  String desc = result.replace("&#60;", "<").replace("&#62;", ">").replace("&#47;", "/");
+
+
+            Log.v("parser", "result: " + result);
+            Document doc = par.getDocument(result);
+            par.parserPartnersXML(doc, "xd");
+            initRecyclerView();
+
+        }
+//            Location loc1 = new Location("");
+//            loc1.setLatitude(20.030172);
+//            loc1.setLongitude(49.480952);
+//
+//            Location loc2 = new Location("");
+//            loc2.setLatitude(20.025196);
+//            loc2.setLongitude(49.473712);
+//
+//            float distanceInMeters = loc1.distanceTo(loc2);
+//            Log.v("dystans", String.valueOf(distanceInMeters));
+
+    }
+
+    private void initRecyclerView() {
+        PartnersModel partnersModel = new PartnersModel();
+        adapter_partnerzy = new RecyclerViewAdapter_partners(getContext(), partnersModel.mPartners_Id, partnersModel.mPartners_Wid, partnersModel.mPartners_Name, partnersModel.mPartners_Longitude, partnersModel.mPartners_Latitude, partnersModel.mPartners_Desc, partnersModel.mPartners_Picture, partnersModel.mPartners_City, partnersModel.mPartners_Multiplier, partnersModel.mPartners_OwnedPoints);
+        recyclerView.setAdapter(adapter_partnerzy);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private void initRecyclerView(ArrayList<String> filteredName) {
+        PartnersModel partnersModel = new PartnersModel();
+        adapter_partnerzy = new RecyclerViewAdapter_partners(getContext(), partnersModel.mPartners_Id, partnersModel.mPartners_Wid, filteredName, partnersModel.mPartners_Longitude, partnersModel.mPartners_Latitude, partnersModel.mPartners_Desc, partnersModel.mPartners_Picture, partnersModel.mPartners_City, partnersModel.mPartners_Multiplier, partnersModel.mPartners_OwnedPoints);
+        recyclerView.setAdapter(adapter_partnerzy);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
 }

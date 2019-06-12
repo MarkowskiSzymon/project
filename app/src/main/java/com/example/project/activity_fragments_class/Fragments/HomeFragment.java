@@ -2,6 +2,9 @@ package com.example.project.activity_fragments_class.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +35,7 @@ import com.example.project.Utils.Adaptery.RecyclerViewAdapter_home;
 import com.example.project.Utils.listaPartnerow;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.HistoryModel;
+import com.example.project.model.PartnersModel;
 
 import org.w3c.dom.Document;
 
@@ -44,14 +48,13 @@ public class HomeFragment extends Fragment{
     private TextView textViewNumerKarty;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerViewAdapter_home adapter_home;
-    private RelativeLayout relativeLayout;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         setHasOptionsMenu(true);
+        final PartnersModel partnersModel = new PartnersModel();
 
-        relativeLayout = rootView.findViewById(R.id.relativeLayoutNapisTwojePunkty);
+
         swipeRefreshLayout = rootView.findViewById(R.id.swipeLayoutHome);
         recyclerView = rootView.findViewById(R.id.recycler_view_fragment_home);
         qrCode_image = rootView.findViewById(R.id.imageViewQRCodeGenerator);
@@ -72,9 +75,8 @@ public class HomeFragment extends Fragment{
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //partnersModel.clearAllList();
+                        partnersModel.clearAllList();
                         new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
-                        Log.v("parser", StartActivity.checkingPartners_fID);
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 2000);
@@ -93,6 +95,8 @@ public class HomeFragment extends Fragment{
         private String p_dID;
         private String p_login;
         private String p_haslo;
+        protected LocationManager locationManager;
+        protected LocationListener locationListener;
 
         checkingPartners(String fID, String dID, String login, String password){
             this.p_fID = fID;
@@ -107,18 +111,40 @@ public class HomeFragment extends Fragment{
         }
         @Override
         protected void onPostExecute(String result) {
-           /* Parser par = new Parser();
+            Parser par = new Parser();
+
+        //    String desc = result.replace("&#60;", "<").replace("&#62;", ">").replace("&#47;", "/");
+
+
+          //  Log.v("parser", "result: " + result);
+          //  Log.v("parser", "result: " + desc);
             Document doc = par.getDocument(result);
-            par.parserPartnersXML(doc, "xd");*/
+            par.parserPartnersXML(doc, "xd");
+            initRecyclerView();
+
         }
+
+
+
+//            Location loc1 = new Location("");
+//            loc1.setLatitude(20.030172);
+//            loc1.setLongitude(49.480952);
+//
+//            Location loc2 = new Location("");
+//            loc2.setLatitude(20.025196);
+//            loc2.setLongitude(49.473712);
+//
+//            float distanceInMeters = loc1.distanceTo(loc2);
+//            Log.v("dystans", String.valueOf(distanceInMeters));
+
+        }
+
+
+    private void initRecyclerView() {
+        PartnersModel partnersModel = new PartnersModel();
+        adapter_home = new RecyclerViewAdapter_home(getContext(), partnersModel.mPartners_Id, partnersModel.mPartners_Wid, partnersModel.mPartners_Name, partnersModel.mPartners_Longitude, partnersModel.mPartners_Latitude, partnersModel.mPartners_Desc, partnersModel.mPartners_Picture, partnersModel.mPartners_City, partnersModel.mPartners_Multiplier, partnersModel.mPartners_OwnedPoints);
+        recyclerView.setAdapter(adapter_home);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
-
 }
-
-/*        private void initRecyclerView() {
-            listaPartnerow listaPartnerow = new listaPartnerow();
-            adapter_home = new RecyclerViewAdapter_home(getContext(), listaPartnerow.listaNazw, listaPartnerow.listaZdjecUrl, listaPartnerow.listaOpisow, listaPartnerow.listaPunktow);
-            recyclerView.setAdapter(adapter_home);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        }*/

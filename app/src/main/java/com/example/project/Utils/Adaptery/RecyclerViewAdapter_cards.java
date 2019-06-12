@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.project.R;
 import com.example.project.Utils.QrCodeGenerator;
+import com.example.project.activity_fragments_class.StartActivity;
 import com.squareup.picasso.Picasso;
 
 
@@ -62,7 +63,7 @@ public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Picasso.get()
-                .load("http://delly.pl/layout/images/karty/" +  mListaZdjecUrl.get(position))
+                .load(StartActivity.cards_layout_url +  mListaZdjecUrl.get(position))
                 .placeholder(R.drawable.error_image)
                 .fit()
                 .transform(new picasso_rounded_corners(50,0,  picasso_rounded_corners.CornerType.TOP))

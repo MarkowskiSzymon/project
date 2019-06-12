@@ -3,6 +3,10 @@ package com.example.project.Utils.Adaptery;
 
 
 import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,23 +15,30 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.example.project.R;
 import com.example.project.Utils.listaPartnerow;
+import com.example.project.activity_fragments_class.StartActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewAdapter_home.ViewHolder>{
+public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewAdapter_home.ViewHolder> {
 
-    private ArrayList<String> mImagesNames;
-    private ArrayList<String> mImagesUrl;
-    private ArrayList<Integer> mPunkty;
-    private ArrayList<String> mOpisy;
+    private ArrayList<String> mId;
+    private ArrayList<String> mWId;
+    private ArrayList<String> mName;
+    private ArrayList<String> mLongitude;
+    private ArrayList<String> mLatitude;
+    private ArrayList<String> mDesc;
+    private ArrayList<String> mPicture;
+    private ArrayList<String> mCity;
+    private ArrayList<String> mMultiplier;
+    private ArrayList<String> mOwnedPoints;
     private Context mContext;
 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, iloscPunktow, opisPromocji;
+        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, opisPromocji;
         RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera;
         LinearLayout wariantNagrody;
         RecyclerView recyclerView;
@@ -41,7 +52,7 @@ public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewA
             layoutPokazNagrody = itemView.findViewById(R.id.layout_tekstu_pokaz_nagrode);
             relativeLayoutPartnera = itemView.findViewById(R.id.relativeLayoutPartnera);
             wariantNagrody = itemView.findViewById(R.id.wariantNagrody);
-            iloscPunktow = itemView.findViewById(R.id.iloscPunktow);
+            textView_ownedPoints = itemView.findViewById(R.id.textView_layoutPartner_ownedPoints);
             opisPromocji = itemView.findViewById(R.id.opisPromcji);
             image = itemView.findViewById(R.id.zdjecie);
             imageName = itemView.findViewById(R.id.zdjecieTextView);
@@ -51,11 +62,17 @@ public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewA
         }
     }
 
-        public RecyclerViewAdapter_home(Context mContext, ArrayList<String> mImagesNames, ArrayList<String> mImagesUrl, ArrayList<String> mOpisy, ArrayList<Integer> mPunkty) {
-        this.mImagesNames = mImagesNames;
-        this.mImagesUrl = mImagesUrl;
-        this.mOpisy = mOpisy;
-        this.mPunkty = mPunkty;
+        public RecyclerViewAdapter_home(Context mContext, ArrayList<String> mPartners_Id, ArrayList<String> mPartners_Wid, ArrayList<String> mPartners_Name, ArrayList<String> mPartners_Longitude, ArrayList<String> mPartners_Latitude, ArrayList<String> mPartners_Desc, ArrayList<String> mPartners_Picture, ArrayList<String> mPartners_City, ArrayList<String> mPartners_Multiplier, ArrayList<String> mPartners_OwnedPoints ) {
+        this.mId = mPartners_Id;
+        this.mWId = mPartners_Wid;
+        this.mName = mPartners_Name;
+        this.mLongitude = mPartners_Longitude;
+        this.mLatitude = mPartners_Latitude;
+        this.mDesc = mPartners_Desc;
+        this.mPicture = mPartners_Picture;
+        this.mCity = mPartners_City;
+        this.mMultiplier = mPartners_Multiplier;
+        this.mOwnedPoints = mPartners_OwnedPoints;
         this.mContext = mContext;
 
 
@@ -74,17 +91,20 @@ public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewA
 
 
 
-            if(mPunkty.get(position) > 0) {
-                Log.v("sorting", "pozycja: " + position);
+            if(mOwnedPoints.get(position).isEmpty()) {
                 Picasso.get()
-                        .load(mImagesUrl.get(position))
+                        .load(StartActivity.partners_layout_url + mPicture.get(position))
                         .placeholder(R.drawable.error_image)
                         .fit()
                         .transform(new picasso_rounded_corners(50, 0, picasso_rounded_corners.CornerType.TOP_LEFT))
                         .into(holder.image);
-                holder.imageName.setText(mImagesNames.get(position));
-                holder.opisPromocji.setText(mOpisy.get(position));
-                holder.iloscPunktow.setText(String.valueOf(mPunkty.get(position)));
+                holder.imageName.setText(mName.get(position));
+                holder.opisPromocji.setText(mDesc.get(position));
+                if(mOwnedPoints.get(position).isEmpty()){
+                    holder.textView_ownedPoints.setText("0");
+                }else{
+                    holder.textView_ownedPoints.setText(String.valueOf(mOwnedPoints.get(position)));
+                }
                 holder.wariantNagrody.removeAllViews();
                 holder.wariantNagrody.setOrientation(LinearLayout.VERTICAL);
 
@@ -120,7 +140,7 @@ public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewA
 
     @Override
     public int getItemCount() {
-        return mImagesNames.size();
+        return mId.size();
     }
 
 }
