@@ -1,4 +1,5 @@
 package com.example.project.activity_fragments_class;
+import android.animation.ValueAnimator;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,8 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.Fade;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.DoubleClickBlock;
@@ -36,8 +40,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextView textViewGoToRegistration, textViewGoToRules, text_dummy_hint_cardNumber, text_dummy_hint_password;
     private Button button_AcitivityLogin_Login;
     private TextInputLayout textinputlayout_activitySettings_cardNumber, textinputlayout_activitySettings_password;
-    private RelativeLayout transLayout;
-    public Toolbar toolbar;
+    private RelativeLayout transLayout, transLayout2;
+    private ActivityOptionsCompat options;
+    private LottieAnimationView lottieAnimationView;
 
 
 
@@ -47,27 +52,28 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        toolbar = findViewById(R.id.toolbar);
+//        toolbar = findViewById(R.id.toolbar);
+//        Fade fade = new Fade();
+//        View decor = getWindow().getDecorView();
+//        fade.excludeTarget(decor.findViewById(R.id.toolbar), true);
+//        getWindow().setEnterTransition(fade);
+//        getWindow().setExitTransition(fade);
 
-        Fade fade = new Fade();
-        View decor = getWindow().getDecorView();
-        fade.excludeTarget(decor.findViewById(R.id.toolbar), true);
+        //lottieAnimationView = findViewById(R.id.animation_view);
 
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
+
+
 
         conn = new Connection_INTERNET(getApplicationContext());
         hash = new Password_hash();
 
-        transLayout = findViewById(R.id.layout_transiston_login);
+        transLayout = findViewById(R.id.layout_activityLogin_transiston_create);
 
         textinputlayout_activitySettings_cardNumber = findViewById(R.id.textinputlayout_activityLogin_cardNumber);
         textinputlayout_activitySettings_password = findViewById(R.id.textinputlayout_activityLogin_password);
 
         editTextCardNumber = findViewById(R.id.editText_activityLogin_cardNumber);
         editTextPassword = findViewById(R.id.editText_activityLogin_password);
-
-
 
 
         textViewGoToRegistration = findViewById(R.id.textView_ActivityLogin_GoToRegistration);
@@ -119,8 +125,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(conn.isInternetAvailable()){
-                    Intent intent  = new Intent(view.getContext(), SignupActivity_FirstStep.class);
-                    startActivity(intent);
+                    Intent intent2 = new Intent(LoginActivity.this, SignupActivity_FirstStep.class);
+                    ActivityOptionsCompat options2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
+                    startActivity(intent2, options2.toBundle());
                 }else{
                     Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
                 }
@@ -146,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
+
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
 
@@ -167,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -176,13 +185,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void run() {
-                            // Show white background behind floating label
                             text_dummy_hint_password.setVisibility(View.VISIBLE);
                             textinputlayout_activitySettings_cardNumber.setError(null);
                         }
                     }, 100);
                 } else {
-                    // Required to show/hide white background behind floating label during focus change
                     if (editTextPassword.getText().length() > 0)
                         text_dummy_hint_password.setVisibility(View.VISIBLE);
                     else
@@ -235,6 +242,7 @@ public class LoginActivity extends AppCompatActivity {
                 edit.commit();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }else if(loginModel.getRegister_status().equals("2")){
+                transLayout2 = findViewById(R.id.layout_activityLogin_transiston_create);
                 Intent intent = new Intent(LoginActivity.this, CreatePasswordActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
 

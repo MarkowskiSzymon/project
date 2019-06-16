@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.project.activity_fragments_class.Registration.SignupActivity_ThirdStep">
+
+    <Toolbar
+        android:id="@+id/toolbar_activitySignupThirdStep"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_below="@id/toolbar_activitySignupThirdStep">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout_activitySignupThirdStep_up"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/textView_ActivitySignupThirdStep_AboutYou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/textView_activitySignupThirdStep_AboutYou"
+                android:textSize="28dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySignupThirdStep_name"
+                android:layout_below="@id/textView_ActivitySignupThirdStep_AboutYou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
+
+                <TextView
+                    android:id="@+id/textView_activitySignupThirdStep_dummyHintName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/name"
+                    android:textSize="16sp"
+                    android:background="@android:color/white"
+                    android:visibility="invisible"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_activitySignupThirdStep_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/name"
+                    android:textColorHint="@android:color/black"
+                    app:hintTextAppearance="@style/HintTextStyle">
+
+                    <EditText
+                        android:id="@+id/editText_activitySignupThirdStep_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:drawableRight="@drawable/ic_ico_face" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySignupThirdStep_dateOfBirth"
+                android:layout_below="@id/relativeLayout_activitySignupThirdStep_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
+
+                <TextView
+                    android:id="@+id/textView_activitySignupThirdStep_dummyHintDateOfBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/dateOfBirth"
+                    android:textSize="16sp"
+                    android:background="@android:color/white"
+                    android:visibility="invisible"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_activitySignupThirdStep_dateOfBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/dateOfBirth"
+                    android:textColorHint="@android:color/black"
+                    app:hintTextAppearance="@style/HintTextStyle">
+
+                    <EditText
+                        android:id="@+id/editText_activitySignupThirdStep_dateOfBirth"
+                        android:drawableRight="@drawable/ic_ico_calendar_today"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySignupThirdStep_zipCode"
+                android:layout_below="@id/relativeLayout_activitySignupThirdStep_dateOfBirth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
+
+                <TextView
+                    android:id="@+id/textView_activitySignupThirdStep_dummyHintZipCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/zipCode"
+                    android:textSize="16sp"
+                    android:background="@android:color/white"
+                    android:visibility="invisible"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_activitySignupThirdStep_zipcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/zipCode"
+                    android:textColorHint="@android:color/black"
+                    app:hintTextAppearance="@style/HintTextStyle">
+
+                    <EditText
+                        android:id="@+id/editText_activitySignupThirdStep_zipCode"
+                        android:drawableRight="@drawable/ic_ico_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySignupThirdStep_radioGroup"
+                android:layout_below="@id/relativeLayout_activitySignupThirdStep_zipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/textView_activitySignupThirdStep_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sex"
+                    android:textSize="15dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioGroup_activitySignupThirdStep"
+                    android:layout_below="@id/textView_activitySignupThirdStep_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radioButton_activitySignupThirdStep_male"
+                        android:text="@string/male"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton_activitySignupThirdStep_female"
+                        android:text="@string/female"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RadioGroup>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySignupThirdStep_rules"
+                android:layout_below="@id/relativeLayout_activitySignupThirdStep_radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView_activitySignupThirdStep_rules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rules"
+                    android:textSize="15dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_activitySignupThirdStep"
+                    android:layout_below="@id/textView_activitySignupThirdStep_rules"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/acceptules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+
+
+            <Button
+                android:id="@+id/button_activitySignupSecondStep_next"
+                android:layout_below="@+id/relativeLayout_activitySignupThirdStep_rules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:backgroundTint="@color/colorDellyGreen"
+                android:ems="10"
+                android:layout_centerHorizontal="true"
+                android:text="@string/dalejPrzycisk"
+                android:textColor="@color/colorWhite" />
+
+
+        </RelativeLayout>
+
+</ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/layout_activitySignupThirdStep_transiston_create"
+        android:layout_below="@id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/delly_background"
+        android:transitionName="example_transistion">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorWhite"
+            android:lines="2"
+            android:gravity="center"
+            android:text="3/3 \n Już prawie! "
+            android:textSize="10dp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

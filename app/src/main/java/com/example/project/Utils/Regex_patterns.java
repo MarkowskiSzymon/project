@@ -53,4 +53,11 @@ public class Regex_patterns {
         return matcher.matches();
     }
 
+    public boolean isPasswordValid(final Editable password) {
+        final String PASSWORD_PATTERN = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
 }

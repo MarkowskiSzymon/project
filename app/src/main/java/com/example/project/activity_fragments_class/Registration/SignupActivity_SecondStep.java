@@ -4,13 +4,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.project.R;
 import com.example.project.Utils.Connection_API;
@@ -22,48 +28,101 @@ import org.w3c.dom.Document;
 
 public class SignupActivity_SecondStep extends AppCompatActivity {
 
-    Button przyciskDalej, przyciskCofnij;
-    EditText email,telefon;
+    private Button  buttonNext;
+    private EditText editTextCardEmail, editTextCardPhone;
     private SharedPreferences myPrefsRegister;
-    private final String fid = "103";
+    private Toolbar toolbar;
+    private TextView text_dummy_hint_email, text_dummy_hint_phone;
+    private RelativeLayout transLayout;
 
-    public void zmienneReferencyjne(){
-        email = findViewById(R.id.editTextEmail);
-        telefon = findViewById(R.id.editTextNumerTelefonu);
-        przyciskDalej = findViewById(R.id.dalejButtonFromContacts);
-        przyciskCofnij = findViewById(R.id.cofnijButtonFromContacts);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup__sprawdzanie__haslo__email);
+        setContentView(R.layout.activity_signup_second_step);
 
-        zmienneReferencyjne();
+        text_dummy_hint_email = findViewById(R.id.textView_activitySignupThirdStep_dummyHintName);
+        text_dummy_hint_phone = findViewById(R.id.textView_activitySignupThirdStep_dummyHintDateOfBirth);
 
-        przyciskDalej.setOnClickListener(new View.OnClickListener() {
-            @Override
+        editTextCardEmail = findViewById(R.id.editText_activitySignupThirdStep_name);
+        editTextCardPhone = findViewById(R.id.editText_activitySignupThirdStep_dateOfBirth);
+
+        toolbar = findViewById(R.id.toolbar_activitySignupSecondStep);
+
+        buttonNext = findViewById(R.id.button_activitySignupSecondStep_next);
+
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Regex_patterns regex_patterns = new Regex_patterns();
-                if(regex_patterns.isValidEmail(email.getText())){
-                    if(regex_patterns.isValidPhoneNumber(telefon.getText())){
-                        new checkingEmail(fid,email.getText().toString()).execute();
-                    }else{
-                        telefon.setError("Niewlasciwy format podanego numeru telefonu");
+                onBackPressed();
+            }
+        });
+
+        editTextCardEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            text_dummy_hint_email.setVisibility(View.VISIBLE);
+
+                        }
+                    }, 100);
+                } else {
+                    if (editTextCardEmail.getText().length() > 0){
+                        text_dummy_hint_email.setVisibility(View.VISIBLE);
+                    } else{
+                        text_dummy_hint_email.setVisibility(View.INVISIBLE);
                     }
-                }else{
-                    email.setError("Niewlasciwy format podanego emaila");
+
                 }
             }
         });
 
-        przyciskCofnij.setOnClickListener(new View.OnClickListener() {
+
+        editTextCardPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SignupActivity_SecondStep.this, SignupActivity_FirstStep.class));
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // Show white background behind floating label
+                            text_dummy_hint_phone.setVisibility(View.VISIBLE);
+                        }
+                    }, 100);
+                } else {
+                    // Required to show/hide white background behind floating label during focus change
+                    if (editTextCardPhone.getText().length() > 0)
+                        text_dummy_hint_phone.setVisibility(View.VISIBLE);
+                    else
+                        text_dummy_hint_phone.setVisibility(View.INVISIBLE);
+                }
             }
         });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Regex_patterns regex_patterns = new Regex_patterns();
+                if (!regex_patterns.isValidEmail(editTextCardEmail.getText()) || editTextCardEmail.getText().toString().contains(" ")) {
+                    Log.v("signup", "Niepoprawny email");
+                } else {
+                    if (!regex_patterns.isValidPhoneNumber(editTextCardPhone.getText()) || editTextCardPhone.getText().toString().contains(" ")) {
+                        Log.v("signup", "Niepoprawny phone");
+                    } else {
+                        new checkingEmail(StartActivity.checkingEmialAndPhone_fID, editTextCardEmail.getText().toString()).execute();
+                    }
+                }
+            }
+        });
+
     }
 
     public class checkingEmail extends AsyncTask<String, String, String> {
@@ -87,12 +146,13 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
         protected void onPostExecute(String result) {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
+            Log.v("signup","res: " +  result);
             String xsEmail = par.parserXML(doc, "xs");
-            Log.v("App", "XS EMAILA: " + xsEmail);
+            Log.v("signup", "XS EMAILA: " + xsEmail);
             if("1".equals(xsEmail)){
-                new sprawdzanieTelefonu(fid, telefon.getText().toString()).execute();
+                new sprawdzanieTelefonu(StartActivity.checkingEmialAndPhone_fID, editTextCardPhone.getText().toString()).execute();
             }else{
-                email.setError("Podany email został już zarejestrowany");
+                Log.v("signup", "Podany email został już zarejestrowany");
             }
         }
     }
@@ -120,16 +180,21 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
             String xsTel = par.parserXML(doc, "xs");
-            Log.v("App", "XS Telefonu: " + xsTel);
+            Log.v("signup", "XS Telefonu: " + xsTel);
             if("1".equals(xsTel)){
                 myPrefsRegister = getSharedPreferences(StartActivity.SharedP_REGISTER, MODE_PRIVATE);
                 SharedPreferences.Editor edit = myPrefsRegister.edit();
-                edit.putString("email", email.getText().toString());
-                edit.putString("nrTel", telefon.getText().toString());
+                edit.putString("email", editTextCardEmail.getText().toString());
+                edit.putString("nrTel", editTextCardPhone.getText().toString());
                 edit.commit();
-                startActivity(new Intent(SignupActivity_SecondStep.this, SignupActivity_ThirdStep.class));
+
+                transLayout = findViewById(R.id.layout_activitySignupSecondStep_transiston_create);
+                Intent intent = new Intent(SignupActivity_SecondStep.this, SignupActivity_ThirdStep.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(SignupActivity_SecondStep.this, transLayout, ViewCompat.getTransitionName(transLayout));
+                startActivity(intent, options.toBundle());
+
             }else{
-                telefon.setError("Podany numer telefonu został już zarejestrowany");
+               Log.v("signup", "Podany numer telefonu został już zarejestrowany");
             }
         }
 

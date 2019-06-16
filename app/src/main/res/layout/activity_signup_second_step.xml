@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/relativeLayout_main_login"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_fragments_class.LoginActivity"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:background = "@color/zxing_status_text"
+    tools:context="com.example.project.activity_fragments_class.Registration.SignupActivity_SecondStep">
 
+    <Toolbar
+        android:id="@+id/toolbar_activitySignupSecondStep"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout_activityLogin_up"
+        android:layout_below="@id/toolbar_activitySignupSecondStep"
+        android:id="@+id/relativeLayout_activitySignupThirdStep_up"
         android:layout_width="match_parent"
-        android:layout_height="600dp">
+        android:layout_height="550dp">
 
         <TextView
-            android:id="@+id/textView_ActivityLogin_ZalogujSieDoDelly"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView_ActivitySignupSecondStep_YourContactDetail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:text="@string/ZalogujSieDoDelly"
-            android:textSize="30sp" />
-
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:text="@string/textView_activitySignupSecondStep_TwojeDaneKontaktowe"
+            android:textSize="28dp" />
 
         <RelativeLayout
-            android:id="@+id/relativeLayout_activityLogin_cardNumber"
+            android:id="@+id/relativeLayout_activitySignupThirdStep_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_ActivityLogin_ZalogujSieDoDelly"
+            android:layout_below="@id/textView_ActivitySignupSecondStep_YourContactDetail"
             android:layout_marginTop="20dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp">
@@ -41,33 +45,33 @@
                 android:background="@drawable/rounded_border_edittext" />
 
             <TextView
-                android:id="@+id/textView_activityLogin_dummyHintCardNumber"
+                android:id="@+id/textView_activitySignupThirdStep_dummyHintName"
                 android:layout_width="wrap_content"
                 android:layout_height="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="16dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
-                android:text="Numer Karty"
+                android:text="E-mail"
                 android:textSize="16sp"
                 android:background="@android:color/white"
                 android:visibility="invisible"/>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/textinputlayout_activityLogin_cardNumber"
+                android:id="@+id/textinputlayout_activitySignupThirdStep_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:hint="Numer Karty"
+                android:hint="E-mail"
                 android:textColorHint="@android:color/black"
                 app:hintTextAppearance="@style/HintTextStyle">
 
                 <EditText
-                    android:id="@+id/editText_activityLogin_cardNumber"
+                    android:id="@+id/editText_activitySignupThirdStep_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3535065"
+                    android:text="boniek1233@gmail.com"
                     android:backgroundTint="@android:color/transparent"
                     android:drawableRight="@drawable/ic_ico_credit_card" />
 
@@ -76,8 +80,8 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/relativeLayout_activityLogin_password"
-            android:layout_below="@id/relativeLayout_activityLogin_cardNumber"
+            android:id="@+id/relativeLayout_activitySignupThirdStep_dateOfBirth"
+            android:layout_below="@id/relativeLayout_activitySignupThirdStep_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -91,36 +95,36 @@
                 android:background="@drawable/rounded_border_edittext" />
 
             <TextView
-                android:id="@+id/textView_activityLogin_dummyHintPassword"
+                android:id="@+id/textView_activitySignupThirdStep_dummyHintDateOfBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="16dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
-                android:text="Hasło  "
+                android:text="Numer telefonu"
                 android:textSize="16sp"
                 android:background="@android:color/white"
                 android:visibility="invisible"/>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/textinputlayout_activityLogin_password"
+                android:id="@+id/textinputlayout_activitySignupThirdStep_dateOfBirth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:hint="Hasło"
+                android:hint="Numer telefonu"
                 android:textColorHint="@android:color/black"
-                app:hintTextAppearance="@style/HintTextStyle"
-                app:passwordToggleEnabled="true">
+                app:hintTextAppearance="@style/HintTextStyle">
 
                 <EditText
-                    android:id="@+id/editText_activityLogin_password"
+                    android:drawableRight="@drawable/ic_ico_call"
+                    android:id="@+id/editText_activitySignupThirdStep_dateOfBirth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Boniek1233"
                     android:backgroundTint="@android:color/transparent"
-                    android:inputType="textPassword"/>
+                    android:text="123123122"
+                    android:inputType="phone"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -128,57 +132,35 @@
 
 
         <Button
-            android:id="@+id/button_AcitivityLogin_Login"
+            android:layout_below="@id/relativeLayout_activitySignupThirdStep_dateOfBirth"
+            android:layout_marginTop="20dp"
+            android:id="@+id/button_activitySignupSecondStep_next"
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/relativeLayout_activityLogin_password"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_border_edittext"
             android:backgroundTint="@color/colorDellyGreen"
             android:ems="10"
-            android:text="@string/buttonZalogujSie"
+            android:text="@string/dalejPrzycisk"
             android:textColor="@color/colorWhite" />
 
-        <TextView
-            android:id="@+id/textView_ActivityLogin_GoToRegistration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/button_AcitivityLogin_Login"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/nieMaszJeszczeKonta"
-            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/textView_ActivityLogin_Rules"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textView_ActivityLogin_GoToRegistration"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/rules"
-            android:textSize="15sp" />
-
-
-    </RelativeLayout>
+        </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/layout_activityLogin_transiston_create"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/layout_activitySignupSecondStep_transiston_create"
+        android:layout_below="@id/relativeLayout_activitySignupThirdStep_up"
         android:layout_width="match_parent"
-
-        android:layout_below="@+id/relativeLayout_activityLogin_up"
+        android:layout_height="wrap_content"
         android:background="@drawable/delly_background"
-        android:transitionName="example_transistion"
-        android:layout_height="wrap_content">
+        android:transitionName="example_transistion">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/colorWhite"
-            android:text="1.0.0"
+            android:text="2/3"
             android:textSize="10dp"/>
 
     </RelativeLayout>

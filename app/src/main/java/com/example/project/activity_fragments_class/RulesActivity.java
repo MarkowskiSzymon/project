@@ -1,6 +1,7 @@
 package com.example.project.activity_fragments_class;
 
 
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.webkit.WebView;
 import android.widget.Toolbar;
 
 import com.example.project.R;
+
+import java.io.File;
 
 public class RulesActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -23,7 +26,8 @@ public class RulesActivity extends AppCompatActivity {
 
         toolbar.setTitle("Regulamin");
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
 
@@ -33,8 +37,9 @@ public class RulesActivity extends AppCompatActivity {
 
             }
         });
+
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://stackoverflow.com/questions/2655972/how-can-i-display-a-pdf-document-into-a-webview");
+        webView.loadUrl(StartActivity.dellyRulesUrl);
     }
 
 }

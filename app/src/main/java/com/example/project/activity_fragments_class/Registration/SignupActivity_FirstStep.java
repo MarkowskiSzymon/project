@@ -5,18 +5,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.*;
 
 import com.example.project.R;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Parser;
 import com.example.project.Utils.Regex_patterns;
+import com.example.project.activity_fragments_class.CreatePasswordActivity;
+import com.example.project.activity_fragments_class.LoginActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -24,47 +27,96 @@ import com.google.zxing.integration.android.IntentResult;
 import org.w3c.dom.Document;
 
 
-public class SignupActivity_FirstStep extends AppCompatActivity {
-    private Button  przyciskDalej;
-    private EditText kodKarty, numerKarty;
-    private SharedPreferences myPrefsRegister;
-    private String fID = "102";
 
-    public void zmienneReferencyjne(){
-        kodKarty = findViewById(R.id.editText_ActivitySignupFirstStep_Code);
-        numerKarty = findViewById(R.id.editText_ActivitySignupFirstStep_Number);
-        przyciskDalej = findViewById(R.id.button_ActivitySignupFirstStep_Dalej);
-    }
+public class SignupActivity_FirstStep extends AppCompatActivity {
+    private Button  buttonNext;
+    private EditText editTextCardCode, editTextCardNumber;
+    private SharedPreferences myPrefsRegister;
+    private Toolbar toolbar;
+    private RelativeLayout transLayout;
+    private TextView text_dummy_hint_cardNumber, text_dummy_hint_cardCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_first_step);
-        zmienneReferencyjne();
+
+        text_dummy_hint_cardCode = findViewById(R.id.textView_activitySignupFirstStep_dummyHintCardCode);
+        text_dummy_hint_cardNumber = findViewById(R.id.textView_activitySignupFirstStep_dummyHintCardNumber);
+
+        editTextCardCode = findViewById(R.id.editText_activitySignupFirstStep_cardCode);
+        editTextCardNumber = findViewById(R.id.editText_activitySignupFirstStep_cardNumber);
+
+        buttonNext = findViewById(R.id.button_activitySignupFirstStep_next);
+        toolbar = findViewById(R.id.toolbar_activitySignupFirstStep);
+        transLayout = findViewById(R.id.layout_activitySignupFirstStep_transiston_create);
 
 
-        Animation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(50); //You can manage the blinking time with this parameter
-        anim.setStartOffset(20);
-        anim.setRepeatMode(Animation.REVERSE);
-        anim.setRepeatCount(1);
-        przyciskDalej.startAnimation(anim);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
+        editTextCardNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
 
+                if (hasFocus) {
+                    new Handler().postDelayed(new Runnable() {
 
+                        @Override
+                        public void run() {
+                            // Show white background behind floating label
+                            text_dummy_hint_cardNumber.setVisibility(View.VISIBLE);
+                        }
+                    }, 100);
+                } else {
+                    // Required to show/hide white background behind floating label during focus change
+                    if (editTextCardNumber.getText().length() > 0)
+                        text_dummy_hint_cardNumber.setVisibility(View.VISIBLE);
+                    else
+                        text_dummy_hint_cardNumber.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
-        przyciskDalej.setOnClickListener(new View.OnClickListener() {
+        editTextCardCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // Show white background behind floating label
+                            text_dummy_hint_cardCode.setVisibility(View.VISIBLE);
+                        }
+                    }, 100);
+                } else {
+                    // Required to show/hide white background behind floating label during focus change
+                    if (editTextCardCode.getText().length() > 0)
+                        text_dummy_hint_cardCode.setVisibility(View.VISIBLE);
+                    else
+                        text_dummy_hint_cardCode.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Regex_patterns regex_patterns = new Regex_patterns();
-                if (regex_patterns.isValidCardNumber(numerKarty.getText())) {
-                    if(regex_patterns.isValidCardCode(kodKarty.getText())){
-                        new sprawdzanieKarty(fID, numerKarty.getText().toString(), kodKarty.getText().toString()).execute();
+                if (regex_patterns.isValidCardNumber(editTextCardNumber.getText())) {
+                    if(regex_patterns.isValidCardCode(editTextCardCode.getText())){
+                        new sprawdzanieKarty(StartActivity.checkingCard_fID, editTextCardNumber.getText().toString(), editTextCardCode.getText().toString()).execute();
                     }else{
-                        kodKarty.setError("Niepoporawny format kodu karty. Kod karty powinien składac się z 4 cyfr.");
+                        editTextCardCode.setError("Niepoporawny format kodu karty. Kod karty powinien składac się z 4 cyfr.");
                     }
                 } else{
-                    numerKarty.setError("Niepoporawny format numeru karty. Numer karty powinien składac się z 6-7 cyfr.");
+                    editTextCardNumber.setError("Niepoporawny format numeru karty. Numer karty powinien składac się z 6-7 cyfr.");
                 }
             }
         });
@@ -72,19 +124,6 @@ public class SignupActivity_FirstStep extends AppCompatActivity {
     }
 
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() != null) {
-                Log.v("App", "Numer zeskanowanej karty: " + result.getContents());
-                numerKarty = findViewById(R.id.editText_ActivitySignupFirstStep_Number);
-                numerKarty.setText(result.getContents());
-            }
-        }
-    }
 
 
     public class sprawdzanieKarty extends AsyncTask<String, String, String>{
@@ -140,9 +179,14 @@ public class SignupActivity_FirstStep extends AppCompatActivity {
             } else if("1".equals(xs)){
                 myPrefsRegister = getSharedPreferences(StartActivity.SharedP_REGISTER, MODE_PRIVATE);
                 SharedPreferences.Editor edit = myPrefsRegister.edit();
-                edit.putString("numerKarty", numerKarty.getText().toString());
+                edit.putString("numerKarty", editTextCardNumber.getText().toString());
                 edit.commit();
-                startActivity(new Intent(SignupActivity_FirstStep.this, SignupActivity_SecondStep.class));
+
+
+                transLayout = findViewById(R.id.layout_activitySignupFirstStep_transiston_create);
+                Intent intent = new Intent(SignupActivity_FirstStep.this, SignupActivity_SecondStep.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(SignupActivity_FirstStep.this, transLayout, ViewCompat.getTransitionName(transLayout));
+                startActivity(intent, options.toBundle());
             }
         }
 

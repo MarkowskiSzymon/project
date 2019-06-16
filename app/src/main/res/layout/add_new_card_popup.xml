@@ -24,7 +24,7 @@
         android:layout_alignStart="@+id/imageView2"
         android:layout_alignParentTop="true"
         android:layout_marginTop="206dp"
-        android:text="@string/numberKodTwojejKartyDelly"
+        android:text="@string/textView_activitySignupFirstStep_numerKodTwojejKartyDelly"
         android:textSize="30dp" />
 
     <android.support.design.widget.TextInputLayout

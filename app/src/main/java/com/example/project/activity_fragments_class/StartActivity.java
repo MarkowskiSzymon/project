@@ -10,10 +10,12 @@ import com.example.project.Utils.listaPartnerow;
 
 public class StartActivity extends AppCompatActivity {
 
-    public static String accountRegistration_fID = "101";
-    public static String checkingTransactions_fID = "100";
     public static String checkingOwnedCards_fID = "99";
     public static String login_fID = "99";
+    public static String checkingTransactions_fID = "100";
+    public static String accountRegistration_fID = "101";
+    public static String checkingCard_fID = "102";
+    public static String checkingEmialAndPhone_fID = "103";
     public static String checkingPartners_fID = "104";
     public static String scr_url = "https://api.delly.pl/Dkli_0_1_0.php";
     public static String cards_layout_url = "http://delly.pl/layout/images/karty/";
@@ -23,6 +25,7 @@ public class StartActivity extends AppCompatActivity {
     public static String SharedP_REGISTER = "myPrefsRegister";
     public static int MAX_TRY_COUNT = 3;
     public static int RETRY_BACKOFF_DELAY = 3000;
+    public static String dellyRulesUrl = "https://delly.pl/docs/regulamin.pdf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
