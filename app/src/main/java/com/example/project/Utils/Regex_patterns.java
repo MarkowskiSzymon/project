@@ -10,7 +10,7 @@ public class Regex_patterns {
     Matcher matcher;
 
     public boolean isValidCardNumber(final Editable cardNumber) {
-        final String CARDNUMBER_PATTERN = "^([0-9]).{6,7}$";
+        final String CARDNUMBER_PATTERN = "^([0-9]).{6,7}$"; /// tylko cyfry
 
         pattern = Pattern.compile(CARDNUMBER_PATTERN);
         matcher = pattern.matcher(cardNumber);

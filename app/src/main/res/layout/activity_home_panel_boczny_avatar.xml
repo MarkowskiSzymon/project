@@ -17,10 +17,11 @@
 
         <ImageView
             android:id="@+id/imageView_leftNavigation_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
             android:contentDescription="@string/nav_header_desc"
-            android:src="@drawable/delly_logo"
+            android:src="@drawable/ic_ico_face"
             android:layout_alignParentTop="true"/>
 
         <TextView

@@ -40,9 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView textViewGoToRegistration, textViewGoToRules, text_dummy_hint_cardNumber, text_dummy_hint_password;
     private Button button_AcitivityLogin_Login;
     private TextInputLayout textinputlayout_activitySettings_cardNumber, textinputlayout_activitySettings_password;
-    private RelativeLayout transLayout, transLayout2;
-    private ActivityOptionsCompat options;
-    private LottieAnimationView lottieAnimationView;
+    private RelativeLayout transLayout;
 
 
 
@@ -242,7 +240,6 @@ public class LoginActivity extends AppCompatActivity {
                 edit.commit();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }else if(loginModel.getRegister_status().equals("2")){
-                transLayout2 = findViewById(R.id.layout_activityLogin_transiston_create);
                 Intent intent = new Intent(LoginActivity.this, CreatePasswordActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
 

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -24,47 +25,50 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_activitySetting">
+        android:layout_below="@id/toolbar_activitySetting"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
+            android:id="@+id/relativeLayout_activitySettings_up"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="30dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="50dp">
 
             <TextView
                 android:id="@+id/textView_AboutYou"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/aboutYou"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
 
             <RelativeLayout
                 android:id="@+id/relativeLayout_activitySettings_username"
-                android:layout_below="@id/textView_AboutYou"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_AboutYou"
+                android:layout_marginTop="10dp">
 
                 <View
-                    android:background="@drawable/rounded_border_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
 
                 <TextView
                     android:id="@+id/text_dummy_hint_username"
                     android:layout_width="wrap_content"
                     android:layout_height="2dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
                     android:text="Username"
                     android:textSize="16sp"
-                    android:background="@android:color/white"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textinputlayout_activitySettings_username"
@@ -87,38 +91,37 @@
 
             <RelativeLayout
                 android:id="@+id/relativeLayout_activitySettings_date"
-                android:layout_below="@id/relativeLayout_activitySettings_username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout_activitySettings_username">
 
                 <View
-                    android:background="@drawable/rounded_border_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
 
                 <TextView
                     android:id="@+id/text_dummy_hint_date"
                     android:layout_width="wrap_content"
                     android:layout_height="2dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
                     android:text="Data urodzenia"
                     android:textSize="16sp"
-                    android:background="@android:color/white"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
 
                 <android.support.design.widget.TextInputLayout
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/textinputlayout_activitySettings_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="10dp"
                     android:hint="Data urodzenia"
-
                     app:hintTextAppearance="@style/HintTextStyle">
 
                     <EditText
@@ -126,44 +129,42 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"
-                        android:drawableRight="@drawable/ic_ico_calendar_today"
-                        android:inputType="text|textCapWords"
-                        android:maxLines="1" />
+                        android:drawableRight="@drawable/ic_ico_calendar_today" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeLayout_activitySettings_zipCode"
-                android:layout_below="@id/relativeLayout_activitySettings_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout_activitySettings_date">
 
                 <View
-                    android:background="@drawable/rounded_border_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
 
                 <TextView
                     android:id="@+id/text_dummy_hint_zipCode"
                     android:layout_width="wrap_content"
                     android:layout_height="2dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
                     android:text="Twój kod pocztowy"
                     android:textSize="16sp"
-                    android:background="@android:color/white"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
 
                 <android.support.design.widget.TextInputLayout
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/textinputlayout_activitySettings_zipCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="10dp"
                     android:hint="Twój kod pocztowy"
 
                     app:hintTextAppearance="@style/HintTextStyle">
@@ -180,15 +181,16 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relativeLayout_activitySettings_genderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relativeLayout_activitySettings_zipCode">
 
                 <TextView
                     android:id="@+id/textView_activitySettings_gender"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@string/sex" />
 
                 <RadioGroup
@@ -200,7 +202,7 @@
                         android:id="@+id/radiobutton_activitySettings_male"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/male"/>
+                        android:text="@string/male" />
 
                     <RadioButton
                         android:id="@+id/radiobutton_activitySettings_female"
@@ -210,6 +212,296 @@
                 </RadioGroup>
 
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView_activitySettings_yourContactDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout_activitySettings_genderLayout"
+                android:layout_marginTop="20dp"
+                android:text="@string/contactDetail"
+                android:textSize="20dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySettings_email"
+                android:layout_below="@id/textView_activitySettings_yourContactDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
+
+                <TextView
+                    android:id="@+id/textView_activitySettings_dummyHintEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/email"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_activitySettings_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/email"
+                    android:textColorHint="@android:color/black"
+                    app:hintTextAppearance="@style/HintTextStyle">
+
+                    <EditText
+                        android:id="@+id/editText_activitySettings_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:drawableRight="@drawable/ic_ico_email" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySettings_phoneNumber"
+                android:layout_below="@id/relativeLayout_activitySettings_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
+
+                <TextView
+                    android:id="@+id/textView_activitySettings_dummyHintPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/phoneNumber"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_activitySettings_phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/phoneNumber"
+                    android:textColorHint="@android:color/black"
+                    app:hintTextAppearance="@style/HintTextStyle">
+
+                    <EditText
+                        android:id="@+id/editText_activitySettings_phoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:drawableRight="@drawable/ic_ico_call" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySignupThirdStep_codePhone"
+                android:layout_below="@id/relativeLayout_activitySettings_phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
+
+                <TextView
+                    android:id="@+id/textView_activitySettings_dummyHintCodePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/zipCode"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_activitySettings_codePhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/codePhone"
+                    android:textColorHint="@android:color/black"
+                    app:hintTextAppearance="@style/HintTextStyle">
+
+                    <EditText
+                        android:id="@+id/editText_activitySettings_codePhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:digits="0123456789-"
+                        android:drawableRight="@drawable/ic_ico_place"
+                        android:inputType="numberPassword"
+                        android:maxLength="6" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/button_activitySettings_actualize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout_activitySignupThirdStep_codePhone"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:backgroundTint="@color/colorDellyGreen"
+                android:text="@string/updateData"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/textView_activitySettings_yourNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_activitySettings_actualize"
+                android:layout_marginTop="20dp"
+                android:text="@string/yourNewPassword"
+                android:textSize="20dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySettings_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_activitySettings_yourNewPassword"
+                android:layout_marginTop="20dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
+
+                <TextView
+                    android:id="@+id/textView_activitySettings_dummyHintPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/password"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_activitySettings_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/password"
+                    android:textColorHint="@android:color/black"
+                    app:hintTextAppearance="@style/HintTextStyle">
+
+                    <EditText
+                        android:id="@+id/editText_activitySettings_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:drawableRight="@drawable/ic_ico_email" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activitySettings_repeatPassword"
+                android:layout_below="@id/relativeLayout_activitySettings_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_border_edittext" />
+
+                <TextView
+                    android:id="@+id/textView_activitySettings_dummyHintRepeatPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="@string/repeatPassword"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_activitySettings_repeatPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/repeatPassword"
+                    android:textColorHint="@android:color/black"
+                    app:hintTextAppearance="@style/HintTextStyle">
+
+                    <EditText
+                        android:id="@+id/editText_activitySettings_repeatPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:drawableRight="@drawable/ic_ico_email" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView_activitySettings_newPasswordInfo"
+                android:layout_below="@id/relativeLayout_activitySettings_repeatPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/infoAboutNewPassword"
+                android:textSize="18dp" />
+
+
+
+            <Button
+                android:id="@+id/button_activitySettings_saveNewPassword"
+                android:layout_below="@id/textView_activitySettings_newPasswordInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:backgroundTint="@color/colorDellyGreen"
+                android:text="@string/saveNewPassword"
+                android:textColor="@color/colorWhite"
+                android:layout_marginBottom="30dp"/>
 
 
         </RelativeLayout>

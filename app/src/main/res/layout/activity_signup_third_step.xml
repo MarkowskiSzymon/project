@@ -110,24 +110,29 @@
                     android:background="@android:color/white"
                     android:visibility="invisible"/>
 
-                <android.support.design.widget.TextInputLayout
+                <RelativeLayout
                     android:id="@+id/textinputlayout_activitySignupThirdStep_dateOfBirth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_centerInParent="true"
                     android:hint="@string/dateOfBirth"
-                    android:textColorHint="@android:color/black"
-                    app:hintTextAppearance="@style/HintTextStyle">
+                    android:textColorHint="@android:color/black">
 
-                    <EditText
+                    <TextView
                         android:id="@+id/editText_activitySignupThirdStep_dateOfBirth"
-                        android:drawableRight="@drawable/ic_ico_calendar_today"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent" />
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:drawableRight="@drawable/ic_ico_calendar_today"
+                        android:textSize="16sp"
+                        android:hint="@string/dateOfBirth"
+                        android:textColorHint="@android:color/black"
+                        android:textColor="@android:color/black"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -174,6 +179,9 @@
                         android:drawableRight="@drawable/ic_ico_place"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="numberPassword"
+                        android:digits="0123456789-"
+                        android:maxLength="6"
                         android:backgroundTint="@android:color/transparent" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -246,18 +254,16 @@
 
             </RelativeLayout>
 
-
-
             <Button
-                android:id="@+id/button_activitySignupSecondStep_next"
-                android:layout_below="@+id/relativeLayout_activitySignupThirdStep_rules"
+                android:id="@+id/button_activitySignupThirdStep_next"
+                android:layout_below="@id/relativeLayout_activitySignupThirdStep_rules"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_border_edittext"
                 android:backgroundTint="@color/colorDellyGreen"
                 android:ems="10"
-                android:layout_centerHorizontal="true"
                 android:text="@string/dalejPrzycisk"
                 android:textColor="@color/colorWhite" />
 
@@ -282,7 +288,7 @@
             android:lines="2"
             android:gravity="center"
             android:text="3/3 \n Już prawie! "
-            android:textSize="10dp"/>
+            android:textSize="20dp"/>
 
     </RelativeLayout>
 

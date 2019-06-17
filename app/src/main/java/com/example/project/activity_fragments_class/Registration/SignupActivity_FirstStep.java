@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,8 @@ public class SignupActivity_FirstStep extends AppCompatActivity {
     private EditText editTextCardCode, editTextCardNumber;
     private SharedPreferences myPrefsRegister;
     private Toolbar toolbar;
-    private RelativeLayout transLayout;
+    private RelativeLayout transLayout, cardNumberLayout, cardCodeLayout;
+    private TextInputLayout cardNumberInputLayout, cardCodeInputLayout;
     private TextView text_dummy_hint_cardNumber, text_dummy_hint_cardCode;
 
     @Override
@@ -41,15 +43,24 @@ public class SignupActivity_FirstStep extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_first_step);
 
+
         text_dummy_hint_cardCode = findViewById(R.id.textView_activitySignupFirstStep_dummyHintCardCode);
         text_dummy_hint_cardNumber = findViewById(R.id.textView_activitySignupFirstStep_dummyHintCardNumber);
 
         editTextCardCode = findViewById(R.id.editText_activitySignupFirstStep_cardCode);
         editTextCardNumber = findViewById(R.id.editText_activitySignupFirstStep_cardNumber);
 
-        buttonNext = findViewById(R.id.button_activitySignupFirstStep_next);
-        toolbar = findViewById(R.id.toolbar_activitySignupFirstStep);
+        cardNumberLayout = findViewById(R.id.relativeLayout_activitySignupFirstStep_cardNumber);
+        cardCodeLayout = findViewById(R.id.relativeLayout_activitySignupFirstStep_cardCode);
         transLayout = findViewById(R.id.layout_activitySignupFirstStep_transiston_create);
+
+        cardNumberInputLayout = findViewById(R.id.textinputlayout_activitySignupFirstStep_cardNumber);
+        cardCodeInputLayout = findViewById(R.id.textinputlayout_activitySignupFirstStep_cardCode);
+
+
+        buttonNext = findViewById(R.id.button_activitySignupFirstStep_next);
+
+        toolbar = findViewById(R.id.toolbar_activitySignupFirstStep);
 
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -70,6 +81,7 @@ public class SignupActivity_FirstStep extends AppCompatActivity {
                         public void run() {
                             // Show white background behind floating label
                             text_dummy_hint_cardNumber.setVisibility(View.VISIBLE);
+                            cardCodeInputLayout.setError(null);
                         }
                     }, 100);
                 } else {
@@ -93,6 +105,7 @@ public class SignupActivity_FirstStep extends AppCompatActivity {
                         public void run() {
                             // Show white background behind floating label
                             text_dummy_hint_cardCode.setVisibility(View.VISIBLE);
+                            cardNumberInputLayout.setError(null);
                         }
                     }, 100);
                 } else {
@@ -109,14 +122,14 @@ public class SignupActivity_FirstStep extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Regex_patterns regex_patterns = new Regex_patterns();
-                if (regex_patterns.isValidCardNumber(editTextCardNumber.getText())) {
+                if (regex_patterns.isValidCardNumber(editTextCardNumber.getText()) || editTextCardNumber.getText().toString().contains(" ")) {
                     if(regex_patterns.isValidCardCode(editTextCardCode.getText())){
                         new sprawdzanieKarty(StartActivity.checkingCard_fID, editTextCardNumber.getText().toString(), editTextCardCode.getText().toString()).execute();
                     }else{
-                        editTextCardCode.setError("Niepoporawny format kodu karty. Kod karty powinien składac się z 4 cyfr.");
+                        cardCodeInputLayout.setError("Niepoporawny format kodu karty. Kod karty powinien składac się z 4 cyfr.");
                     }
-                } else{
-                    editTextCardNumber.setError("Niepoporawny format numeru karty. Numer karty powinien składac się z 6-7 cyfr.");
+                } else {
+                    cardNumberInputLayout.setError("Niepoprawny wprowadzony numer karty.");
                 }
             }
         });
@@ -149,37 +162,11 @@ public class SignupActivity_FirstStep extends AppCompatActivity {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
             String xs = par.parserXML(doc, "xs");
-            Log.v("App", "xs = " + xs);
-            String[] xd = par.parserXMLArray(doc, "xd", "elem");
-            Log.v("App", "xd = " + xd[0]);
 
-            if("0".equals(xs)) {
-                if("3".equals(xd[0])){
-                    new AlertDialog.Builder(SignupActivity_FirstStep.this)
-                            .setTitle("Uwaga!")
-                            .setMessage("Karta jest już zarejestrowana lub przypisana do innego konta")
-                            .show();
-                } else if("2".equals(xd[0])){
-                    new AlertDialog.Builder(SignupActivity_FirstStep.this)
-                            .setTitle("Uwaga!")
-                            .setMessage("Klient jest już zarejestrowany ale jeszcze nie potwierdził swoich danych. Czy chcesz ponownie wysłać emaila aktywacyjnego?")
-                            .setPositiveButton("Wyślij ponownie", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Toast.makeText(SignupActivity_FirstStep.this, "Wysłano ponownie wiadomosc emailem", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .show();
-                } else if("0".equals(xd[0])){
-                    new AlertDialog.Builder(SignupActivity_FirstStep.this)
-                            .setTitle("Uwaga!")
-                            .setMessage("Podana karta nie istnieje w bazie danych")
-                            .show();
-                }
-            } else if("1".equals(xs)){
+            if("1".equals(xs)){
                 myPrefsRegister = getSharedPreferences(StartActivity.SharedP_REGISTER, MODE_PRIVATE);
                 SharedPreferences.Editor edit = myPrefsRegister.edit();
-                edit.putString("numerKarty", editTextCardNumber.getText().toString());
+                edit.putString("cardNumber", editTextCardNumber.getText().toString());
                 edit.commit();
 
 

@@ -67,7 +67,7 @@
                     android:id="@+id/editText_activityLogin_cardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3535065"
+                    android:text="3522355"
                     android:backgroundTint="@android:color/transparent"
                     android:drawableRight="@drawable/ic_ico_credit_card" />
 

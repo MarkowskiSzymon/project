@@ -1,28 +1,41 @@
 package com.example.project.activity_fragments_class.Registration;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.example.project.R;
-import com.example.project.activity_fragments_class.StartActivity;
+import com.example.project.activity_fragments_class.CreatePasswordActivity;
+import com.example.project.activity_fragments_class.LoginActivity;
 
 public class SignupActivity_FourthStep extends AppCompatActivity {
 
-    private LottieAnimationView lottieAnimationView;
-    private SharedPreferences myPrefsRegister;
-
+    private Button button;
+    private RelativeLayout transLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_fourth_step);
 
-        lottieAnimationView = findViewById(R.id.animacjaFourth);
-        myPrefsRegister = getSharedPreferences(StartActivity.SharedP_REGISTER, MODE_PRIVATE);
-        lottieAnimationView.setProgress(Float.parseFloat(myPrefsRegister.getString("frame", "")));
-        lottieAnimationView.playAnimation();
+        button = findViewById(R.id.button_activitySignupFourthStep);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                transLayout = findViewById(R.id.layout_activitySignupFourthStep_transiston_create);
+                Intent intent = new Intent(SignupActivity_FourthStep.this, LoginActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(SignupActivity_FourthStep.this, transLayout, ViewCompat.getTransitionName(transLayout));
+                startActivity(intent, options.toBundle());
+                finish();
+            }
+        });
 
     }
 }

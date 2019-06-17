@@ -185,7 +185,7 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
                 myPrefsRegister = getSharedPreferences(StartActivity.SharedP_REGISTER, MODE_PRIVATE);
                 SharedPreferences.Editor edit = myPrefsRegister.edit();
                 edit.putString("email", editTextCardEmail.getText().toString());
-                edit.putString("nrTel", editTextCardPhone.getText().toString());
+                edit.putString("phone", editTextCardPhone.getText().toString());
                 edit.commit();
 
                 transLayout = findViewById(R.id.layout_activitySignupSecondStep_transiston_create);

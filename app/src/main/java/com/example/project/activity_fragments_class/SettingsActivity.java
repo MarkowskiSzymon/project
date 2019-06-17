@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.example.project.R;
+import com.example.project.model.LoginModel;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -23,6 +24,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        LoginModel loginModel = new LoginModel();
         toolbar = findViewById(R.id.toolbar_activitySetting);
         text_dummy_hint_username = findViewById(R.id.text_dummy_hint_username);
         text_dummy_hint_date = findViewById(R.id.text_dummy_hint_date);
@@ -36,6 +39,15 @@ public class SettingsActivity extends AppCompatActivity {
         radioButtonMale = findViewById(R.id.radiobutton_activitySettings_male);
 
 
+        editDate.setText(loginModel.getDate_of_birth());
+
+        if(editDate.getText().length() > 0 ){
+            text_dummy_hint_date.setVisibility(View.VISIBLE);
+        }
+
+
+
+
         editUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -45,12 +57,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                         @Override
                         public void run() {
-                            // Show white background behind floating label
                             text_dummy_hint_username.setVisibility(View.VISIBLE);
                         }
                     }, 100);
                 } else {
-                    // Required to show/hide white background behind floating label during focus change
                     if (editUsername.getText().length() > 0)
                         text_dummy_hint_username.setVisibility(View.VISIBLE);
                     else
@@ -58,6 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         editDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -68,12 +79,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                         @Override
                         public void run() {
-                            // Show white background behind floating label
                             text_dummy_hint_date.setVisibility(View.VISIBLE);
                         }
                     }, 100);
                 } else {
-                    // Required to show/hide white background behind floating label during focus change
                     if (editDate.getText().length() > 0)
                         text_dummy_hint_date.setVisibility(View.VISIBLE);
                     else

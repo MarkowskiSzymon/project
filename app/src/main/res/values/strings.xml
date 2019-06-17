@@ -12,7 +12,7 @@
     <string name="numerKarty">Numer karty</string>
     <string name="imageViewQrCode">QR_CODE</string>
     <string name="kodKarty">Kod Karty</string>
-    <string name="numerTelefonu">Numer Telefonu</string>
+    <string name="phoneNumber">Numer Telefonu</string>
     <string name="email">Email</string>
     <string name="registerButton">Zarejestruj</string>
     <string name="formatDaty">xxxx-xx-xx</string>
@@ -64,6 +64,17 @@
     <string name="dateOfBirth">Data urodzenia</string>
     <string name="zipCode">Kod pocztowy</string>
     <string name="acceptules">Akceptuję Regulamin programu</string>
+    <string name="congratulatons">Gratulacje!</string>
+    <string name="finishInformation">Pomyślnie ukończyłeś rejestrację!Na podany przez Ciebie adres e-mail w cięgu kilku najbliższych minut wysłane zostanie hasło jednorazowe, którego należy użyć podczas pierwszego logowania do systemu Delly."</string>
+    <string name="gotoLogin">PRZEJŹ DO LOGOWANIA</string>
+    <string name="contactDetail">Twoje dane kontaktowe</string>
+    <string name="codePhone">Nr. kierunkowy</string>
+    <string name="updateData">AKTUALIZUJ DANE</string>
+    <string name="yourNewPassword">Twoje nowe hasło</string>
+    <string name="saveNewPassword">ZAPISZ NOWE HASŁO</string>
+    <string name="repeatPassword">Powtórz hasło</string>
+    <string name="password">Hasło</string>
+    <string name="infoAboutNewPassword">Hasło powinno zawierać minimum 6 znaków, wielką literę, cyfrę i znak specjalny.</string>
 
 
 </resources>

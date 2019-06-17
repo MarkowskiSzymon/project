@@ -31,6 +31,7 @@ import com.example.project.activity_fragments_class.Fragments.HistoryFragment;
 import com.example.project.activity_fragments_class.Fragments.TestFragment;
 import com.example.project.activity_fragments_class.Fragments.PartnersFragment;
 import com.example.project.activity_fragments_class.Fragments.CardsFragment;
+import com.example.project.model.LoginModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,6 +52,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_activityRules);
         setSupportActionBar(toolbar);
 
+        LoginModel loginModel = new LoginModel();
+
         myPrefs = getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -64,15 +67,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         cardNumber = view.findViewById(R.id.textView_leftNavigation_cardNumber);
         name = view.findViewById(R.id.textView_leftNavigation_name);
         cardNumber.setText("Numer karty: " + myPrefs.getString("login", ""));
-        name.setText(myPrefs.getString("name", ""));
+        name.setText(loginModel.getName());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-
-        /*showBadge(this, bottomNavigationView, R.id.nav_partners, "1999");*/
-
-
 
     }
 
@@ -130,12 +129,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_setting) {
-            Log.v("App", "nav_camera");
+            Log.v("App", "nav_settings");
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_rules) {
-            Log.v("App", "nav_gallery");
+            Log.v("App", "nav_rules");
+            Intent intent = new Intent(HomeActivity.this, RulesActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
-            Log.v("App", "nav_slideshow");
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
