@@ -3,6 +3,16 @@ package com.example.project.model;
 import java.util.ArrayList;
 
 public class PartnersModel {
+    String id = null;
+    String wid = null;
+    String nazwa = null;
+    String alt = null;
+    String lat = null;
+    String opis = null;
+    String pic = null;
+    String miasto = null;
+    String przelicznik = null;
+    String ilosc_pkt = null;
     public static ArrayList<String> mPartners_Id = new ArrayList<>();
     public static ArrayList<String> mPartners_Wid = new ArrayList<>();
     public static ArrayList<String> mPartners_Name = new ArrayList<>();
@@ -86,6 +96,11 @@ public class PartnersModel {
 
     public static ArrayList<String> getmPartners_Latitude() {
         return mPartners_Latitude;
+    }
+
+
+    public static ArrayList<String> getmPartners_Picture() {
+        return mPartners_Picture;
     }
 
 

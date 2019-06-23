@@ -1,18 +1,12 @@
 package com.example.project.activity_fragments_class;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,14 +22,10 @@ import android.widget.TextView;
 import com.example.project.R;
 import com.example.project.activity_fragments_class.Fragments.HomeFragment;
 import com.example.project.activity_fragments_class.Fragments.HistoryFragment;
-import com.example.project.activity_fragments_class.Fragments.TestFragment;
+import com.example.project.activity_fragments_class.Fragments.RewardFragment;
 import com.example.project.activity_fragments_class.Fragments.PartnersFragment;
 import com.example.project.activity_fragments_class.Fragments.CardsFragment;
 import com.example.project.model.LoginModel;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -94,7 +84,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         break;
                     case (R.id.nav_partners):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
-                        selectedFragment = new TestFragment();
+                        selectedFragment = new RewardFragment();
                         break;
                     case (R.id.nav_presents):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));

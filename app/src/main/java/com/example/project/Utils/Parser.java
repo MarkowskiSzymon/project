@@ -1,9 +1,13 @@
 package com.example.project.Utils;
 
+import android.location.Location;
 import android.util.Log;
 
+import com.example.project.R;
+import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.CardsModel;
 import com.example.project.model.LoginModel;
+import com.example.project.model.MyListData;
 import com.example.project.model.PartnersModel;
 import com.example.project.model.HistoryModel;
 
@@ -16,6 +20,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -262,6 +267,16 @@ public class Parser {
         Log.v("parser", "jestem w parserPartnersXML");
             NodeList dane = doc.getElementsByTagName(name);
             PartnersModel partnersModel = new PartnersModel();
+            String id = null;
+            String wid = null;
+            String nazwa = null;
+            String alt = null;
+            String lat = null;
+            String opis = null;
+            String pic = null;
+            String miasto = null;
+            String przelicznik = null;
+            String ilosc_pkt = null;
             if(partnersModel.mPartners_Id.isEmpty()) {
                 for (int i = 0; i < dane.getLength(); i++) {
                     NodeList nList1 = dane.item(i).getChildNodes();
@@ -275,26 +290,35 @@ public class Parser {
                                         if (nList3.item(l).getChildNodes().getLength() < 2) {
                                             if (nList3.item(l).getNodeName().equals("id")) {
                                                 partnersModel.addToListPartnersId(nList3.item(l).getTextContent());
+                                                id = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("wid")) {
                                                 partnersModel.addToListPartnersWId(nList3.item(l).getTextContent());
+                                                wid = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("nazwa")) {
                                                 partnersModel.addToListPartnersName(nList3.item(l).getTextContent());
+                                                nazwa = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("alt")) {
                                                 partnersModel.addToListPartnersLongitude(nList3.item(l).getTextContent());
+                                                alt = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("lat")) {
                                                 partnersModel.addToListPartnersLatitude(nList3.item(l).getTextContent());
+                                                lat = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("opis")) {
                                                 partnersModel.addToListPartnersDescription(nList3.item(l).getTextContent());
+                                                opis = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("pic")) {
                                                 partnersModel.addToListPartnersPicture(nList3.item(l).getTextContent());
+                                                pic = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("miasto")) {
                                                 partnersModel.addToListPartnersCity(nList3.item(l).getTextContent());
+                                                miasto = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("przelicznik")) {
                                                 partnersModel.addToListPartnersMultiplier(nList3.item(l).getTextContent());
+                                                przelicznik = nList3.item(l).getTextContent();
                                             } else if (nList3.item(l).getNodeName().equals("ilosc_pkt")) {
                                                 partnersModel.addToListPartnersOwnedPoints(nList3.item(l).getTextContent());
+                                                ilosc_pkt = nList3.item(l).getTextContent();
                                             }
-
                                         }
                                     }
                                 }
@@ -305,6 +329,80 @@ public class Parser {
             }
             return null;
         }
+
+
+    public List<String> parserPartnersXMLCorreect(Document doc, String name) {
+        Log.v("parser", "jestem w parserPartnersXML");
+        NodeList dane = doc.getElementsByTagName(name);
+        MyListData myListData = new MyListData();
+        Location locationA = new Location("point A");
+        Location locationB = new Location("point B");
+        String id = null;
+        String wid = null;
+        String nazwa = null;
+        String alt = null;
+        String lat = null;
+        String opis = null;
+        String pic = null;
+        String miasto = null;
+        String przelicznik = null;
+        String ilosc_pkt = null;
+        if(myListData.exampleList.isEmpty()) {
+            for (int i = 0; i < dane.getLength(); i++) {
+                NodeList nList1 = dane.item(i).getChildNodes();
+                for (int j = 0; j < nList1.getLength(); j++) {
+                    NodeList nList2 = nList1.item(j).getChildNodes();
+                    if (nList2.getLength() > 1) {
+                        for (int k = 0; k < nList2.getLength(); k++) {
+                            NodeList nList3 = nList2.item(k).getChildNodes();
+                            if (nList3.getLength() > 1) {
+                                for (int l = 0; l < nList3.getLength(); l++) {
+                                    if (nList3.item(l).getChildNodes().getLength() < 2) {
+                                        if (nList3.item(l).getNodeName().equals("id")) {
+                                            id = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("wid")) {
+                                            wid = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("nazwa")) {
+                                            nazwa = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("alt")) {
+                                            alt = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("lat")) {
+                                            lat = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("opis")) {
+                                            opis = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("pic")) {
+                                            pic = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("miasto")) {
+                                            miasto = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("przelicznik")) {
+                                            przelicznik = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("ilosc_pkt")) {
+                                            ilosc_pkt = nList3.item(l).getTextContent();
+                                        }
+                                    }
+                                }
+
+
+                                locationA.setLatitude(Double.parseDouble(StartActivity.latitude));
+                                locationA.setLongitude(Double.parseDouble(StartActivity.longitude));
+
+
+                                locationB.setLatitude(Double.parseDouble(lat));
+                                locationB.setLongitude(Double.parseDouble(alt));
+
+                                float distance = locationA.distanceTo(locationB)/1000;
+                                DecimalFormat f = new DecimalFormat("0.0");
+
+
+                                myListData.addToExampleList(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

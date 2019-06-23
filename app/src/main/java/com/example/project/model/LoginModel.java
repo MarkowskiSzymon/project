@@ -44,7 +44,7 @@ public class LoginModel {
         this.name = name;
     }
 
-    public String getPhone() {
+    public String getPhoneNumber() {
         return phone;
     }
 

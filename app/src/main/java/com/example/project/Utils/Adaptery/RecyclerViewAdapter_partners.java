@@ -2,6 +2,7 @@ package com.example.project.Utils.Adaptery;
 
 
 import android.content.Context;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -18,8 +19,11 @@ import com.example.project.R;
 import com.example.project.Utils.listaPartnerow;
 import com.example.project.activity_fragments_class.Fragments.PartnersFragment;
 import com.example.project.activity_fragments_class.StartActivity;
+import com.example.project.model.MyListData;
+import com.example.project.model.PartnersModel;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerViewAdapter_partners.ViewHolder>{
@@ -35,12 +39,13 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
     private ArrayList<String> mMultiplier;
     private ArrayList<String> mOwnedPoints;
     private Context mContext;
+    private Location mineLocation;
 
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements SearchView.OnQueryTextListener{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, opisPromocji;
+        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, opisPromocji, textViewDistanceFromPartner;
         RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera;
         LinearLayout wariantNagrody;
 
@@ -57,16 +62,7 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
             textViewPokazNagrody = itemView.findViewById(R.id.textViewPokazNagrody);
             textViewSchowajNagrody = itemView.findViewById(R.id.textViewSchowajNagrody);
             kafelekPartneraLayoutNagrod = itemView.findViewById(R.id.kafelekPartneraLayoutNagrod);
-        }
-
-        @Override
-        public boolean onQueryTextSubmit(String s) {
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String s) {
-            return false;
+            textViewDistanceFromPartner = itemView.findViewById(R.id.textView_partnerLayout_distanceFromPartner);
         }
     }
 
@@ -90,14 +86,17 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_layout_partner, parent, false);
         ViewHolder holder = new ViewHolder(view);
+
+        mineLocation = new Location("mine");
+        mineLocation.setLongitude(Double.parseDouble(StartActivity.longitude));
+        mineLocation.setLatitude(Double.parseDouble(StartActivity.latitude));
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        PartnersFragment partnersFragment = new PartnersFragment();
         if(!mName.get(position).isEmpty()){
-            Log.v("App", "Name: " + mName.get(position) + " pozycja: " + position);
             if(mOwnedPoints.get(position).isEmpty()) {
                 Picasso.get()
                         .load(StartActivity.partners_layout_url + mPicture.get(position))
@@ -132,6 +131,16 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
 
                 });
 
+                Location partnerLocation = new Location("partner");
+                partnerLocation.setLatitude(Double.parseDouble(mLatitude.get(position)));
+                partnerLocation.setLongitude(Double.parseDouble(mLongitude.get(position)));
+
+                float distanceInKilometers = mineLocation.distanceTo(partnerLocation)/1000;
+                DecimalFormat f = new DecimalFormat("##.0");
+
+
+                holder.textViewDistanceFromPartner.setText(String.valueOf(f.format(distanceInKilometers)) + " km");
+
                 holder.textViewSchowajNagrody.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -143,8 +152,8 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
             } else {
                 Log.v("sorting", "Ilosc punktow w pozycji: " + position + " < 0");
             }
-        }
 
+        }
     }
 
     @Override

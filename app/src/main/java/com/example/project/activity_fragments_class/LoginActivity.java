@@ -1,25 +1,20 @@
 package com.example.project.activity_fragments_class;
-import android.animation.ValueAnimator;
-import android.app.ActivityOptions;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.transition.Fade;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.DoubleClickBlock;
@@ -42,23 +37,10 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textinputlayout_activitySettings_cardNumber, textinputlayout_activitySettings_password;
     private RelativeLayout transLayout;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-//        toolbar = findViewById(R.id.toolbar);
-//        Fade fade = new Fade();
-//        View decor = getWindow().getDecorView();
-//        fade.excludeTarget(decor.findViewById(R.id.toolbar), true);
-//        getWindow().setEnterTransition(fade);
-//        getWindow().setExitTransition(fade);
-
-        //lottieAnimationView = findViewById(R.id.animation_view);
-
 
 
 
@@ -195,9 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-
 
     public class Logowanie extends AsyncTask<String, String, String> {
         Connection_API C_api = new Connection_API(LoginActivity.this);
@@ -233,11 +213,11 @@ public class LoginActivity extends AppCompatActivity {
             LoginModel loginModel = new LoginModel();
 
 
-
             if(xs.equals("1")){
                 edit.putString("login", editTextCardNumber.getText().toString());
                 edit.putString("password", hash.tryHash(editTextPassword.getText().toString()));
                 edit.commit();
+               // locate();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }else if(loginModel.getRegister_status().equals("2")){
                 Intent intent = new Intent(LoginActivity.this, CreatePasswordActivity.class);
@@ -251,5 +231,47 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
             }
         }
+
+
+
+
     }
+
+/*    public void locate(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_COODE);
+        } else {
+            buildLocationRequest();
+            buildLocationCallBack();
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_COODE);
+                return;
+            }
+            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+        }
+    }
+
+    public void buildLocationRequest() {
+        Log.v("app", "buildLocationRequest");
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setSmallestDisplacement(10);
+    }
+
+    public void buildLocationCallBack() {
+        Log.v("app", "buildLocationCallBack");
+        locationCallback = new LocationCallback(){
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                for(Location location:locationResult.getLocations()) {
+                    Log.v("app", "onLocationResult");
+
+                }
+            }
+        };
+    }*/
+
 }

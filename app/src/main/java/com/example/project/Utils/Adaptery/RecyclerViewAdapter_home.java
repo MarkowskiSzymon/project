@@ -3,10 +3,6 @@ package com.example.project.Utils.Adaptery;
 
 
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -88,9 +84,6 @@ public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewA
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-
-
-
             if(mOwnedPoints.get(position).isEmpty()) {
                 Picasso.get()
                         .load(StartActivity.partners_layout_url + mPicture.get(position))

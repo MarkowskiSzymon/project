@@ -54,7 +54,6 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
         transLayout = findViewById(R.id.layout_activitySignupThirdStep_transiston_create);
         final Regex_patterns regex = new Regex_patterns();
         myPrefsRegister = getSharedPreferences(StartActivity.SharedP_REGISTER, MODE_PRIVATE);
-        final SharedPreferences.Editor edit = myPrefsRegister.edit();
 
         text_dummy_hint_name = findViewById(R.id.textView_activitySignupThirdStep_dummyHintName);
         text_dummy_hint_dateOfBirth = findViewById(R.id.textView_activitySignupThirdStep_dummyHintDateOfBirth);

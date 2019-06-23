@@ -57,7 +57,6 @@ public class HomeFragment extends Fragment{
         textViewNumerKarty = rootView.findViewById(R.id.textViewNumerKarty);
 
         LoginModel loginModel = new LoginModel();
-        CardsModel cardsModel = new CardsModel();
 
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         textViewNumerKarty.setText("Numer karty: " + loginModel.getmCardsNumber().get(0));

@@ -68,13 +68,13 @@
     <string name="finishInformation">Pomyślnie ukończyłeś rejestrację!Na podany przez Ciebie adres e-mail w cięgu kilku najbliższych minut wysłane zostanie hasło jednorazowe, którego należy użyć podczas pierwszego logowania do systemu Delly."</string>
     <string name="gotoLogin">PRZEJŹ DO LOGOWANIA</string>
     <string name="contactDetail">Twoje dane kontaktowe</string>
-    <string name="codePhone">Nr. kierunkowy</string>
+    <string name="codePhone">Nr kierunkowy</string>
     <string name="updateData">AKTUALIZUJ DANE</string>
     <string name="yourNewPassword">Twoje nowe hasło</string>
     <string name="saveNewPassword">ZAPISZ NOWE HASŁO</string>
     <string name="repeatPassword">Powtórz hasło</string>
     <string name="password">Hasło</string>
-    <string name="infoAboutNewPassword">Hasło powinno zawierać minimum 6 znaków, wielką literę, cyfrę i znak specjalny.</string>
+    <string name="infoAboutNewPassword">Hasło powinno zawierać minimum 6 znaków, wielką literę i cyfrę..</string>
 
 
 </resources>

@@ -26,6 +26,9 @@ public class StartActivity extends AppCompatActivity {
     public static int MAX_TRY_COUNT = 3;
     public static int RETRY_BACKOFF_DELAY = 3000;
     public static String dellyRulesUrl = "https://delly.pl/docs/regulamin.pdf";
+    public static String longitude = "50.056675";
+    public static String latitude = "19.947416";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

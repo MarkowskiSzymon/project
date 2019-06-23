@@ -2,8 +2,6 @@ package com.example.project.activity_fragments_class.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,18 +22,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.project.R;
-import com.example.project.Utils.Adaptery.RecyclerViewAdapter_home;
 import com.example.project.Utils.Adaptery.RecyclerViewAdapter_partners;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
-import com.example.project.Utils.listaPartnerow;
 import com.example.project.activity_fragments_class.StartActivity;
+import com.example.project.model.MyListData;
 import com.example.project.model.PartnersModel;
 
 import org.w3c.dom.Document;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 public class PartnersFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -47,7 +43,8 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
     private SearchView searchView;
     private MenuItem searchItem;
     private SharedPreferences myPrefs;
-    public ArrayList<String> filteredValues;
+    public ArrayList<String> filteredNames, filteredIcons, names, lol, lol2, filteredlol, filteredlol2;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,8 +74,6 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
         return rootView;
     }
 
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_menu_partnerzy_fragment, menu);
@@ -94,24 +89,11 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
         return true;
     }
 
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-        PartnersModel partnersModel = new PartnersModel();
-        if (s == null || s.trim().isEmpty()) {
-            initRecyclerView();
-        }
-        filteredValues = new ArrayList<String>(partnersModel.getmPartners_Name());
-        for (String value : partnersModel.getmPartners_Name()) {
-            if (!value.toLowerCase().contains(s.toLowerCase())) {
-                Log.v("App", value);
-                filteredValues.contains(value);
-            }
-            initRecyclerView(filteredValues);
-        }
-
+     @Override
+        public boolean onQueryTextChange(String s) {
         return false;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -152,40 +134,18 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
         @Override
         protected void onPostExecute(String result) {
             Parser par = new Parser();
-
-            //  String desc = result.replace("&#60;", "<").replace("&#62;", ">").replace("&#47;", "/");
-
-
             Log.v("parser", "result: " + result);
             Document doc = par.getDocument(result);
             par.parserPartnersXML(doc, "xd");
             initRecyclerView();
 
         }
-//            Location loc1 = new Location("");
-//            loc1.setLatitude(20.030172);
-//            loc1.setLongitude(49.480952);
-//
-//            Location loc2 = new Location("");
-//            loc2.setLatitude(20.025196);
-//            loc2.setLongitude(49.473712);
-//
-//            float distanceInMeters = loc1.distanceTo(loc2);
-//            Log.v("dystans", String.valueOf(distanceInMeters));
 
     }
 
     private void initRecyclerView() {
         PartnersModel partnersModel = new PartnersModel();
-        adapter_partnerzy = new RecyclerViewAdapter_partners(getContext(), partnersModel.mPartners_Id, partnersModel.mPartners_Wid, partnersModel.mPartners_Name, partnersModel.mPartners_Longitude, partnersModel.mPartners_Latitude, partnersModel.mPartners_Desc, partnersModel.mPartners_Picture, partnersModel.mPartners_City, partnersModel.mPartners_Multiplier, partnersModel.mPartners_OwnedPoints);
-        recyclerView.setAdapter(adapter_partnerzy);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    private void initRecyclerView(ArrayList<String> filteredName) {
-        PartnersModel partnersModel = new PartnersModel();
-        adapter_partnerzy = new RecyclerViewAdapter_partners(getContext(), partnersModel.mPartners_Id, partnersModel.mPartners_Wid, filteredName, partnersModel.mPartners_Longitude, partnersModel.mPartners_Latitude, partnersModel.mPartners_Desc, partnersModel.mPartners_Picture, partnersModel.mPartners_City, partnersModel.mPartners_Multiplier, partnersModel.mPartners_OwnedPoints);
+        adapter_partnerzy = new RecyclerViewAdapter_partners(getContext(), partnersModel.mPartners_Id, partnersModel.mPartners_Wid, filteredNames, partnersModel.mPartners_Longitude, partnersModel.mPartners_Latitude, partnersModel.mPartners_Desc, filteredIcons, partnersModel.mPartners_City, partnersModel.mPartners_Multiplier, partnersModel.mPartners_OwnedPoints);
         recyclerView.setAdapter(adapter_partnerzy);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

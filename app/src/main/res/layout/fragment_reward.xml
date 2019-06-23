@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/reward_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/reward_button_sortNumberDescending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sort Number Descending" />
+        <Button
+            android:layout_below="@+id/reward_button_sortNumberDescending"
+            android:id="@+id/reward_button_sortNumberAscending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sort Number Ascending" />
+        <Button
+            android:layout_below="@id/reward_button_sortNumberAscending"
+            android:id="@+id/reward_button_sortA-Z"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sortA-Z" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/reward_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_reward"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
