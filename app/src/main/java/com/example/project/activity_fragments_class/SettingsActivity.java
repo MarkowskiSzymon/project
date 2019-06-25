@@ -22,7 +22,7 @@ import android.widget.Toolbar;
 
 import com.example.project.R;
 import com.example.project.Utils.Regex_patterns;
-import com.example.project.model.LoginModel;
+import com.example.project.model.LoginModelTest;
 import com.hbb20.CountryCodePicker;
 
 import java.util.Calendar;
@@ -45,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         final Regex_patterns regex_patterns = new Regex_patterns();
-        LoginModel loginModel = new LoginModel();
+        LoginModelTest loginModelTest = new LoginModelTest();
         myPrefs = getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
 
         toolbar = findViewById(R.id.toolbar_activitySetting);
@@ -72,18 +72,18 @@ public class SettingsActivity extends AppCompatActivity {
         radioButtonFemale = findViewById(R.id.radiobutton_activitySettings_female);
         radioButtonMale = findViewById(R.id.radiobutton_activitySettings_male);
 
-        editUsername.setText(loginModel.getName());
-        editDateOfBirth.setText(loginModel.getDate_of_birth());
-        editZipCode.setText(loginModel.getZip_code());
-        editEmail.setText(loginModel.getEmail());
-        editPhoneNumber.setText(loginModel.getPhoneNumber());
+        editUsername.setText(loginModelTest.getImie());
+        editDateOfBirth.setText(loginModelTest.getData_urodzenia());
+        editZipCode.setText(loginModelTest.getKod_pocztowy());
+        editEmail.setText(loginModelTest.getEmail());
+        editPhoneNumber.setText(loginModelTest.getTelefon());
 
         ccp = findViewById(R.id.countryCodePicker_activitySettings);
 
         buttonSaveNewPassword = findViewById(R.id.button_activitySettings_saveNewPassword);
         buttonUpdateNewData = findViewById(R.id.button_activitySettings_updateNewData);
 
-        if(loginModel.getGender().equals("M")){
+        if(loginModelTest.getPlec().equals("M")){
             radioButtonMale.setChecked(true);
         }else{
             radioButtonFemale.setChecked(true);

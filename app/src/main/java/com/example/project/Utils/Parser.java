@@ -3,13 +3,12 @@ package com.example.project.Utils;
 import android.location.Location;
 import android.util.Log;
 
-import com.example.project.R;
 import com.example.project.activity_fragments_class.StartActivity;
+import com.example.project.model.CardModelTest;
 import com.example.project.model.CardsModel;
-import com.example.project.model.LoginModel;
+import com.example.project.model.LoginModelTest;
 import com.example.project.model.MyListData;
-import com.example.project.model.PartnersModel;
-import com.example.project.model.HistoryModel;
+import com.example.project.model.TransactionsModel;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -135,6 +134,8 @@ public class Parser {
     public List<String> parserCardsXML(Document doc, String name) {
         NodeList dane = doc.getElementsByTagName(name);
         CardsModel cardsModel = new CardsModel();
+        String nr = null;
+        String pic = null;
         if(cardsModel.mCardsNumber.isEmpty()){
             for (int i = 0; i < dane.getLength(); i++) {
                 NodeList nList1 = dane.item(i).getChildNodes();
@@ -147,10 +148,9 @@ public class Parser {
                                 for (int l = 0; l < nList3.getLength(); l++) {
                                     if (nList3.item(l).getChildNodes().getLength() < 2) {
                                         if (nList3.item(l).getNodeName().equals("nr")) {
-                                            Log.v("testparsera", "Dlugosc number: " + cardsModel.mCardsNumber.size());
-                                            cardsModel.addToListCardsNumber(nList3.item(l).getTextContent());
+                                            nr = nList3.item(l).getTextContent();
                                         } else if (nList3.item(l).getNodeName().equals("pic")) {
-                                            cardsModel.addToListCardsIcon(nList3.item(l).getTextContent());
+                                            pic = nList3.item(l).getTextContent();
                                         }
                                     }
                                 }
@@ -164,6 +164,68 @@ public class Parser {
     }
 
 
+    public List<String> parserLoginXML(Document doc, String name) {
+        NodeList dane = doc.getElementsByTagName(name);
+        LoginModelTest loginModelTest = new LoginModelTest();
+        CardModelTest cardModelTest = new CardModelTest();
+        String id = null;
+        String imie = null;
+        String telefon = null;
+        String email = null;
+        String kod_pocztowy = null;
+        String data_urodzenia = null;
+        String plec = null;
+        String data_rejestracji = null;
+        String czy_zarejestrowany = null;
+        String czy_aktywny = null;
+        String nr = null;
+        String pic = null;
+        for (int i = 0; i < dane.getLength(); i++) {
+            NodeList nList1 = dane.item(i).getChildNodes();
+            for (int j = 0; j < nList1.getLength(); j++) {
+                if (nList1.item(j).getNodeName().equals("id")) {
+                    id = nList1.item(j).getTextContent();
+                } else if (nList1.item(j).getNodeName().equals("imie")) {
+                    imie = nList1.item(j).getTextContent();
+                }else if (nList1.item(j).getNodeName().equals("telefon")) {
+                    telefon = nList1.item(j).getTextContent();
+                }else if (nList1.item(j).getNodeName().equals("email")) {
+                    email = nList1.item(j).getTextContent();
+                }else if (nList1.item(j).getNodeName().equals("kod_pocztowy")) {
+                    kod_pocztowy = nList1.item(j).getTextContent();
+                }else if (nList1.item(j).getNodeName().equals("data_urodzenia")) {
+                    data_urodzenia = nList1.item(j).getTextContent();
+                }else if (nList1.item(j).getNodeName().equals("plec")) {
+                    plec = nList1.item(j).getTextContent();
+                }else if (nList1.item(j).getNodeName().equals("data_rejestracji")) {
+                    data_rejestracji = nList1.item(j).getTextContent();
+                }else if (nList1.item(j).getNodeName().equals("czy_zarejestrowany")) {
+                    czy_zarejestrowany = nList1.item(j).getTextContent();
+                }else if (nList1.item(j).getNodeName().equals("czy_aktywny")) {
+                    czy_aktywny = nList1.item(j).getTextContent();
+                } NodeList nList2 = nList1.item(j).getChildNodes();
+                if (nList2.getLength() > 1) {
+                    for (int k = 0; k < nList2.getLength(); k++) {
+                        NodeList nList3 = nList2.item(k).getChildNodes();
+                        if (nList3.getLength() > 1) {
+                            for (int l = 0; l < nList3.getLength(); l++) {
+                                if (nList3.item(l).getChildNodes().getLength() < 2) {
+                                    if (nList3.item(l).getNodeName().equals("nr")) {
+                                        nr = nList3.item(l).getTextContent();
+                                    } else if (nList3.item(l).getNodeName().equals("pic")) {
+                                        pic = nList3.item(l).getTextContent();
+                                    }
+                                }
+                            }
+                        }
+                        cardModelTest.addToCardList(nr, pic);
+                    }
+                }
+                loginModelTest.addToInformationList(id, imie, telefon, email, kod_pocztowy, data_urodzenia, plec, data_rejestracji, czy_zarejestrowany, czy_aktywny, cardModelTest.listOfCards);
+            }
+        }
+        return null;
+    }
 
 
 
@@ -185,52 +247,6 @@ public class Parser {
 </dane>
 */
 
-    public List<String> parserLoginXML(Document doc, String name) {
-            NodeList dane = doc.getElementsByTagName(name);
-            LoginModel loginModel = new LoginModel();
-                for (int i = 0; i < dane.getLength(); i++) {
-                    NodeList nList1 = dane.item(i).getChildNodes();
-                    for (int j = 0; j < nList1.getLength(); j++) {
-                        if (nList1.item(j).getNodeName().equals("id")) {
-                            loginModel.setId(nList1.item(j).getTextContent());
-                        } else if (nList1.item(j).getNodeName().equals("imie")) {
-                            loginModel.setName(nList1.item(j).getTextContent());
-                        }else if (nList1.item(j).getNodeName().equals("telefon")) {
-                            loginModel.setPhone(nList1.item(j).getTextContent());
-                        }else if (nList1.item(j).getNodeName().equals("email")) {
-                            loginModel.setEmail(nList1.item(j).getTextContent());
-                        }else if (nList1.item(j).getNodeName().equals("kod_pocztowy")) {
-                            loginModel.setZip_code(nList1.item(j).getTextContent());
-                        }else if (nList1.item(j).getNodeName().equals("data_urodzenia")) {
-                            loginModel.setDate_of_birth(nList1.item(j).getTextContent());
-                        }else if (nList1.item(j).getNodeName().equals("plec")) {
-                            loginModel.setGender(nList1.item(j).getTextContent());
-                        }else if (nList1.item(j).getNodeName().equals("data_rejestracji")) {
-                            loginModel.setDate_of_registration(nList1.item(j).getTextContent());
-                        }else if (nList1.item(j).getNodeName().equals("czy_zarejestrowany")) {
-                            loginModel.setRegister_status(nList1.item(j).getTextContent());
-                        }else if (nList1.item(j).getNodeName().equals("czy_aktywny")) {
-                            loginModel.setActivity_status(nList1.item(j).getTextContent());
-                        }
-                        NodeList nList2 = nList1.item(j).getChildNodes();
-                        if (nList2.getLength() > 1) {
-                            for (int k = 0; k < nList2.getLength(); k++) {
-                                NodeList nList3 = nList2.item(k).getChildNodes();
-                                if (nList3.getLength() > 1) {
-                                    for (int l = 0; l < nList3.getLength(); l++) {
-                                        if (nList3.item(l).getChildNodes().getLength() < 2) {
-                                            if (nList3.item(l).getNodeName().equals("nr")) {
-                                                loginModel.addToListCardsNumber(nList3.item(l).getTextContent());
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-        return null;
-}
 
 
 
@@ -263,75 +279,7 @@ public class Parser {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        public List<String> parserPartnersXML(Document doc, String name) {
-        Log.v("parser", "jestem w parserPartnersXML");
-            NodeList dane = doc.getElementsByTagName(name);
-            PartnersModel partnersModel = new PartnersModel();
-            String id = null;
-            String wid = null;
-            String nazwa = null;
-            String alt = null;
-            String lat = null;
-            String opis = null;
-            String pic = null;
-            String miasto = null;
-            String przelicznik = null;
-            String ilosc_pkt = null;
-            if(partnersModel.mPartners_Id.isEmpty()) {
-                for (int i = 0; i < dane.getLength(); i++) {
-                    NodeList nList1 = dane.item(i).getChildNodes();
-                    for (int j = 0; j < nList1.getLength(); j++) {
-                        NodeList nList2 = nList1.item(j).getChildNodes();
-                        if (nList2.getLength() > 1) {
-                            for (int k = 0; k < nList2.getLength(); k++) {
-                                NodeList nList3 = nList2.item(k).getChildNodes();
-                                if (nList3.getLength() > 1) {
-                                    for (int l = 0; l < nList3.getLength(); l++) {
-                                        if (nList3.item(l).getChildNodes().getLength() < 2) {
-                                            if (nList3.item(l).getNodeName().equals("id")) {
-                                                partnersModel.addToListPartnersId(nList3.item(l).getTextContent());
-                                                id = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("wid")) {
-                                                partnersModel.addToListPartnersWId(nList3.item(l).getTextContent());
-                                                wid = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("nazwa")) {
-                                                partnersModel.addToListPartnersName(nList3.item(l).getTextContent());
-                                                nazwa = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("alt")) {
-                                                partnersModel.addToListPartnersLongitude(nList3.item(l).getTextContent());
-                                                alt = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("lat")) {
-                                                partnersModel.addToListPartnersLatitude(nList3.item(l).getTextContent());
-                                                lat = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("opis")) {
-                                                partnersModel.addToListPartnersDescription(nList3.item(l).getTextContent());
-                                                opis = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("pic")) {
-                                                partnersModel.addToListPartnersPicture(nList3.item(l).getTextContent());
-                                                pic = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("miasto")) {
-                                                partnersModel.addToListPartnersCity(nList3.item(l).getTextContent());
-                                                miasto = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("przelicznik")) {
-                                                partnersModel.addToListPartnersMultiplier(nList3.item(l).getTextContent());
-                                                przelicznik = nList3.item(l).getTextContent();
-                                            } else if (nList3.item(l).getNodeName().equals("ilosc_pkt")) {
-                                                partnersModel.addToListPartnersOwnedPoints(nList3.item(l).getTextContent());
-                                                ilosc_pkt = nList3.item(l).getTextContent();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-
-    public List<String> parserPartnersXMLCorreect(Document doc, String name) {
+    public List<String> parserPartnersXML(Document doc, String name) {
         Log.v("parser", "jestem w parserPartnersXML");
         NodeList dane = doc.getElementsByTagName(name);
         MyListData myListData = new MyListData();
@@ -347,7 +295,7 @@ public class Parser {
         String miasto = null;
         String przelicznik = null;
         String ilosc_pkt = null;
-        if(myListData.exampleList.isEmpty()) {
+        if(myListData.listOfPartners.isEmpty()) {
             for (int i = 0; i < dane.getLength(); i++) {
                 NodeList nList1 = dane.item(i).getChildNodes();
                 for (int j = 0; j < nList1.getLength(); j++) {
@@ -381,18 +329,12 @@ public class Parser {
                                         }
                                     }
                                 }
-
-
                                 locationA.setLatitude(Double.parseDouble(StartActivity.latitude));
                                 locationA.setLongitude(Double.parseDouble(StartActivity.longitude));
-
-
                                 locationB.setLatitude(Double.parseDouble(lat));
                                 locationB.setLongitude(Double.parseDouble(alt));
-
                                 float distance = locationA.distanceTo(locationB)/1000;
                                 DecimalFormat f = new DecimalFormat("0.0");
-
 
                                 myListData.addToExampleList(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance));
                             }
@@ -443,8 +385,15 @@ public class Parser {
 
     public List<String> parserTransactionsXML(Document doc, String name) {
         NodeList dane = doc.getElementsByTagName(name);
-        HistoryModel historyModel = new HistoryModel();
-        if(historyModel.mTransactionData.isEmpty()){
+        TransactionsModel transactionsModel = new TransactionsModel();
+        String data = null;
+        String typ_transakcji_id = null;
+        String koszt_punktow = null;
+        String kwota_zakupow = null;
+        String nr_karty = null;
+        String pic = null;
+        String nazwa = null;
+        if(transactionsModel.listOfTransactions.isEmpty()) {
             for (int i = 0; i < dane.getLength(); i++) {
                 NodeList nList1 = dane.item(i).getChildNodes();
                 for (int j = 0; j < nList1.getLength(); j++) {
@@ -456,23 +405,23 @@ public class Parser {
                                 for (int l = 0; l < nList3.getLength(); l++) {
                                     if (nList3.item(l).getChildNodes().getLength() < 2) {
                                         if(nList3.item(l).getNodeName().equals("data") ){
-                                            Log.v("testparsera", "Dlugosc data: " + historyModel.mTransactionData.size());
-                                            historyModel.addToListTransactionData(nList3.item(l).getTextContent());
+                                            data = nList3.item(l).getTextContent();
                                         }else if (nList3.item(l).getNodeName().equals("typ_transakcji_id")){
-                                            historyModel.addToListTransactionType(nList3.item(l).getTextContent());
+                                            typ_transakcji_id = nList3.item(l).getTextContent();
                                         }else if (nList3.item(l).getNodeName().equals("koszt_punktow")){
-                                            historyModel.addToListTransactionExpense(nList3.item(l).getTextContent());
+                                            koszt_punktow = nList3.item(l).getTextContent();
                                         }else if (nList3.item(l).getNodeName().equals("kwota_zakupow")){
-                                            historyModel.addToListTransactionAmount(nList3.item(l).getTextContent());
+                                            kwota_zakupow = nList3.item(l).getTextContent();
                                         }else if (nList3.item(l).getNodeName().equals("nr_karty")){
-                                            historyModel.addToListTransactionCardNumber(nList3.item(l).getTextContent());
+                                            nr_karty = nList3.item(l).getTextContent();
                                         }else if (nList3.item(l).getNodeName().equals("pic")){
-                                            historyModel.addToListTransactionPicture(nList3.item(l).getTextContent());
+                                            pic = nList3.item(l).getTextContent();
                                         }else if (nList3.item(l).getNodeName().equals("nazwa")){
-                                            historyModel.addToListTransactionName(nList3.item(l).getTextContent());
+                                            nazwa = nList3.item(l).getTextContent();
                                         }
                                     }
                                 }
+                                transactionsModel.addToListOfTransactions(data, typ_transakcji_id, koszt_punktow, kwota_zakupow, nr_karty, pic, nazwa);
                             }
                         }
                     }

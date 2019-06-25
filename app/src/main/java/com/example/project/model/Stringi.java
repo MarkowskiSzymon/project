@@ -1,7 +1,5 @@
 package com.example.project.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 

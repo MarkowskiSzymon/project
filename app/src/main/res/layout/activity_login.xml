@@ -167,11 +167,10 @@
         android:id="@+id/layout_activityLogin_transiston_create"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-
         android:layout_below="@+id/relativeLayout_activityLogin_up"
         android:background="@drawable/delly_background"
-        android:transitionName="example_transistion"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:transitionName="example_transistion">
 
         <TextView
             android:layout_width="wrap_content"

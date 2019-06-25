@@ -1,6 +1,7 @@
 package com.example.project.Utils;
 
 import android.graphics.Bitmap;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;

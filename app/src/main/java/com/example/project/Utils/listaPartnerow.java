@@ -1,7 +1,5 @@
 package com.example.project.Utils;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class listaPartnerow {

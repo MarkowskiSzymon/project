@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
     // RecyclerView
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    //Google Maps lokaliz
+    //Google Maps
 
     // implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:12.0.1'
@@ -53,6 +53,10 @@ dependencies {
     //CodePhone
     //https://github.com/hbb20/CountryCodePickerProject/wiki/Full-Number-Support
     implementation 'com.hbb20:ccp:2.2.0'
+
+    implementation 'com.matthew-tamlin:sliding-intro-screen:3.2.0'
+
+
 
 
 }

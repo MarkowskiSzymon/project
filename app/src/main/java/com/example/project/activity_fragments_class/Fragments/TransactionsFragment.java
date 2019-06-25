@@ -11,38 +11,35 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.project.R;
-import com.example.project.Utils.Adaptery.RecyclerViewAdapter_history;
+import com.example.project.Utils.Adaptery.RecyclerViewAdapter_transactions;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
-import com.example.project.model.HistoryModel;
 import com.example.project.activity_fragments_class.StartActivity;
+import com.example.project.model.TransactionsModel;
 
 import org.w3c.dom.Document;
 
-import java.util.ArrayList;
 
-
-public class HistoryFragment extends Fragment {
+public class TransactionsFragment extends Fragment {
 
     private Connection_INTERNET conn;
     private SharedPreferences myPrefs;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerViewAdapter_history adapter_transactions_history;
-    private ArrayList<String> transactionsData;
+    private RecyclerViewAdapter_transactions adapter_transactions;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_history, container, false);
         setHasOptionsMenu(true);
 
+        TransactionsModel transactionsModel = new TransactionsModel();
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         conn = new Connection_INTERNET(getContext());
 
@@ -51,9 +48,16 @@ public class HistoryFragment extends Fragment {
 
 
 
-        new checkingTransactions(StartActivity.checkingTransactions_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
+        if(transactionsModel.listOfTransactions.isEmpty()) {
+            new checkingTransactions(StartActivity.checkingTransactions_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
+        }else{
+            adapter_transactions = new RecyclerViewAdapter_transactions(getContext(), TransactionsModel.listOfTransactions);
+            recyclerView.setAdapter(adapter_transactions);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
 
-        final HistoryModel partnersModel = new HistoryModel();
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -61,7 +65,7 @@ public class HistoryFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        partnersModel.clearAllList();
+                        TransactionsModel.listOfTransactions.clear();
                         new checkingTransactions(StartActivity.checkingTransactions_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -75,9 +79,8 @@ public class HistoryFragment extends Fragment {
 
 
     public class checkingTransactions extends AsyncTask<String, String, String> {
-        HistoryModel partnersModel = new HistoryModel();
-
         Connection_API C_api = new Connection_API(getActivity());
+
         private String p_fID;
         private String p_dID;
         private String p_login;
@@ -100,14 +103,13 @@ public class HistoryFragment extends Fragment {
             Document doc = par.getDocument(result);
             par.parserTransactionsXML(doc, "xd");
 
-
             initRecyclerView();
 
 
         }
         private void initRecyclerView() {
-            adapter_transactions_history = new RecyclerViewAdapter_history(getContext(), partnersModel.getmTransactionData(), partnersModel.getmTransactionType(), partnersModel.getmTransactionExpense(), partnersModel.getmTransactionAmount(), partnersModel.getmTransactionCardNumber(), partnersModel.getmTransactionPicture(), partnersModel.getmTransactionName());
-            recyclerView.setAdapter(adapter_transactions_history);
+            adapter_transactions = new RecyclerViewAdapter_transactions(getContext(), TransactionsModel.listOfTransactions);
+            recyclerView.setAdapter(adapter_transactions);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }

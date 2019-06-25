@@ -6,13 +6,13 @@ import java.util.List;
 
 public class MyListData {
 
-    public static List<MyListData> exampleList = new ArrayList<>();
+    public static List<MyListData> listOfPartners = new ArrayList<>();
     private String id;
     private String wid;
-    private String nazwa;
+    private String name;
     private String alt;
     private String lat;
-    private String opis;
+    private String desc;
     private String pic;
     private String miasto;
     private String przelicznik;
@@ -23,13 +23,13 @@ public class MyListData {
 
     }
 
-    public MyListData(String id, String wid, String nazwa, String alt, String lat, String opis, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner) {
+    public MyListData(String id, String wid, String name, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner) {
         this.id = id;
         this.wid = wid;
-        this.nazwa = nazwa;
+        this.name = name;
         this.alt = alt;
         this.lat = lat;
-        this.opis = opis;
+        this.desc = desc;
         this.pic = pic;
         this.miasto = miasto;
         this.przelicznik = przelicznik;
@@ -37,23 +37,23 @@ public class MyListData {
         this.distanceToPartner = distanceToPartner;
     }
 
-    public void addToExampleList(String id, String wid, String nazwa, String alt, String lat, String opis, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner){
+    public void addToExampleList(String id, String wid, String nazwa, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner){
         this.id = id;
         this.wid = wid;
-        this.nazwa = nazwa;
+        this.name = nazwa;
         this.alt = alt;
         this.lat = lat;
-        this.opis = opis;
+        this.desc = desc;
         this.pic = pic;
         this.miasto = miasto;
         this.przelicznik = przelicznik;
         this.ilosc_pkt = ilosc_pkt;
         this.distanceToPartner = distanceToPartner;
-        exampleList.add(new MyListData(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner));
+        listOfPartners.add(new MyListData(id, wid, nazwa, alt, lat, desc, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner));
     }
 
     public int exampleListSize(){
-        return exampleList.size();
+        return listOfPartners.size();
     }
 
     public String getDistanceToPartner() {
@@ -64,12 +64,12 @@ public class MyListData {
         this.distanceToPartner = distanceToPartner;
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public String getName() {
+        return name;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getWid() {
@@ -97,11 +97,11 @@ public class MyListData {
     }
 
     public String getOpis() {
-        return opis;
+        return desc;
     }
 
-    public void setOpis(String opis) {
-        this.opis = opis;
+    public void setOpis(String desc) {
+        this.desc = desc;
     }
 
     public String getPic() {

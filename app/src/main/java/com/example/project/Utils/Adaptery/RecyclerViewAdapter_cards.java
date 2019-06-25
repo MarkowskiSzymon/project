@@ -12,15 +12,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.example.project.R;
 import com.example.project.Utils.QrCodeGenerator;
 import com.example.project.activity_fragments_class.StartActivity;
+import com.example.project.model.CardModelTest;
 import com.squareup.picasso.Picasso;
 
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerViewAdapter_cards.ViewHolder> {
+
+    private List<CardModelTest> cardList;
+    private Context mContext;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -40,14 +44,8 @@ public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    Dialog myDialog;
-    private ArrayList<String> mListaZdjecUrl;
-    private ArrayList<String> mListaNumerowKart;
-    private Context mContext;
-
-    public RecyclerViewAdapter_cards(Context mContext, ArrayList<String> listaZdjecUrl, ArrayList<String> listaNumerowKart) {
-        this.mListaNumerowKart = listaNumerowKart;
-        this.mListaZdjecUrl = listaZdjecUrl;
+    public RecyclerViewAdapter_cards(Context mContext, List<CardModelTest> cardList) {
+        this.cardList = cardList;
         this.mContext = mContext;
     }
 
@@ -62,14 +60,16 @@ public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final CardModelTest currentItem = cardList.get(position);
+
         Picasso.get()
-                .load(StartActivity.cards_layout_url +  mListaZdjecUrl.get(position))
+                .load(StartActivity.cards_layout_url +  currentItem.getPic())
                 .placeholder(R.drawable.error_image)
                 .fit()
                 .transform(new picasso_rounded_corners(50,0,  picasso_rounded_corners.CornerType.TOP))
                 .into(holder.imageViewWygladKarty);
 
-        holder.textViewNumerKarty.setText("Numer karty: " + mListaNumerowKart.get(position));
+        holder.textViewNumerKarty.setText("Numer karty: " + currentItem.getNr());
 
         if(position == 0){
             holder.textViewRodzajKarty.setText("Twoja karta główna");
@@ -81,7 +81,7 @@ public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerView
         holder.relativeLayoutKarty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myDialog = new Dialog(mContext);
+                Dialog myDialog = new Dialog(mContext);
                 myDialog.setContentView(R.layout.cards_popup);
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -90,9 +90,9 @@ public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerView
                 final TextView textViewTypKartyPopup = myDialog.findViewById(R.id.textViewTypKartyPopup);
 
                 QrCodeGenerator qrCodeGenerator = new QrCodeGenerator();
-                imageViewPopupKarty.setImageBitmap(qrCodeGenerator.QrCodeGenerator(mListaNumerowKart.get(position)));
+                imageViewPopupKarty.setImageBitmap(qrCodeGenerator.QrCodeGenerator(currentItem.getNr()));
 
-                textViewNumerKartyPopup.setText("Numer karty: " + mListaNumerowKart.get(position));
+                textViewNumerKartyPopup.setText("Numer karty: " + currentItem.getNr());
 
                 if(position == 0){
                     textViewTypKartyPopup.setText("Twoja karta główna");
@@ -108,7 +108,7 @@ public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        return mListaNumerowKart.size();
+        return cardList.size();
     }
 
 

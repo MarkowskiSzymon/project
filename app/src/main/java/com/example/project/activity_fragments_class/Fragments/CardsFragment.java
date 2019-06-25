@@ -26,7 +26,7 @@ import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
 import com.example.project.activity_fragments_class.StartActivity;
-import com.example.project.model.CardsModel;
+import com.example.project.model.CardModelTest;
 
 import org.w3c.dom.Document;
 
@@ -36,12 +36,13 @@ public class CardsFragment extends Fragment {
     private SharedPreferences myPrefs;
     private Connection_INTERNET conn;
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter_cards adapter_transactions_cards;
+    private RecyclerViewAdapter_cards adapter_cards;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_cards, container, false);
+        final CardModelTest cardModelTest = new CardModelTest();
 
         recyclerView = rootView.findViewById(R.id.recycler_view_fragment_karty);
 
@@ -62,10 +63,15 @@ public class CardsFragment extends Fragment {
             }
         });
 
-        new CheckingOwnedCards(StartActivity.checkingOwnedCards_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
-
+        if(cardModelTest.listOfCards.isEmpty()) {
+            new CheckingOwnedCards(StartActivity.checkingOwnedCards_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
+        }else{
+            adapter_cards = new RecyclerViewAdapter_cards(getContext(), CardModelTest.listOfCards);
+            recyclerView.setAdapter(adapter_cards);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
         swipeRefreshLayout = rootView.findViewById(R.id.swipeLayoutKarty);
-        final CardsModel cardsModel = new CardsModel();
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -74,7 +80,7 @@ public class CardsFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        cardsModel.clearAllList();
+                        cardModelTest.listOfCards.clear();
                         new CheckingOwnedCards(StartActivity.checkingOwnedCards_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -89,7 +95,7 @@ public class CardsFragment extends Fragment {
 
 
     public class CheckingOwnedCards extends AsyncTask<String, String, String> {
-        CardsModel cardsModel = new CardsModel();
+        CardModelTest cardModelTest = new CardModelTest();
 
         Connection_API C_api = new Connection_API(getActivity());
         private String p_fID;
@@ -112,15 +118,15 @@ public class CardsFragment extends Fragment {
         protected void onPostExecute(String result) {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
-            par.parserCardsXML(doc, "xd");
+            par.parserLoginXML(doc, "xd");
 
             initRecyclerView();
 
 
         }
         private void initRecyclerView() {
-            adapter_transactions_cards = new RecyclerViewAdapter_cards(getContext(), cardsModel.getmCardsIcon(), cardsModel.getmCardsNumber());
-            recyclerView.setAdapter(adapter_transactions_cards);
+            adapter_cards = new RecyclerViewAdapter_cards(getContext(), CardModelTest.listOfCards);
+            recyclerView.setAdapter(adapter_cards);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }

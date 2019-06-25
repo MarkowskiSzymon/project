@@ -1,16 +1,17 @@
 package com.example.project.activity_fragments_class;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.project.R;
 import com.example.project.Utils.listaPartnerow;
+import com.matthewtamlin.android_utilities_library.helpers.StatusBarHelper;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -39,9 +40,9 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        listaPartnerow listaPartnerow = new listaPartnerow();
-        listaPartnerow.dodajPartnera();
 
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
 
     }
@@ -56,6 +57,15 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(new Intent(StartActivity.this, LoginActivity.class));
             }
         }, 2000);
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
 }

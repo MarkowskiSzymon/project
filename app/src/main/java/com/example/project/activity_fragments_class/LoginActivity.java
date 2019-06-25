@@ -5,25 +5,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.*;
-import android.widget.*;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.project.Utils.Connection_INTERNET;
+import com.example.project.R;
 import com.example.project.Utils.Connection_API;
+import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.DoubleClickBlock;
 import com.example.project.Utils.Parser;
-import com.example.project.R;
 import com.example.project.Utils.Password_hash;
 import com.example.project.activity_fragments_class.Registration.SignupActivity_FirstStep;
-import com.example.project.model.LoginModel;
+import com.example.project.model.LoginModelTest;
 
 import org.w3c.dom.Document;
 
@@ -106,11 +110,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(conn.isInternetAvailable()){
-                    Intent intent2 = new Intent(LoginActivity.this, SignupActivity_FirstStep.class);
-                    ActivityOptionsCompat options2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
-                    startActivity(intent2, options2.toBundle());
+                    Intent intent = new Intent(LoginActivity.this, SignupActivity_FirstStep.class);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
+                    startActivity(intent, options.toBundle());
                 }else{
-                    Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Problem with internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -212,19 +216,17 @@ public class LoginActivity extends AppCompatActivity {
             Log.v("App", "xs: " + xs);
 
             par.parserLoginXML(doc, "xd");
-            LoginModel loginModel = new LoginModel();
+            LoginModelTest loginModelTest = new LoginModelTest();
 
 
             if(xs.equals("1")){
                 edit.putString("login", editTextCardNumber.getText().toString());
                 edit.putString("password", hash.tryHash(editTextPassword.getText().toString()));
                 edit.commit();
-               // locate();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            }else if(loginModel.getRegister_status().equals("2")){
+            }else if(loginModelTest.getCzy_zarejestrowany().equals("2")){
                 Intent intent = new Intent(LoginActivity.this, CreatePasswordActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
-
                 startActivity(intent, options.toBundle());
             } else{
                 AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this)

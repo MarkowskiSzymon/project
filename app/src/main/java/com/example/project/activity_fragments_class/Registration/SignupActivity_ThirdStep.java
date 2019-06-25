@@ -6,28 +6,33 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toolbar;
+
 import com.example.project.R;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Parser;
 import com.example.project.Utils.Regex_patterns;
-import com.example.project.activity_fragments_class.CreatePasswordActivity;
-import com.example.project.activity_fragments_class.LoginActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 
 import org.w3c.dom.Document;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.Calendar;
 
 public class SignupActivity_ThirdStep extends AppCompatActivity {

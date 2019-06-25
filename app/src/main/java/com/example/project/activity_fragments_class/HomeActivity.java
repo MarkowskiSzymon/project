@@ -7,8 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,15 +17,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.project.R;
-import com.example.project.activity_fragments_class.Fragments.HomeFragment;
-import com.example.project.activity_fragments_class.Fragments.HistoryFragment;
-import com.example.project.activity_fragments_class.Fragments.RewardFragment;
-import com.example.project.activity_fragments_class.Fragments.PartnersFragment;
 import com.example.project.activity_fragments_class.Fragments.CardsFragment;
-import com.example.project.model.LoginModel;
+import com.example.project.activity_fragments_class.Fragments.MainFragment;
+import com.example.project.activity_fragments_class.Fragments.PartnersFragment;
+import com.example.project.activity_fragments_class.Fragments.RewardsFragment;
+import com.example.project.activity_fragments_class.Fragments.TransactionsFragment;
+import com.example.project.model.LoginModelTest;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,7 +44,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_activityRules);
         setSupportActionBar(toolbar);
 
-        LoginModel loginModel = new LoginModel();
+
+
+        LoginModelTest loginModelTest = new LoginModelTest();
 
         myPrefs = getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
 
@@ -57,11 +61,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         cardNumber = view.findViewById(R.id.textView_leftNavigation_cardNumber);
         name = view.findViewById(R.id.textView_leftNavigation_name);
         cardNumber.setText("Numer karty: " + myPrefs.getString("login", ""));
-        name.setText(loginModel.getName());
+        name.setText(loginModelTest.getImie());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MainFragment()).commit();
 
     }
 
@@ -76,19 +80,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 switch (item.getItemId()) {
                     case (R.id.nav_home):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.white)));
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new MainFragment();
                         break;
                     case (R.id.nav_history):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
-                        selectedFragment = new HistoryFragment();
+                        selectedFragment = new TransactionsFragment();
                         break;
                     case (R.id.nav_partners):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
-                        selectedFragment = new RewardFragment();
+                        selectedFragment = new PartnersFragment();
                         break;
                     case (R.id.nav_presents):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
-                        selectedFragment = new PartnersFragment();
+                        selectedFragment = new RewardsFragment();
                         break;
                     case (R.id.nav_test):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));

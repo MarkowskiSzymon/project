@@ -86,6 +86,7 @@
         <item>@string/sortA_Z</item>
     </string-array>
     <string name="title_activity_extender_partner">ExtenderPartnerActivity</string>
+    <string name="nav_rewards">Nagrody</string>
 
 
 </resources>
