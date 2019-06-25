@@ -43,7 +43,7 @@ public class PartnersFragment extends Fragment implements SearchView.OnQueryText
     private SearchView searchView;
     private MenuItem searchItem;
     private SharedPreferences myPrefs;
-    public ArrayList<String> filteredNames, filteredIcons, names, lol, lol2, filteredlol, filteredlol2;
+    public ArrayList<String> filteredNames, filteredIcons;
 
 
 

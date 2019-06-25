@@ -9,8 +9,8 @@
         <item name="color">#42B4DE</item>
         <item name="android:windowSoftInputMode">stateHidden</item>
         <item name="android:fontFamily">@font/dosis_medium</item>
-        <item name="actionMenuTextColor">@color/green_complete</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="actionMenuTextColor">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -24,6 +24,8 @@
     <style name="HintTextStyle" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
 </resources>

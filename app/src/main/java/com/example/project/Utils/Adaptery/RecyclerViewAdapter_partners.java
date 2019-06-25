@@ -158,7 +158,7 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public int getItemCount() {
-        return mName.size();
+        return 3;
     }
 
 }

@@ -1,8 +1,12 @@
 package com.example.project.Utils.Adaptery;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +21,9 @@ import android.widget.TextView;
 
 import com.example.project.R;
 import com.example.project.Utils.listaPartnerow;
+import com.example.project.activity_fragments_class.CreatePasswordActivity;
+import com.example.project.activity_fragments_class.ExtenderPartnerActivity;
+import com.example.project.activity_fragments_class.LoginActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.MyListData;
 import com.squareup.picasso.Picasso;
@@ -32,19 +39,19 @@ public class RecyclerViewAdapter_rewards extends RecyclerView.Adapter<RecyclerVi
     private List<MyListData> exampleList;
     private List<MyListData> exampleListFull;
     private Context mContext;
-    private DecimalFormat metersToKilometers;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, opisPromocji, distanceFromPartner;
-        RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera;
+        RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera, extendLayoutPartner;
         LinearLayout wariantNagrody;
         RecyclerView recyclerView;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
+            extendLayoutPartner = itemView.findViewById(R.id.relativeLayout_viewLayoutPartner_upLayout);
             distanceFromPartner = itemView.findViewById(R.id.textView_partnerLayout_distanceFromPartner);
             recyclerView = itemView.findViewById(R.id.recycler_view_fragment_home);
             layoutSchowajNagrody = itemView.findViewById(R.id.layout_tekstu_schowaj_nagrode);
@@ -73,27 +80,45 @@ public class RecyclerViewAdapter_rewards extends RecyclerView.Adapter<RecyclerVi
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_layout_partner, parent, false);
         ViewHolder holder = new ViewHolder(view);
 
-        metersToKilometers = new DecimalFormat("##.0");
 
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        MyListData currentItem = exampleList.get(position);
+        final MyListData currentItem = exampleList.get(position);
 
-
-        Log.v("App", "currentItem.getPic(): " + currentItem.getPic());
             Picasso.get()
                     .load(StartActivity.partners_layout_url + currentItem.getPic())
                     .placeholder(R.drawable.error_image)
                     .fit()
                     .transform(new picasso_rounded_corners(50, 0, picasso_rounded_corners.CornerType.TOP_LEFT))
                     .into(holder.image);
+
+
+
             holder.imageName.setText(currentItem.getNazwa());
+            holder.distanceFromPartner.setText(currentItem.getDistanceToPartner() + " km");
+            holder.extendLayoutPartner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ExtenderPartnerActivity.class);
+                    intent.putExtra("partnerLogo", currentItem.getPic());
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
+
+                    mContext.startActivity(intent, options.toBundle());
+                }
+            });
+
+            // Owned points in partner's shop
+            if(currentItem.getIlosc_pkt().equals("")){
+                holder.textView_ownedPoints.setText("0 pkt");
+            }else{
+                holder.textView_ownedPoints.setText(currentItem.getIlosc_pkt() + " pkt");
+            }
 
 
-            holder.distanceFromPartner.setText(String.valueOf(currentItem.getDistanceToPartner()));
+
 
             holder.wariantNagrody.removeAllViews();
             holder.wariantNagrody.setOrientation(LinearLayout.VERTICAL);

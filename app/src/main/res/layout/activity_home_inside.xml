@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/holo_blue_bright"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.example.project.activity_fragments_class.HomeActivity">
 
 
@@ -34,12 +36,13 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
+        android:layout_below="@+id/topPanelNavigation"
         android:layout_width="match_parent"
-        android:background="@color/colorDellyGradientBlue"
+        android:background="@drawable/delly_gradient"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation_layout"
-        android:layout_below="@+id/topPanelNavigation"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:focusableInTouchMode="true">
     </FrameLayout>
 
     <FrameLayout

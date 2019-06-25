@@ -72,7 +72,7 @@ public class MapaFragment extends Fragment implements GoogleMap.OnMyLocationButt
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case (R.id.action_pokazListePartnerow):
-                Fragment newFragment = new PartnersFragment();
+                Fragment newFragment = new RewardFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, newFragment);
                 transaction.commit();
@@ -92,9 +92,7 @@ public class MapaFragment extends Fragment implements GoogleMap.OnMyLocationButt
         Title = partnersModel.getmPartners_Name();
 
         mMap = googleMap;
-        // TODO: Before enabling the My Location layer, you must request
-        // location permission from the user. This sample does not include
-        // a request for location permission.
+
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         }else {

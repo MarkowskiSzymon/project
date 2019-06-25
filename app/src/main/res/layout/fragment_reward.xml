@@ -1,45 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/relativeLayout_fragmentReward_fullLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorDellyGradientBlue">
 
 
     <RelativeLayout
-        android:id="@+id/reward_up"
+        android:id="@+id/relativeLayout_rewardFragment_sorting"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
-        <Button
-            android:id="@+id/reward_button_sortNumberDescending"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView_rewardFragment_partners"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="sort Number Descending" />
-        <Button
-            android:layout_below="@+id/reward_button_sortNumberDescending"
-            android:id="@+id/reward_button_sortNumberAscending"
-            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/colorWhite"
+            android:layout_centerVertical="true"
+            android:textSize="15dp"
+            android:text="@string/partners"/>
+
+        <Spinner
+            android:id="@+id/spinner_rewardFragment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="sort Number Ascending" />
-        <Button
-            android:layout_below="@id/reward_button_sortNumberAscending"
-            android:id="@+id/reward_button_sortA-Z"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="sortA-Z" />
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical|right">
+
+        </Spinner>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/reward_up"
+        android:layout_below="@id/relativeLayout_rewardFragment_sorting"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_reward"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout_fragmentReward"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="1dp">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_reward"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 
     </RelativeLayout>

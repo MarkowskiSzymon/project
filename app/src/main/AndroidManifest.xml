@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name=".activity_fragments_class.CreatePasswordActivity"></activity>
+        <activity android:name=".activity_fragments_class.CreatePasswordActivity" />
         <activity android:name=".activity_fragments_class.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity_fragments_class.SettingsActivity" />
+        <activity android:name=".activity_fragments_class.ExtenderPartnerActivity" />
         <activity android:name=".activity_fragments_class.HomeActivity" />
         <activity android:name=".activity_fragments_class.RulesActivity" />
         <activity android:name=".activity_fragments_class.LoginActivity" />

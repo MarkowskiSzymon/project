@@ -75,6 +75,17 @@
     <string name="repeatPassword">Powtórz hasło</string>
     <string name="password">Hasło</string>
     <string name="infoAboutNewPassword">Hasło powinno zawierać minimum 6 znaków, wielką literę i cyfrę..</string>
+    <string name="partners">Partnerzy</string>
+    <string name="sortNumberDescending">Sortuj po odległości ↓</string>
+    <string name="sortNumberAscending">Sortuj po ogległości ↑</string>
+    <string name="sortA_Z">Sortuj alfabetycznie</string>
+
+    <string-array name="numbers">
+        <item>@string/sortNumberDescending</item>
+        <item>@string/sortNumberAscending</item>
+        <item>@string/sortA_Z</item>
+    </string-array>
+    <string name="title_activity_extender_partner">ExtenderPartnerActivity</string>
 
 
 </resources>

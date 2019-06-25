@@ -23,7 +23,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import com.squareup.picasso.Transformation;
 
-class picasso_rounded_corners implements Transformation {
+public class picasso_rounded_corners implements Transformation {
 
     public enum CornerType {
         ALL,
