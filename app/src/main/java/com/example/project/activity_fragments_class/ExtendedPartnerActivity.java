@@ -1,6 +1,7 @@
 package com.example.project.activity_fragments_class;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +47,5 @@ public class ExtendedPartnerActivity extends AppCompatActivity {
                 .placeholder(R.drawable.error_image)
                 .fit()
                 .into(partnerLogo);
-
     }
 }
