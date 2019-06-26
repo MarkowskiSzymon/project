@@ -5,17 +5,17 @@ import java.util.List;
 
 public class LoginModelTest {
     public static List<LoginModelTest> listOfInformation = new ArrayList<>();
-    private List<CardModelTest> listOfCard = CardModelTest.listOfCards;
-    private String id;
-    private String imie;
-    private String telefon;
-    private String email;
-    private String kod_pocztowy;
-    private String data_urodzenia;
-    private String plec;
-    private String data_rejestracji;
-    private String czy_zarejestrowany;
-    private String czy_aktywny;
+    public static List<CardModelTest> listOfCard = CardModelTest.listOfCards;
+    public static String id;
+    public static String imie;
+    public static String telefon;
+    public static String email;
+    public static String kod_pocztowy;
+    public static String data_urodzenia;
+    public static String plec;
+    public static String data_rejestracji;
+    public static String czy_zarejestrowany;
+    public static String czy_aktywny;
 
     public LoginModelTest() {
 

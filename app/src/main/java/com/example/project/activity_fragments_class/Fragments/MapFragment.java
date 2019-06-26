@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.project.R;
+import com.example.project.activity_fragments_class.HomeActivity;
 import com.example.project.model.PartnersModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -49,10 +50,12 @@ public class MapFragment extends Fragment implements GoogleMap.OnMyLocationButto
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        HomeActivity homeActivity = new HomeActivity();
+        homeActivity.partnerFragmentStatus = 1;
+
         return rootView;
     }
 
-    ;
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -83,9 +86,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnMyLocationButto
 
     public void onMapReady(GoogleMap googleMap) {
         PartnersModel partnersModel = new PartnersModel();
-        Latitude = partnersModel.getmPartners_Latitude();
-        Longitude = partnersModel.getmPartners_Longitude();
-        Title = partnersModel.getmPartners_Name();
+
 
         mMap = googleMap;
 
@@ -93,15 +94,13 @@ public class MapFragment extends Fragment implements GoogleMap.OnMyLocationButto
             mMap.setMyLocationEnabled(true);
         }else {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            Toast.makeText(getActivity(), "brak uprawnien", Toast.LENGTH_SHORT).show();
-
         }
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
 
-        for(int i =0; i<partnersModel.getmPartners_Id().size(); i++){
-            LatLng name = new LatLng(Double.valueOf(Longitude.get(i)), Double.valueOf(Latitude.get(i)));
-            googleMap.addMarker(new MarkerOptions().position(name).title(Title.get(i)));
+        for(int i = 0; i < partnersModel.listOfPartners.size(); i++){
+            LatLng name = new LatLng(Double.valueOf(partnersModel.listOfPartners.get(i).getAlt()), Double.valueOf(partnersModel.listOfPartners.get(i).getLat()));
+            googleMap.addMarker(new MarkerOptions().position(name).title(partnersModel.listOfPartners.get(i).getName()));
         }
     }
 
@@ -109,12 +108,11 @@ public class MapFragment extends Fragment implements GoogleMap.OnMyLocationButto
     public void onMyLocationClick(@NonNull Location location) {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
         return false;
     }
 

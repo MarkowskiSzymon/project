@@ -56,7 +56,7 @@ dependencies {
 
     implementation 'com.matthew-tamlin:sliding-intro-screen:3.2.0'
 
-
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
 
 
 }

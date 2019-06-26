@@ -32,8 +32,9 @@ import com.example.project.Utils.Adaptery.RecyclerViewAdapter_partners;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
+import com.example.project.activity_fragments_class.HomeActivity;
 import com.example.project.activity_fragments_class.StartActivity;
-import com.example.project.model.MyListData;
+import com.example.project.model.PartnersModel;
 
 import org.w3c.dom.Document;
 
@@ -59,7 +60,10 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
         rootView = inflater.inflate(R.layout.fragment_partners, container, false);
         setHasOptionsMenu(true);
 
-        MyListData myListData = new MyListData();
+        HomeActivity homeActivity = new HomeActivity();
+        homeActivity.partnerFragmentStatus = 0;
+
+        PartnersModel myListData = new PartnersModel();
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         conn = new Connection_INTERNET(getContext());
 
@@ -79,7 +83,7 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
         if(myListData.listOfPartners.isEmpty()) {
             new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
         }else{
-            adapter_rewards = new RecyclerViewAdapter_partners(getContext(), MyListData.listOfPartners);
+            adapter_rewards = new RecyclerViewAdapter_partners(getContext(), PartnersModel.listOfPartners);
             recyclerView.setAdapter(adapter_rewards);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -91,7 +95,7 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        MyListData.listOfPartners.clear();
+                        PartnersModel.listOfPartners.clear();
                         new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -177,9 +181,9 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
 
 
     private void sortNumberDescending() {
-        Collections.sort(MyListData.listOfPartners, new Comparator<MyListData>() {
+        Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
             @Override
-            public int compare(MyListData o1, MyListData o2) {
+            public int compare(PartnersModel o1, PartnersModel o2) {
 
                 return (o2.getDistanceToPartner()).compareTo(o1.getDistanceToPartner());
             }
@@ -188,9 +192,9 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
     }
 
     private void sortNumberAscending() {
-        Collections.sort(MyListData.listOfPartners, new Comparator<MyListData>() {
+        Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
             @Override
-            public int compare(MyListData o1, MyListData o2) {
+            public int compare(PartnersModel o1, PartnersModel o2) {
 
                 return o1.getDistanceToPartner().compareTo(o2.getDistanceToPartner());
             }
@@ -199,9 +203,9 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
     }
 
     private void sortA_Z() {
-        Collections.sort(MyListData.listOfPartners, new Comparator<MyListData>() {
+        Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
             @Override
-            public int compare(MyListData o1, MyListData o2) {
+            public int compare(PartnersModel o1, PartnersModel o2) {
 
                 return o1.getName().compareToIgnoreCase(o2.getName());
             }
@@ -210,9 +214,9 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
     }
 
     private void sortZ_A() {
-        Collections.sort(MyListData.listOfPartners, new Comparator<MyListData>() {
+        Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
             @Override
-            public int compare(MyListData o1, MyListData o2) {
+            public int compare(PartnersModel o1, PartnersModel o2) {
 
                 return o2.getName().compareToIgnoreCase(o1.getName());
             }
@@ -248,7 +252,7 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
             Document doc = par.getDocument(result);
             par.parserPartnersXML(doc, "xd");
 
-            adapter_rewards = new RecyclerViewAdapter_partners(getContext(), MyListData.listOfPartners);
+            adapter_rewards = new RecyclerViewAdapter_partners(getContext(), PartnersModel.listOfPartners);
             sortNumberAscending();
             adapter_rewards.notifyDataSetChanged();
             recyclerView.setAdapter(adapter_rewards);

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerView
                 .into(holder.imageViewWygladKarty);
 
         holder.textViewNumerKarty.setText("Numer karty: " + currentItem.getNr());
+        Log.v("App", "current card: " + currentItem.getNr());
 
         if(position == 0){
             holder.textViewRodzajKarty.setText("Twoja karta główna");
@@ -91,8 +93,8 @@ public class RecyclerViewAdapter_cards extends RecyclerView.Adapter<RecyclerView
 
                 QrCodeGenerator qrCodeGenerator = new QrCodeGenerator();
                 imageViewPopupKarty.setImageBitmap(qrCodeGenerator.QrCodeGenerator(currentItem.getNr()));
-
                 textViewNumerKartyPopup.setText("Numer karty: " + currentItem.getNr());
+
 
                 if(position == 0){
                     textViewTypKartyPopup.setText("Twoja karta główna");

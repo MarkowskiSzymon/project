@@ -1,126 +1,145 @@
 package com.example.project.model;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class PartnersModel {
-    String id = null;
-    String wid = null;
-    String nazwa = null;
-    String alt = null;
-    String lat = null;
-    String opis = null;
-    String pic = null;
-    String miasto = null;
-    String przelicznik = null;
-    String ilosc_pkt = null;
-    public static ArrayList<String> mPartners_Id = new ArrayList<>();
-    public static ArrayList<String> mPartners_Wid = new ArrayList<>();
-    public static ArrayList<String> mPartners_Name = new ArrayList<>();
-    public static ArrayList<String> mPartners_Longitude = new ArrayList<>();
-    public static ArrayList<String> mPartners_Latitude = new ArrayList<>();
-    public static ArrayList<String> mPartners_Desc = new ArrayList<>();
-    public static ArrayList<String> mPartners_Picture = new ArrayList<>();
-    public static ArrayList<String> mPartners_City = new ArrayList<>();
-    public static ArrayList<String> mPartners_Multiplier = new ArrayList<>();
-    public static ArrayList<String> mPartners_OwnedPoints = new ArrayList<>();
 
+    public static List<PartnersModel> listOfPartners = new ArrayList<>();
+    public  String id;
+    public  String wid;
+    public  String name;
+    public  String alt;
+    public  String lat;
+    public  String desc;
+    public  String pic;
+    public  String miasto;
+    public  String przelicznik;
+    public  String ilosc_pkt;
+    public  String distanceToPartner;
 
-    public PartnersModel(){
-    }
-
-    public void clearAllList(){
-        this.mPartners_Id.clear();
-        this.mPartners_Wid.clear();
-        this.mPartners_Name.clear();
-        this.mPartners_Longitude.clear();
-        this.mPartners_Latitude.clear();
-        this.mPartners_Desc.clear();
-        this.mPartners_Picture.clear();
-        this.mPartners_City.clear();
-        this.mPartners_Multiplier.clear();
-        this.mPartners_OwnedPoints.clear();
+    public PartnersModel() {
 
     }
 
-    public void addToListPartnersId(String string){
-        this.mPartners_Id.add(string);
-    }
-    public void addToListPartnersWId(String string){
-        this.mPartners_Wid.add(string);
-    }
-    public void addToListPartnersName(String string){
-        this.mPartners_Name.add(string);
-    }
-    public void addToListPartnersLongitude(String string){
-        this.mPartners_Longitude.add(string);
-    }
-    public void addToListPartnersLatitude(String string){
-        this.mPartners_Latitude.add(string);
-    }
-    public void addToListPartnersDescription(String string){
-        this.mPartners_Desc.add(string);
-    }
-    public void addToListPartnersPicture(String string){
-        this.mPartners_Picture.add(string);
-    }
-    public void addToListPartnersCity(String string){
-        this.mPartners_City.add(string);
-    }
-    public void addToListPartnersMultiplier(String string){
-        this.mPartners_Multiplier.add(string);
-    }
-    public void addToListPartnersOwnedPoints(String string){
-        this.mPartners_OwnedPoints.add(string);
+    public PartnersModel(String id, String wid, String name, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner) {
+        this.id = id;
+        this.wid = wid;
+        this.name = name;
+        this.alt = alt;
+        this.lat = lat;
+        this.desc = desc;
+        this.pic = pic;
+        this.miasto = miasto;
+        this.przelicznik = przelicznik;
+        this.ilosc_pkt = ilosc_pkt;
+        this.distanceToPartner = distanceToPartner;
     }
 
-
-    public static ArrayList<String> getmPartners_Id() {
-        return mPartners_Id;
+    public void addToExampleList(String id, String wid, String nazwa, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner){
+        this.id = id;
+        this.wid = wid;
+        this.name = nazwa;
+        this.alt = alt;
+        this.lat = lat;
+        this.desc = desc;
+        this.pic = pic;
+        this.miasto = miasto;
+        this.przelicznik = przelicznik;
+        this.ilosc_pkt = ilosc_pkt;
+        this.distanceToPartner = distanceToPartner;
+        listOfPartners.add(new PartnersModel(id, wid, nazwa, alt, lat, desc, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner));
     }
 
-
-    public static ArrayList<String> getmPartners_Wid() {
-        return mPartners_Wid;
+    public int exampleListSize(){
+        return listOfPartners.size();
     }
 
-
-    public static ArrayList<String> getmPartners_Name() {
-        return mPartners_Name;
+    public String getDistanceToPartner() {
+        return distanceToPartner;
     }
 
-
-    public static ArrayList<String> getmPartners_Longitude() {
-        return mPartners_Longitude;
+    public void setDistanceToPartner(String distanceToPartner) {
+        this.distanceToPartner = distanceToPartner;
     }
 
-
-    public static ArrayList<String> getmPartners_Latitude() {
-        return mPartners_Latitude;
+    public String getName() {
+        return name;
     }
 
-
-    public static ArrayList<String> getmPartners_Picture() {
-        return mPartners_Picture;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-    public static ArrayList<String> getmPartners_Desc() {
-        return mPartners_Desc;
+    public String getWid() {
+        return wid;
     }
 
-
-    public static ArrayList<String> getmPartners_City() {
-        return mPartners_City;
+    public void setWid(String wid) {
+        this.wid = wid;
     }
 
-
-    public static ArrayList<String> getmPartners_Multiplier() {
-        return mPartners_Multiplier;
+    public String getAlt() {
+        return alt;
     }
 
-
-    public static ArrayList<String> getmPartners_OwnedPoints() {
-        return mPartners_OwnedPoints;
+    public void setAlt(String alt) {
+        this.alt = alt;
     }
 
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getOpis() {
+        return desc;
+    }
+
+    public void setOpis(String desc) {
+        this.desc = desc;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getMiasto() {
+        return miasto;
+    }
+
+    public void setMiasto(String miasto) {
+        this.miasto = miasto;
+    }
+
+    public String getPrzelicznik() {
+        return przelicznik;
+    }
+
+    public void setPrzelicznik(String przelicznik) {
+        this.przelicznik = przelicznik;
+    }
+
+    public String getIlosc_pkt() {
+        return ilosc_pkt;
+    }
+
+    public void setIlosc_pkt(String ilosc_pkt) {
+        this.ilosc_pkt = ilosc_pkt;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
 }

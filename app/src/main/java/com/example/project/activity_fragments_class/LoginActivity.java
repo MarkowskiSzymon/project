@@ -1,10 +1,13 @@
 package com.example.project.activity_fragments_class;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
@@ -18,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +34,7 @@ import com.example.project.Utils.Parser;
 import com.example.project.Utils.Password_hash;
 import com.example.project.activity_fragments_class.Registration.SignupActivity_FirstStep;
 import com.example.project.model.LoginModelTest;
+import com.matthewtamlin.android_utilities_library.helpers.StatusBarHelper;
 
 import org.w3c.dom.Document;
 
@@ -44,15 +49,12 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textinputlayout_activitySettings_cardNumber, textinputlayout_activitySettings_password;
     private RelativeLayout transLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Window window = getWindow();
-
-        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
 
         conn = new Connection_INTERNET(getApplicationContext());

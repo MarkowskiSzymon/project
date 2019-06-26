@@ -3,7 +3,9 @@ package com.example.project.activity_fragments_class;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import com.example.project.R;
 import com.example.project.activity_fragments_class.Fragments.CardsFragment;
 import com.example.project.activity_fragments_class.Fragments.MainFragment;
+import com.example.project.activity_fragments_class.Fragments.MapFragment;
 import com.example.project.activity_fragments_class.Fragments.PartnersFragment;
 import com.example.project.activity_fragments_class.Fragments.RewardsFragment;
 import com.example.project.activity_fragments_class.Fragments.TransactionsFragment;
@@ -32,8 +35,8 @@ import com.example.project.model.LoginModelTest;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public SharedPreferences myPrefs;
-    public NavigationView navigationView;
     TextView cardNumber, name;
+    public static int partnerFragmentStatus;
 
 
     @Override
@@ -43,7 +46,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home_full);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_activityRules);
         setSupportActionBar(toolbar);
-
 
 
         LoginModelTest loginModelTest = new LoginModelTest();
@@ -80,22 +82,28 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 switch (item.getItemId()) {
                     case (R.id.nav_home):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.white)));
+                        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
                         selectedFragment = new MainFragment();
                         break;
                     case (R.id.nav_history):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
+                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
                         selectedFragment = new TransactionsFragment();
                         break;
                     case (R.id.nav_partners):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
+                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
                         selectedFragment = new PartnersFragment();
+
                         break;
                     case (R.id.nav_presents):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
+                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
                         selectedFragment = new RewardsFragment();
                         break;
                     case (R.id.nav_test):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
+                        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
                         selectedFragment = new CardsFragment();
                         break;
                 }
@@ -119,7 +127,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         if (id == R.id.nav_setting) {

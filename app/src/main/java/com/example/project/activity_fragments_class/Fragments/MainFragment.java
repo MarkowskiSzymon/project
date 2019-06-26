@@ -18,14 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.project.R;
-import com.example.project.Utils.Adaptery.RecyclerViewAdapter_home;
+import com.example.project.Utils.Adaptery.RecyclerViewAdapter_main;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
 import com.example.project.Utils.QrCodeGenerator;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.LoginModelTest;
-import com.example.project.model.MyListData;
+import com.example.project.model.PartnersModel;
 
 import org.w3c.dom.Document;
 
@@ -40,13 +40,13 @@ public class MainFragment extends Fragment{
     private ImageView qrCode_image;
     private TextView textViewNumerKarty;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerViewAdapter_home adapter_home;
+    private RecyclerViewAdapter_main adapter_home;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         setHasOptionsMenu(true);
-        final MyListData myListData = new MyListData();
+        final PartnersModel myListData = new PartnersModel();
         LoginModelTest loginModelTest = new LoginModelTest();
 
         swipeRefreshLayout = rootView.findViewById(R.id.swipeLayoutHome);
@@ -65,7 +65,7 @@ public class MainFragment extends Fragment{
         if(myListData.listOfPartners.isEmpty()) {
             new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
         }else{
-            adapter_home = new RecyclerViewAdapter_home(getContext(), MyListData.listOfPartners);
+            adapter_home = new RecyclerViewAdapter_main(getContext(), PartnersModel.listOfPartners);
             recyclerView.setAdapter(adapter_home);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -77,7 +77,7 @@ public class MainFragment extends Fragment{
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        MyListData.listOfPartners.clear();
+                        PartnersModel.listOfPartners.clear();
                         new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -90,9 +90,9 @@ public class MainFragment extends Fragment{
 
 
     private void sortNumberAscending() {
-        Collections.sort(MyListData.listOfPartners, new Comparator<MyListData>() {
+        Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
             @Override
-            public int compare(MyListData o1, MyListData o2) {
+            public int compare(PartnersModel o1, PartnersModel o2) {
 
                 return o1.getDistanceToPartner().compareTo(o2.getDistanceToPartner());
             }
@@ -130,7 +130,7 @@ public class MainFragment extends Fragment{
     }
 
     private void initRecyclerView() {
-        adapter_home = new RecyclerViewAdapter_home(getContext(), MyListData.listOfPartners);
+        adapter_home = new RecyclerViewAdapter_main(getContext(), PartnersModel.listOfPartners);
         sortNumberAscending();
         adapter_home.notifyDataSetChanged();
         recyclerView.setAdapter(adapter_home);

@@ -7,7 +7,7 @@ import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.CardModelTest;
 import com.example.project.model.CardsModel;
 import com.example.project.model.LoginModelTest;
-import com.example.project.model.MyListData;
+import com.example.project.model.PartnersModel;
 import com.example.project.model.TransactionsModel;
 
 import org.w3c.dom.Document;
@@ -220,8 +220,10 @@ public class Parser {
                         }
                         cardModelTest.addToCardList(nr, pic);
                     }
+
                 }
                 loginModelTest.addToInformationList(id, imie, telefon, email, kod_pocztowy, data_urodzenia, plec, data_rejestracji, czy_zarejestrowany, czy_aktywny, cardModelTest.listOfCards);
+
             }
         }
         return null;
@@ -282,7 +284,7 @@ public class Parser {
     public List<String> parserPartnersXML(Document doc, String name) {
         Log.v("parser", "jestem w parserPartnersXML");
         NodeList dane = doc.getElementsByTagName(name);
-        MyListData myListData = new MyListData();
+        PartnersModel myListData = new PartnersModel();
         Location locationA = new Location("point A");
         Location locationB = new Location("point B");
         String id = null;

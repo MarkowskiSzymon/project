@@ -42,7 +42,9 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
         setContentView(R.layout.activity_settings);
+
 
         final Regex_patterns regex_patterns = new Regex_patterns();
         LoginModelTest loginModelTest = new LoginModelTest();
@@ -83,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
         buttonSaveNewPassword = findViewById(R.id.button_activitySettings_saveNewPassword);
         buttonUpdateNewData = findViewById(R.id.button_activitySettings_updateNewData);
 
-        if(loginModelTest.getPlec().equals("M")){
+        if(loginModelTest.listOfInformation.get(0).getPlec().equals("M")){
             radioButtonMale.setChecked(true);
         }else{
             radioButtonFemale.setChecked(true);

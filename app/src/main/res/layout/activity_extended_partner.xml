@@ -62,20 +62,97 @@
         android:scrollingCache="true"
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
-        <LinearLayout
-            android:background="#fff"
+        <RelativeLayout
+            android:id="@+id/relativeLayout_activityExtendedPartner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:padding="15dp"
             android:layout_marginTop="50dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar ExampleCollapsing Toolbar Example Collapsing Toolbar Example Collapsing Toolbar Example"
-                android:textColor="#000" />
-        </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activityExtendedPartner_first"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView_activityExtendedPartner_partnerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enoteka Pergamin"/>
+
+                <TextView
+                    android:id="@+id/textView_activityExtendedPartner_ownedPoints"
+                    android:layout_below="@id/textView_activityExtendedPartner_partnerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="26ptk"/>
+
+                <TextView
+                    android:id="@+id/textView_activityExtendedPartner_converter"
+                    android:layout_below="@id/textView_activityExtendedPartner_partnerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="15zł/1pkt"/>
+
+                <View
+                    android:id="@+id/line_activityExtendedPartner"
+                    android:layout_below="@id/textView_activityExtendedPartner_converter"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_alignBottom="@+id/zdjecie"
+                    android:layout_alignParentEnd="true"
+                    android:background="#BEBCBC" />
+
+                <TextView
+                    android:id="@+id/textView_activityExtendedPartner_adress"
+                    android:layout_below="@id/line_activityExtendedPartner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kraków, ul.Grodzka 39"/>
+
+                <TextView
+                    android:id="@+id/textView_activityExtendedPartner_distance"
+                    android:layout_below="@id/line_activityExtendedPartner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="1,2km"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activityExtendedPartner_second"
+                android:layout_below="@id/relativeLayout_activityExtendedPartner_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activityExtendedPartner_third"
+                android:layout_below="@id/relativeLayout_activityExtendedPartner_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout_activityExtendedPartner_fourth"
+                android:layout_below="@id/relativeLayout_activityExtendedPartner_third"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView_activityExtendedPartner_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

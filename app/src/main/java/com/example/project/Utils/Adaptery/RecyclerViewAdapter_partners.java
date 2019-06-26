@@ -2,13 +2,19 @@ package com.example.project.Utils.Adaptery;
 
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +29,7 @@ import com.example.project.R;
 import com.example.project.Utils.listaPartnerow;
 import com.example.project.activity_fragments_class.ExtendedPartnerActivity;
 import com.example.project.activity_fragments_class.StartActivity;
-import com.example.project.model.MyListData;
+import com.example.project.model.PartnersModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,8 +39,8 @@ import java.util.List;
 
 public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerViewAdapter_partners.ViewHolder> implements Filterable {
 
-    private List<MyListData> partnerList;
-    private List<MyListData> exampleListFull;
+    private List<PartnersModel> partnerList;
+    private List<PartnersModel> exampleListFull;
     private Context mContext;
 
 
@@ -44,6 +50,8 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
         RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera, extendLayoutPartner;
         LinearLayout wariantNagrody;
         RecyclerView recyclerView;
+
+
 
 
         public ViewHolder(View itemView) {
@@ -65,7 +73,7 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
         }
     }
 
-    public RecyclerViewAdapter_partners(Context context, List<MyListData> exampleList) {
+    public RecyclerViewAdapter_partners(Context context, List<PartnersModel> exampleList) {
         this.partnerList = exampleList;
         this.mContext = context;
         exampleListFull = new ArrayList<>(exampleList);
@@ -77,12 +85,14 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_layout_partner, parent, false);
         ViewHolder holder = new ViewHolder(view);
 
+        Fade fade = new Fade();
+
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        final MyListData currentItem = partnerList.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        final PartnersModel currentItem = partnerList.get(position);
 
             Picasso.get()
                     .load(StartActivity.partners_layout_url + currentItem.getPic())
@@ -91,22 +101,21 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
                     .transform(new picasso_rounded_corners(50, 0, picasso_rounded_corners.CornerType.TOP_LEFT))
                     .into(holder.image);
 
-
-
             holder.imageName.setText(currentItem.getName());
             holder.distanceFromPartner.setText(currentItem.getDistanceToPartner() + " km");
             holder.extendLayoutPartner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, ExtendedPartnerActivity.class);
-                    intent.putExtra("partnerLogo", currentItem.getPic());
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
+                    intent.putExtra("position", String.valueOf(position));
 
-                    mContext.startActivity(intent, options.toBundle());
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
+                    Bundle bundle = options.toBundle();
+
+                    mContext.startActivity(intent, bundle);
                 }
             });
 
-            // Owned points in partner's shop
             if(currentItem.getIlosc_pkt().equals("")){
                 holder.textView_ownedPoints.setText("0 pkt");
             }else{
@@ -161,14 +170,14 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
     private Filter exampleFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<MyListData> filteredList = new ArrayList<>();
+            List<PartnersModel> filteredList = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(exampleListFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (MyListData item : exampleListFull) {
+                for (PartnersModel item : exampleListFull) {
                     if (item.getName().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
@@ -184,7 +193,7 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             partnerList.clear();
-            partnerList.addAll((Collection<? extends MyListData>) results.values);
+            partnerList.addAll((Collection<? extends PartnersModel>) results.values);
             notifyDataSetChanged();
         }
     };

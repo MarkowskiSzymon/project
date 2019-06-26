@@ -4,6 +4,7 @@ package com.example.project.Utils.Adaptery;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
@@ -20,14 +21,14 @@ import com.example.project.R;
 import com.example.project.Utils.listaPartnerow;
 import com.example.project.activity_fragments_class.ExtendedPartnerActivity;
 import com.example.project.activity_fragments_class.StartActivity;
-import com.example.project.model.MyListData;
+import com.example.project.model.PartnersModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewAdapter_home.ViewHolder> {
+public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewAdapter_main.ViewHolder> {
 
-    private List<MyListData> partnerList;
+    private List<PartnersModel> partnerList;
     private Context mContext;
 
 
@@ -60,7 +61,7 @@ public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewA
         }
     }
 
-        public RecyclerViewAdapter_home(Context context, List<MyListData> exampleList) {
+        public RecyclerViewAdapter_main(Context context, List<PartnersModel> exampleList) {
             this.partnerList = exampleList;
             this.mContext = context;
     }
@@ -75,7 +76,7 @@ public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewA
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final MyListData currentItem = partnerList.get(position);
+        final PartnersModel currentItem = partnerList.get(position);
 
         Picasso.get()
                 .load(StartActivity.partners_layout_url + currentItem.getPic())
@@ -92,14 +93,13 @@ public class RecyclerViewAdapter_home extends RecyclerView.Adapter<RecyclerViewA
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ExtendedPartnerActivity.class);
-                intent.putExtra("partnerLogo", currentItem.getPic());
+                intent.putExtra("position", String.valueOf(position));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
-
-                mContext.startActivity(intent, options.toBundle());
+                Bundle bundle = options.toBundle();
+                mContext.startActivity(intent, bundle);
             }
         });
 
-        // Owned points in partner's shop
         if(currentItem.getIlosc_pkt().equals("")){
             holder.textView_ownedPoints.setText("0 pkt");
         }else{

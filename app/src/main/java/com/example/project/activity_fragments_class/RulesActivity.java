@@ -17,12 +17,14 @@ public class RulesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
         setContentView(R.layout.activity_rules);
         toolbar = findViewById(R.id.toolbar_activityRules);
         webView = findViewById(R.id.webview_activityRules);
 
         toolbar.setTitle("Regulamin");
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
