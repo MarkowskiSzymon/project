@@ -6,9 +6,8 @@ import java.util.List;
 
 public class PartnersModel {
 
-    RewardsModel rewardsModel = new RewardsModel();
     public static List<PartnersModel> listOfPartners = new ArrayList<>();
-    public  List<RewardsModel> listOfReward = rewardsModel.listOfRewards;
+    public static List<RewardsModel> listOfRewards = RewardsModel.listOfRewards;
     public  String id;
     public  String wid;
     public  String name;
@@ -37,7 +36,7 @@ public class PartnersModel {
         this.przelicznik = przelicznik;
         this.ilosc_pkt = ilosc_pkt;
         this.distanceToPartner = distanceToPartner;
-        this.listOfReward = listOfReward;
+
     }
 
     public void addToExampleList(String id, String wid, String nazwa, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner, List<RewardsModel> listOfReward){
@@ -52,13 +51,35 @@ public class PartnersModel {
         this.przelicznik = przelicznik;
         this.ilosc_pkt = ilosc_pkt;
         this.distanceToPartner = distanceToPartner;
-        this.listOfReward = listOfReward;
+
         listOfPartners.add(new PartnersModel(id, wid, nazwa, alt, lat, desc, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner, listOfReward));
     }
 
-    public int exampleListSize(){
-        return listOfPartners.size();
+    public static List<RewardsModel> getListOfRewards() {
+        return listOfRewards;
     }
+
+    public static void setListOfRewards(List<RewardsModel> listOfRewards) {
+        PartnersModel.listOfRewards = listOfRewards;
+    }
+
+    public static List<PartnersModel> getListOfPartners() {
+        return listOfPartners;
+    }
+
+    public static void setListOfPartners(List<PartnersModel> listOfPartners) {
+        PartnersModel.listOfPartners = listOfPartners;
+    }
+
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
 
     public String getDistanceToPartner() {
         return distanceToPartner;

@@ -9,6 +9,7 @@ public class RewardsModel2 {
     public String name;
     public String points;
 
+
     public RewardsModel2() {
 
     }
@@ -23,6 +24,7 @@ public class RewardsModel2 {
         this.points = points;
         listOfRewards2.add(new RewardsModel2(name, points));
     }
+
 
     public List<RewardsModel2> getListOfRewards2() {
         return listOfRewards2;

@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.LoginModelTest;
 import com.example.project.model.PartnersModel;
 import com.example.project.model.RewardsModel;
+import com.example.project.model.RewardsModel2;
 
 import org.w3c.dom.Document;
 
@@ -128,6 +130,12 @@ public class MainFragment extends Fragment{
             Document doc = par.getDocument(result);
             par.parserPartnersXML(doc, "xd");
             initRecyclerView();
+
+            RewardsModel rewardsModel = new RewardsModel();
+            RewardsModel2 rewardsModel2 = new RewardsModel2();
+            PartnersModel partnersModel = new PartnersModel();
+            Log.v("parser",  "res: " + rewardsModel2.getListOfRewards2().get(0).getName()
+            );
         }
     }
 

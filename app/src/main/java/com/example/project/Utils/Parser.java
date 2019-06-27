@@ -9,6 +9,7 @@ import com.example.project.model.CardsModel;
 import com.example.project.model.LoginModelTest;
 import com.example.project.model.PartnersModel;
 import com.example.project.model.RewardsModel;
+import com.example.project.model.RewardsModel2;
 import com.example.project.model.TransactionsModel;
 
 import org.w3c.dom.Document;
@@ -284,6 +285,7 @@ public class Parser {
         NodeList dane = doc.getElementsByTagName(name);
         PartnersModel myListData = new PartnersModel();
         RewardsModel rewardsModel = new RewardsModel();
+        RewardsModel2 rewardsModel2 = new RewardsModel2();
         Location locationA = new Location("point A");
         Location locationB = new Location("point B");
         String id = null;
@@ -334,30 +336,23 @@ public class Parser {
                                         NodeList nList4 = nList3.item(l).getChildNodes();
                                         for (int m = 0; m < nList4.getLength(); m++) {
                                             NodeList nList5 = nList4.item(m).getChildNodes();
+                                            rewardsModel2.listOfRewards2.clear();
                                             if (nList5.getLength() > 1){
                                                 for (int n = 0; n < nList5.getLength(); n++) {
                                                     if (nList5.item(n).getChildNodes().getLength() < 2) {
                                                         if (nList5.item(n).getNodeName().equals("nazwa")) {
                                                             nazwaPromocji = nList5.item(n).getTextContent();
-                                                            Log.v("parser", "nazwa: " + nazwaPromocji);
                                                         } else if (nList5.item(n).getNodeName().equals("ilosc_pkt")) {
                                                             iloscPunktowPromocji = nList5.item(n).getTextContent();
-                                                            Log.v("parser", "iloscPunktowPromocji: " + iloscPunktowPromocji);
                                                         }
                                                     }
-                                                    rewardsModel.addToRewardsList(nazwaPromocji, iloscPunktowPromocji);
                                                 }
+                                                Log.v("parser", "wynik: " + nazwaPromocji + " " + iloscPunktowPromocji);
+                                                rewardsModel2.addToRewardsList(nazwaPromocji, iloscPunktowPromocji);
                                             }
+                                            rewardsModel.addToInformationList(rewardsModel2.listOfRewards2);
+                                            Log.v("parser", "NOWA LINIA");
                                         }
-                                        Log.v("parser", "nazwa: " + nazwaPromocji);
-                                        Log.v("parser", "iloscPunktowPromocji: " + iloscPunktowPromocji);
-                                        Log.v("parser", "DODAJE DO REWARDS");
-                                       // rewardsModel.addToRewardsList(nazwaPromocji, iloscPunktowPromocji);
-                                        //Log.v("parser", "Dlugosc 1 " + rewardsModel.getListOfRewards().get(5));
-   /*                                     Log.v("parser", "Dlugosc 2 " + rewardsModel.listOfRewards.get(0).getListOfRewards().size());
-                                        Log.v("parser", "Dlugosc 3 " + rewardsModel.getListOfRewards().size());
-                                        Log.v("parser", "Dlugosc 4 " + rewardsModel.getListOfRewards().get(2).getName());
-                                        Log.v("parser", "Dlugosc 5 " + rewardsModel.getListOfRewards().get(0).getListOfRewards().size());*/
                                     }
                                 }
                             }
@@ -369,12 +364,11 @@ public class Parser {
                                 float distance = locationA.distanceTo(locationB) / 1000;
                                 DecimalFormat f = new DecimalFormat("0.0");
 
-                                Log.v("parser", "DODAJE DO partners");
+
                                myListData.addToExampleList(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance), rewardsModel.listOfRewards);
                         }
                     }
                 }
-                Log.v("parser", "Dlugosc 1 " + rewardsModel.getListOfRewards().get(5).getName());
             }
         }
         return null;
