@@ -27,6 +27,8 @@ import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.CardModelTest;
+import com.example.project.model.LoginModelTest;
+import com.example.project.model.PartnersModel;
 
 import org.w3c.dom.Document;
 
@@ -57,7 +59,6 @@ public class CardsFragment extends Fragment {
                 myDialog.setContentView(R.layout.add_new_card_popup);
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
-
 
                 Snackbar.make(view, "Replace wh your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }

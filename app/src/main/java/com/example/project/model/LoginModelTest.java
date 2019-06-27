@@ -6,16 +6,16 @@ import java.util.List;
 public class LoginModelTest {
     public static List<LoginModelTest> listOfInformation = new ArrayList<>();
     public static List<CardModelTest> listOfCard = CardModelTest.listOfCards;
-    public static String id;
-    public static String imie;
-    public static String telefon;
-    public static String email;
-    public static String kod_pocztowy;
-    public static String data_urodzenia;
-    public static String plec;
-    public static String data_rejestracji;
-    public static String czy_zarejestrowany;
-    public static String czy_aktywny;
+    public  String id;
+    public  String imie;
+    public  String telefon;
+    public  String email;
+    public  String kod_pocztowy;
+    public  String data_urodzenia;
+    public  String plec;
+    public  String data_rejestracji;
+    public  String czy_zarejestrowany;
+    public  String czy_aktywny;
 
     public LoginModelTest() {
 
@@ -47,16 +47,15 @@ public class LoginModelTest {
         this.czy_zarejestrowany = czy_zarejestrowany;
         this.czy_aktywny = czy_aktywny;
         this.listOfCard = listOfCards;
-
         listOfInformation.add(new LoginModelTest(id, imie, telefon, email, kod_pocztowy, data_urodzenia, plec, data_rejestracji, czy_zarejestrowany, czy_aktywny, listOfCards));
     }
 
-    public static List<LoginModelTest> getListOfInformation() {
+    public List<LoginModelTest> getListOfInformation() {
         return listOfInformation;
     }
 
-    public static void setListOfInformation(List<LoginModelTest> listOfInformation) {
-        LoginModelTest.listOfInformation = listOfInformation;
+    public void setListOfInformation(List<LoginModelTest> listOfInformation) {
+        this.listOfInformation = listOfInformation;
     }
 
     public List<CardModelTest> getListOfCard() {

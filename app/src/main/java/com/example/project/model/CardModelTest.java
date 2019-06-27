@@ -6,8 +6,8 @@ import java.util.List;
 public class CardModelTest {
 
     public static List<CardModelTest> listOfCards = new ArrayList<>();
-    public static String nr;
-    public static    String pic;
+    public String nr;
+    public String pic;
 
     public CardModelTest() {
 

@@ -6,7 +6,9 @@ import java.util.List;
 
 public class PartnersModel {
 
+    RewardsModel rewardsModel = new RewardsModel();
     public static List<PartnersModel> listOfPartners = new ArrayList<>();
+    public  List<RewardsModel> listOfReward = rewardsModel.listOfRewards;
     public  String id;
     public  String wid;
     public  String name;
@@ -23,7 +25,7 @@ public class PartnersModel {
 
     }
 
-    public PartnersModel(String id, String wid, String name, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner) {
+    public PartnersModel(String id, String wid, String name, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner, List<RewardsModel> listOfReward) {
         this.id = id;
         this.wid = wid;
         this.name = name;
@@ -35,9 +37,10 @@ public class PartnersModel {
         this.przelicznik = przelicznik;
         this.ilosc_pkt = ilosc_pkt;
         this.distanceToPartner = distanceToPartner;
+        this.listOfReward = listOfReward;
     }
 
-    public void addToExampleList(String id, String wid, String nazwa, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner){
+    public void addToExampleList(String id, String wid, String nazwa, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner, List<RewardsModel> listOfReward){
         this.id = id;
         this.wid = wid;
         this.name = nazwa;
@@ -49,7 +52,8 @@ public class PartnersModel {
         this.przelicznik = przelicznik;
         this.ilosc_pkt = ilosc_pkt;
         this.distanceToPartner = distanceToPartner;
-        listOfPartners.add(new PartnersModel(id, wid, nazwa, alt, lat, desc, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner));
+        this.listOfReward = listOfReward;
+        listOfPartners.add(new PartnersModel(id, wid, nazwa, alt, lat, desc, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner, listOfReward));
     }
 
     public int exampleListSize(){

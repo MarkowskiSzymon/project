@@ -52,7 +52,7 @@ public class RecyclerViewAdapter_rewards extends RecyclerView.Adapter<RecyclerVi
             relativeLayoutPartnera = itemView.findViewById(R.id.relativeLayoutPartnera);
             wariantNagrody = itemView.findViewById(R.id.wariantNagrody);
             textView_ownedPoints = itemView.findViewById(R.id.textView_layoutPartner_ownedPoints);
-            opisPromocji = itemView.findViewById(R.id.opisPromcji);
+            opisPromocji = itemView.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
             image = itemView.findViewById(R.id.zdjecie);
             imageName = itemView.findViewById(R.id.zdjecieTextView);
             textViewPokazNagrody = itemView.findViewById(R.id.textViewPokazNagrody);

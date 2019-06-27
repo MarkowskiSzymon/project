@@ -17,13 +17,20 @@ import android.widget.TextView;
 
 import com.example.project.R;
 import com.example.project.model.PartnersModel;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ExtendedPartnerActivity extends AppCompatActivity {
+public class ExtendedPartnerActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private ImageView partnerLogo;
     private Toolbar toolbar;
@@ -65,10 +72,33 @@ public class ExtendedPartnerActivity extends AppCompatActivity {
         partnerName.setText(partnersModel.listOfPartners.get(Integer.parseInt(position)).getName());
 
         String descHtml = partnersModel.listOfPartners.get(Integer.parseInt(position)).getOpis();
-        Spanned htmlAsSpanned = Html.fromHtml(descHtml);
-        String html = "Męski salon fryzjerski w klimatycznym lokalu!&#38;#60;br&#38;#62;&#38;#60;b&#38;#62;Barber Lot&#38;#60;&#38;#47;b&#38;#62; to pełen profesjonalizm, miła atmosfera oraz indywidualne podejście do każdego klienta.&#38;#60;br&#38;#62;&#38;#60;br&#38;#62;&#38;#60;a href=&#38;#34;https:&#38;#47;&#38;#47;delly.pl&#38;#47;partner&#38;#47;246&#38;#47;Barber%20Lot%20Batorego&#38;#34;&#38;#62;Tutaj znajdziesz listę nagród&#38;#60;a&#38;#62;";
-        String desc = descHtml.replace("&#38;#60;", "<").replace("&#38;#62;", ">").replace("&#38;#34;", "\"").replace("&#38;#47;", "/");
+        String desc = descHtml.replaceAll("&#60;", "<").replaceAll("&#62;", ">").replaceAll("&#34;", "\"").replaceAll("&#47;", "/");
+
         description.setMovementMethod(LinkMovementMethod.getInstance());
         description.setText(Html.fromHtml(desc));
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            description.setText(Html.fromHtml(desc, Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            description.setText(Html.fromHtml(desc));
+        }
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_activtiyExtendedPartner);
+        mapFragment.getMapAsync((OnMapReadyCallback) this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        PartnersModel partnersModel = new PartnersModel();
+        String position = getIntent().getStringExtra("position");
+
+        LatLng partnerLocation = new LatLng(Double.parseDouble(partnersModel.listOfPartners.get(Integer.parseInt(position)).getAlt()), Double.parseDouble(partnersModel.listOfPartners.get(Integer.parseInt(position)).getLat()));
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(partnerLocation)
+                .zoom(14).build();
+        googleMap.addMarker(new MarkerOptions().position(partnerLocation).title(partnersModel.listOfPartners.get(Integer.parseInt(position)).getName()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(partnerLocation));
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }

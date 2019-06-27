@@ -26,6 +26,7 @@ import com.example.project.Utils.QrCodeGenerator;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.LoginModelTest;
 import com.example.project.model.PartnersModel;
+import com.example.project.model.RewardsModel;
 
 import org.w3c.dom.Document;
 
@@ -65,7 +66,8 @@ public class MainFragment extends Fragment{
         if(myListData.listOfPartners.isEmpty()) {
             new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
         }else{
-            adapter_home = new RecyclerViewAdapter_main(getContext(), PartnersModel.listOfPartners);
+            RewardsModel rewardsModel = new RewardsModel();
+            adapter_home = new RecyclerViewAdapter_main(getContext(), PartnersModel.listOfPartners, rewardsModel.listOfRewards);
             recyclerView.setAdapter(adapter_home);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -130,7 +132,8 @@ public class MainFragment extends Fragment{
     }
 
     private void initRecyclerView() {
-        adapter_home = new RecyclerViewAdapter_main(getContext(), PartnersModel.listOfPartners);
+        RewardsModel rewardsModel = new RewardsModel();
+        adapter_home = new RecyclerViewAdapter_main(getContext(), PartnersModel.listOfPartners, rewardsModel.listOfRewards);
         sortNumberAscending();
         adapter_home.notifyDataSetChanged();
         recyclerView.setAdapter(adapter_home);

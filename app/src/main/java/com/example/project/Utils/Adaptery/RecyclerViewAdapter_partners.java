@@ -2,19 +2,15 @@ package com.example.project.Utils.Adaptery;
 
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +60,7 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
             relativeLayoutPartnera = itemView.findViewById(R.id.relativeLayoutPartnera);
             wariantNagrody = itemView.findViewById(R.id.wariantNagrody);
             textView_ownedPoints = itemView.findViewById(R.id.textView_layoutPartner_ownedPoints);
-            opisPromocji = itemView.findViewById(R.id.opisPromcji);
+            opisPromocji = itemView.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
             image = itemView.findViewById(R.id.zdjecie);
             imageName = itemView.findViewById(R.id.zdjecieTextView);
             textViewPokazNagrody = itemView.findViewById(R.id.textViewPokazNagrody);
@@ -132,7 +128,6 @@ public class RecyclerViewAdapter_partners extends RecyclerView.Adapter<RecyclerV
                 @Override
                 public void onClick(View view) {
                     listaPartnerow listaPartnerow = new listaPartnerow();
-                    Log.v("App", String.valueOf(listaPartnerow.listaOpisow.size()));
                     holder.wariantNagrody.setVisibility(View.VISIBLE);
                     holder.wariantNagrody.removeAllViews();
                     for (int i = 0; i < 4; i++) {

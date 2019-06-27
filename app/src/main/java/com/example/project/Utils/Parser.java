@@ -8,6 +8,7 @@ import com.example.project.model.CardModelTest;
 import com.example.project.model.CardsModel;
 import com.example.project.model.LoginModelTest;
 import com.example.project.model.PartnersModel;
+import com.example.project.model.RewardsModel;
 import com.example.project.model.TransactionsModel;
 
 import org.w3c.dom.Document;
@@ -220,10 +221,8 @@ public class Parser {
                         }
                         cardModelTest.addToCardList(nr, pic);
                     }
-
                 }
                 loginModelTest.addToInformationList(id, imie, telefon, email, kod_pocztowy, data_urodzenia, plec, data_rejestracji, czy_zarejestrowany, czy_aktywny, cardModelTest.listOfCards);
-
             }
         }
         return null;
@@ -282,9 +281,9 @@ public class Parser {
 
 
     public List<String> parserPartnersXML(Document doc, String name) {
-        Log.v("parser", "jestem w parserPartnersXML");
         NodeList dane = doc.getElementsByTagName(name);
         PartnersModel myListData = new PartnersModel();
+        RewardsModel rewardsModel = new RewardsModel();
         Location locationA = new Location("point A");
         Location locationB = new Location("point B");
         String id = null;
@@ -297,6 +296,8 @@ public class Parser {
         String miasto = null;
         String przelicznik = null;
         String ilosc_pkt = null;
+        String nazwaPromocji = null;
+        String iloscPunktowPromocji = null;
         if(myListData.listOfPartners.isEmpty()) {
             for (int i = 0; i < dane.getLength(); i++) {
                 NodeList nList1 = dane.item(i).getChildNodes();
@@ -329,20 +330,51 @@ public class Parser {
                                         } else if (nList3.item(l).getNodeName().equals("ilosc_pkt")) {
                                             ilosc_pkt = nList3.item(l).getTextContent();
                                         }
+                                    }else if(nList3.item(l).getChildNodes().getLength() > 2){
+                                        NodeList nList4 = nList3.item(l).getChildNodes();
+                                        for (int m = 0; m < nList4.getLength(); m++) {
+                                            NodeList nList5 = nList4.item(m).getChildNodes();
+                                            if (nList5.getLength() > 1){
+                                                for (int n = 0; n < nList5.getLength(); n++) {
+                                                    if (nList5.item(n).getChildNodes().getLength() < 2) {
+                                                        if (nList5.item(n).getNodeName().equals("nazwa")) {
+                                                            nazwaPromocji = nList5.item(n).getTextContent();
+                                                            Log.v("parser", "nazwa: " + nazwaPromocji);
+                                                        } else if (nList5.item(n).getNodeName().equals("ilosc_pkt")) {
+                                                            iloscPunktowPromocji = nList5.item(n).getTextContent();
+                                                            Log.v("parser", "iloscPunktowPromocji: " + iloscPunktowPromocji);
+                                                        }
+                                                    }
+                                                    rewardsModel.addToRewardsList(nazwaPromocji, iloscPunktowPromocji);
+                                                }
+                                            }
+                                        }
+                                        Log.v("parser", "nazwa: " + nazwaPromocji);
+                                        Log.v("parser", "iloscPunktowPromocji: " + iloscPunktowPromocji);
+                                        Log.v("parser", "DODAJE DO REWARDS");
+                                       // rewardsModel.addToRewardsList(nazwaPromocji, iloscPunktowPromocji);
+                                        //Log.v("parser", "Dlugosc 1 " + rewardsModel.getListOfRewards().get(5));
+   /*                                     Log.v("parser", "Dlugosc 2 " + rewardsModel.listOfRewards.get(0).getListOfRewards().size());
+                                        Log.v("parser", "Dlugosc 3 " + rewardsModel.getListOfRewards().size());
+                                        Log.v("parser", "Dlugosc 4 " + rewardsModel.getListOfRewards().get(2).getName());
+                                        Log.v("parser", "Dlugosc 5 " + rewardsModel.getListOfRewards().get(0).getListOfRewards().size());*/
                                     }
                                 }
+                            }
+
                                 locationA.setLatitude(Double.parseDouble(StartActivity.latitude));
                                 locationA.setLongitude(Double.parseDouble(StartActivity.longitude));
                                 locationB.setLatitude(Double.parseDouble(lat));
                                 locationB.setLongitude(Double.parseDouble(alt));
-                                float distance = locationA.distanceTo(locationB)/1000;
+                                float distance = locationA.distanceTo(locationB) / 1000;
                                 DecimalFormat f = new DecimalFormat("0.0");
 
-                                myListData.addToExampleList(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance));
-                            }
+                                Log.v("parser", "DODAJE DO partners");
+                               myListData.addToExampleList(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance), rewardsModel.listOfRewards);
                         }
                     }
                 }
+                Log.v("parser", "Dlugosc 1 " + rewardsModel.getListOfRewards().get(5).getName());
             }
         }
         return null;

@@ -22,6 +22,7 @@ import com.example.project.Utils.listaPartnerow;
 import com.example.project.activity_fragments_class.ExtendedPartnerActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.PartnersModel;
+import com.example.project.model.RewardsModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -29,13 +30,14 @@ import java.util.List;
 public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewAdapter_main.ViewHolder> {
 
     private List<PartnersModel> partnerList;
+    private List<RewardsModel> listOfRewards;
     private Context mContext;
 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, opisPromocji, distanceFromPartner;
+        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, promotionDesc, promotionPoints, distanceFromPartner;
         RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera, extendLayoutPartner;
         LinearLayout wariantNagrody;
         RecyclerView recyclerView;
@@ -52,7 +54,8 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
             relativeLayoutPartnera = itemView.findViewById(R.id.relativeLayoutPartnera);
             wariantNagrody = itemView.findViewById(R.id.wariantNagrody);
             textView_ownedPoints = itemView.findViewById(R.id.textView_layoutPartner_ownedPoints);
-            opisPromocji = itemView.findViewById(R.id.opisPromcji);
+            promotionDesc = itemView.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
+            promotionPoints = itemView.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_points);
             image = itemView.findViewById(R.id.zdjecie);
             imageName = itemView.findViewById(R.id.zdjecieTextView);
             textViewPokazNagrody = itemView.findViewById(R.id.textViewPokazNagrody);
@@ -61,9 +64,10 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
         }
     }
 
-        public RecyclerViewAdapter_main(Context context, List<PartnersModel> exampleList) {
-            this.partnerList = exampleList;
-            this.mContext = context;
+    public RecyclerViewAdapter_main(Context context, List<PartnersModel> partnerList, List<RewardsModel> listOfRewards) {
+        this.partnerList = partnerList;
+        this.listOfRewards = listOfRewards;
+        this.mContext = context;
     }
 
     @Override
@@ -84,6 +88,7 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
                 .fit()
                 .transform(new picasso_rounded_corners(50, 0, picasso_rounded_corners.CornerType.TOP_LEFT))
                 .into(holder.image);
+
 
 
 
@@ -115,13 +120,13 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
         holder.textViewPokazNagrody.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listaPartnerow listaPartnerow = new listaPartnerow();
-                Log.v("App", String.valueOf(listaPartnerow.listaOpisow.size()));
                 holder.wariantNagrody.setVisibility(View.VISIBLE);
                 holder.wariantNagrody.removeAllViews();
+
                 for (int i = 0; i < 4; i++) {
                     View child1 = LayoutInflater.from(mContext).inflate(R.layout.view_layout_extended_description_partner, null);
                     holder.wariantNagrody.addView(child1);
+                    holder.promotionPoints.setText(String.valueOf(i));
                 }
                 holder.layoutPokazNagrody.setVisibility(View.GONE);
                 holder.layoutSchowajNagrody.setVisibility(View.VISIBLE);
