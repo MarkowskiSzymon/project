@@ -5,47 +5,56 @@ import java.util.List;
 
 public class RewardsModel {
 
-    RewardsModel2 rewardsModel2 = new RewardsModel2();
-    public static List<RewardsModel> listOfRewards = new ArrayList<>();
-    public List<RewardsModel2> listOfReward = rewardsModel2.listOfRewards2;
+    public List<RewardsModel> listOfPromo = new ArrayList<>();
+    public String name;
+    public String points;
+    public int length;
 
     public RewardsModel() {
 
     }
 
-    public RewardsModel(List<RewardsModel2> listOfReward){
-        this.listOfReward = listOfReward;
+    public RewardsModel(String name, String points, int length) {
+        this.name = name;
+        this.points = points;
+        this.length = length;
     }
 
-
-    public void addToInformationList(List<RewardsModel2> listOfCards){
-
-        this.listOfReward = listOfCards;
-        listOfRewards.add(new RewardsModel(listOfCards));
+    public void addToPromoList(String name, String points, int length){
+        this.name = name;
+        this.points = points;
+        listOfPromo.add(new RewardsModel(name, points, length));
     }
 
-
-    public List<RewardsModel2> getListOfReward() {
-        return listOfReward;
+    public List<RewardsModel> getListOfPromo() {
+        return listOfPromo;
     }
 
-    public RewardsModel2 getRewardsModel2() {
-        return rewardsModel2;
+    public void setListOfPromo(List<RewardsModel> listOfPromo) {
+        this.listOfPromo = listOfPromo;
     }
 
-    public void setRewardsModel2(RewardsModel2 rewardsModel2) {
-        this.rewardsModel2 = rewardsModel2;
+    public int getLength() {
+        return length;
     }
 
-    public void setListOfReward(List<RewardsModel2> listOfReward) {
-        this.listOfReward = listOfReward;
+    public void setLength(int length) {
+        this.length = length;
     }
 
-    public List<RewardsModel> getListOfRewards() {
-        return listOfRewards;
+    public String getName() {
+        return name;
     }
 
-    public void setListOfRewards(List<RewardsModel> listOfRewards) {
-        this.listOfRewards = listOfRewards;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
     }
 }

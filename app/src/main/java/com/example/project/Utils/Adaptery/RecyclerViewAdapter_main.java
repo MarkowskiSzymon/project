@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.project.R;
-import com.example.project.Utils.listaPartnerow;
 import com.example.project.activity_fragments_class.ExtendedPartnerActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.PartnersModel;
@@ -30,7 +29,6 @@ import java.util.List;
 public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewAdapter_main.ViewHolder> {
 
     private List<PartnersModel> partnerList;
-    private List<RewardsModel> listOfRewards;
     private Context mContext;
 
 
@@ -64,9 +62,8 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
         }
     }
 
-    public RecyclerViewAdapter_main(Context context, List<PartnersModel> partnerList, List<RewardsModel> listOfRewards) {
+    public RecyclerViewAdapter_main(Context context, List<PartnersModel> partnerList) {
         this.partnerList = partnerList;
-        this.listOfRewards = listOfRewards;
         this.mContext = context;
     }
 
@@ -102,6 +99,10 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
                 Bundle bundle = options.toBundle();
                 mContext.startActivity(intent, bundle);
+
+                Log.v("parser", "size: " + currentItem.listOfReward.size());
+
+
             }
         });
 
@@ -122,6 +123,8 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
             public void onClick(View view) {
                 holder.wariantNagrody.setVisibility(View.VISIBLE);
                 holder.wariantNagrody.removeAllViews();
+
+
 
                 for (int i = 0; i < 4; i++) {
                     View child1 = LayoutInflater.from(mContext).inflate(R.layout.view_layout_extended_description_partner, null);

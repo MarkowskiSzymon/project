@@ -9,7 +9,6 @@ import com.example.project.model.CardsModel;
 import com.example.project.model.LoginModelTest;
 import com.example.project.model.PartnersModel;
 import com.example.project.model.RewardsModel;
-import com.example.project.model.RewardsModel2;
 import com.example.project.model.TransactionsModel;
 
 import org.w3c.dom.Document;
@@ -285,7 +284,6 @@ public class Parser {
         NodeList dane = doc.getElementsByTagName(name);
         PartnersModel myListData = new PartnersModel();
         RewardsModel rewardsModel = new RewardsModel();
-        RewardsModel2 rewardsModel2 = new RewardsModel2();
         Location locationA = new Location("point A");
         Location locationB = new Location("point B");
         String id = null;
@@ -336,7 +334,6 @@ public class Parser {
                                         NodeList nList4 = nList3.item(l).getChildNodes();
                                         for (int m = 0; m < nList4.getLength(); m++) {
                                             NodeList nList5 = nList4.item(m).getChildNodes();
-                                            rewardsModel2.listOfRewards2.clear();
                                             if (nList5.getLength() > 1){
                                                 for (int n = 0; n < nList5.getLength(); n++) {
                                                     if (nList5.item(n).getChildNodes().getLength() < 2) {
@@ -347,25 +344,19 @@ public class Parser {
                                                         }
                                                     }
                                                 }
-                                                Log.v("parser", "wynik: " + nazwaPromocji + " " + iloscPunktowPromocji);
-                                                rewardsModel2.addToRewardsList(nazwaPromocji, iloscPunktowPromocji);
                                             }
-                                            rewardsModel.addToInformationList(rewardsModel2.listOfRewards2);
-                                            Log.v("parser", "NOWA LINIA");
+                                            rewardsModel.addToPromoList(nazwaPromocji, iloscPunktowPromocji, nList4.getLength());
                                         }
                                     }
                                 }
                             }
-
-                                locationA.setLatitude(Double.parseDouble(StartActivity.latitude));
-                                locationA.setLongitude(Double.parseDouble(StartActivity.longitude));
-                                locationB.setLatitude(Double.parseDouble(lat));
-                                locationB.setLongitude(Double.parseDouble(alt));
-                                float distance = locationA.distanceTo(locationB) / 1000;
-                                DecimalFormat f = new DecimalFormat("0.0");
-
-
-                               myListData.addToExampleList(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance), rewardsModel.listOfRewards);
+                            locationA.setLatitude(Double.parseDouble(StartActivity.latitude));
+                            locationA.setLongitude(Double.parseDouble(StartActivity.longitude));
+                            locationB.setLatitude(Double.parseDouble(lat));
+                            locationB.setLongitude(Double.parseDouble(alt));
+                            float distance = locationA.distanceTo(locationB) / 1000;
+                            DecimalFormat f = new DecimalFormat("0.0");
+                            myListData.addToExampleList(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance), rewardsModel.listOfPromo);
                         }
                     }
                 }

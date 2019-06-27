@@ -6,8 +6,8 @@ import java.util.List;
 
 public class PartnersModel {
 
+
     public static List<PartnersModel> listOfPartners = new ArrayList<>();
-    public static List<RewardsModel> listOfRewards = RewardsModel.listOfRewards;
     public  String id;
     public  String wid;
     public  String name;
@@ -19,6 +19,7 @@ public class PartnersModel {
     public  String przelicznik;
     public  String ilosc_pkt;
     public  String distanceToPartner;
+    public List<RewardsModel> listOfReward;
 
     public PartnersModel() {
 
@@ -36,6 +37,7 @@ public class PartnersModel {
         this.przelicznik = przelicznik;
         this.ilosc_pkt = ilosc_pkt;
         this.distanceToPartner = distanceToPartner;
+        this.listOfReward = listOfReward;
 
     }
 
@@ -51,17 +53,12 @@ public class PartnersModel {
         this.przelicznik = przelicznik;
         this.ilosc_pkt = ilosc_pkt;
         this.distanceToPartner = distanceToPartner;
+        this.listOfReward = listOfReward;
 
         listOfPartners.add(new PartnersModel(id, wid, nazwa, alt, lat, desc, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner, listOfReward));
     }
 
-    public static List<RewardsModel> getListOfRewards() {
-        return listOfRewards;
-    }
 
-    public static void setListOfRewards(List<RewardsModel> listOfRewards) {
-        PartnersModel.listOfRewards = listOfRewards;
-    }
 
     public static List<PartnersModel> getListOfPartners() {
         return listOfPartners;
