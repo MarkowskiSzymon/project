@@ -2,93 +2,151 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="300dp"
+    android:layout_height="550dp"
+    android:layout_gravity="center"
     android:background="@drawable/popup_background">
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="343dp"
-        android:layout_height="160dp"
+        android:layout_width="250dp"
+        android:layout_height="153dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:src="@drawable/ic_search_black_24dp"
- />
+        android:src="@drawable/card_register" />
 
     <TextView
         android:id="@+id/textView-addNewCardPopup-NumberIKodTwojejKartyDelly"
+        android:layout_below="@id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageView2"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="206dp"
+        android:layout_marginTop="30dp"
         android:text="@string/textView_activitySignupFirstStep_numerKodTwojejKartyDelly"
-        android:textSize="30dp" />
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:lines="2"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayout_addNewCardPopup_Number"
-        android:layout_width="180dp"
-        android:layout_height="69dp"
-        android:layout_below="@+id/textView-addNewCardPopup-NumberIKodTwojejKartyDelly"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="34dp"
-        android:background="@drawable/rounded_border_edittext">
+    <RelativeLayout
+        android:id="@+id/relativeLayout_addNewCardPopup_cardNumber"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView-addNewCardPopup-NumberIKodTwojejKartyDelly"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp">
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/editText_addNewCardPopup_Number"
+        <View
             android:layout_width="wrap_content"
-            android:layout_height="58dp"
-            android:layout_alignStart="@+id/textInputLayout_addNewCardPopup_Number"
-            android:layout_alignTop="@+id/textInputLayout_addNewCardPopup_Number"
-            android:ems="12"
-            android:hint="Numer">
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_border_edittext" />
 
-        </android.support.design.widget.TextInputEditText>
+        <TextView
+            android:id="@+id/textView_addNewCardPopup_dummyHintCardNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/number"
+            android:textSize="16sp"
+            android:visibility="invisible" />
 
-    </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinputlayout_addNewCardPopup_cardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/number"
+            app:hintTextAppearance="@style/HintTextStyle">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayout_addNewCardPopup_Code"
-        android:layout_width="132dp"
-        android:layout_height="66dp"
-        android:layout_below="@+id/textView-addNewCardPopup-NumberIKodTwojejKartyDelly"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="34dp"
-        android:layout_toEndOf="@+id/textInputLayout_addNewCardPopup_Number"
-        android:background="@drawable/rounded_border_edittext">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editText_addNewCardPopup_cardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textinputlayout_activityCreatePassword_password"
+                android:backgroundTint="@android:color/transparent" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/editText_addNewCardPopup_Code"
-            android:layout_width="171dp"
-            android:layout_height="66dp"
-            android:layout_alignStart="@+id/textInputLayout_addNewCardPopup_Code"
-            android:layout_alignBottom="@+id/textInputLayout_addNewCardPopup_Code"
-            android:background="@null"
-            android:ems="4"
-            android:hint="Kod">
+        </android.support.design.widget.TextInputLayout>
 
-        </android.support.design.widget.TextInputEditText>
 
-    </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_addNewCardPopup_code"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/relativeLayout_addNewCardPopup_cardNumber"
+        android:layout_below="@id/textView-addNewCardPopup-NumberIKodTwojejKartyDelly"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_alignStart="@+id/textinputlayout_addNewCardPopup_cardCode"
+            android:layout_marginStart="-7dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_border_edittext" />
+
+        <TextView
+            android:id="@+id/textView_addNewCardPopup_dummyHintCardCode"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/code"
+            android:visibility="invisible" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textinputlayout_addNewCardPopup_cardCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="7dp"
+            android:hint="@string/code"
+            app:hintTextAppearance="@style/HintTextStyle">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editText_addNewCardPopup_cardCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textView_addNewCardPopup_WhereCanIFindCard"
-        android:layout_width="349dp"
-        android:layout_height="66dp"
-        android:layout_below="@+id/textInputLayout_addNewCardPopup_Number"
-        android:layout_alignEnd="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:layout_below="@id/relativeLayout_addNewCardPopup_code"
+        android:gravity="center"
         android:layout_marginTop="31dp"
+        android:layout_centerHorizontal="true"
         android:text="@string/SkadDostacKarte"
-        android:textSize="18dp" />
+        android:textSize="15dp" />
 
     <Button
         android:id="@+id/button_addNewCardPopup_Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="196dp"
+        android:layout_height="58dp"
+        android:layout_below="@id/textView_addNewCardPopup_WhereCanIFindCard"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="516dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_border_edittext"
         android:backgroundTint="@color/colorDellyGreen"
         android:ems="10"

@@ -288,6 +288,7 @@ public class Parser {
         Location locationB = new Location("point B");
         String id = null;
         String wid = null;
+        String bid = null;
         String nazwa = null;
         String alt = null;
         String lat = null;
@@ -313,6 +314,8 @@ public class Parser {
                                             id = nList3.item(l).getTextContent();
                                         } else if (nList3.item(l).getNodeName().equals("wid")) {
                                             wid = nList3.item(l).getTextContent();
+                                        } else if (nList3.item(l).getNodeName().equals("bid")) {
+                                            bid = nList3.item(l).getTextContent();
                                         } else if (nList3.item(l).getNodeName().equals("nazwa")) {
                                             nazwa = nList3.item(l).getTextContent();
                                         } else if (nList3.item(l).getNodeName().equals("alt")) {
@@ -344,8 +347,8 @@ public class Parser {
                                                         }
                                                     }
                                                 }
+                                                rewardsModel.addToPromoList(nazwaPromocji, iloscPunktowPromocji, bid);
                                             }
-                                            rewardsModel.addToPromoList(nazwaPromocji, iloscPunktowPromocji, nList4.getLength());
                                         }
                                     }
                                 }
@@ -356,7 +359,7 @@ public class Parser {
                             locationB.setLongitude(Double.parseDouble(alt));
                             float distance = locationA.distanceTo(locationB) / 1000;
                             DecimalFormat f = new DecimalFormat("0.0");
-                            myListData.addToExampleList(id, wid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance), rewardsModel.listOfPromo);
+                            myListData.addToExampleList(id, wid, bid, nazwa, alt, lat, opis, pic, miasto, przelicznik, ilosc_pkt, f.format(distance), rewardsModel.listOfPromo);
                         }
                     }
                 }

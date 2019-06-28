@@ -37,7 +37,7 @@ class InterceptorRetry implements Interceptor {
                 .post(rBody)
                 .build();
 
-        // try the request
+
         Response response = null;
         int tryCount = 1;
         boolean retry = false;

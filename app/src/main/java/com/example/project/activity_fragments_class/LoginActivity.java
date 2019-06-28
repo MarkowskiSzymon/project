@@ -34,7 +34,6 @@ import com.example.project.Utils.Parser;
 import com.example.project.Utils.Password_hash;
 import com.example.project.activity_fragments_class.Registration.SignupActivity_FirstStep;
 import com.example.project.model.LoginModelTest;
-import com.matthewtamlin.android_utilities_library.helpers.StatusBarHelper;
 
 import org.w3c.dom.Document;
 
@@ -54,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
 

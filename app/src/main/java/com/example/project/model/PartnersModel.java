@@ -8,8 +8,10 @@ public class PartnersModel {
 
 
     public static List<PartnersModel> listOfPartners = new ArrayList<>();
+    public static List<RewardsModel> listOfReward = RewardsModel.listOfPromo;
     public  String id;
     public  String wid;
+    public  String bid;
     public  String name;
     public  String alt;
     public  String lat;
@@ -19,15 +21,15 @@ public class PartnersModel {
     public  String przelicznik;
     public  String ilosc_pkt;
     public  String distanceToPartner;
-    public List<RewardsModel> listOfReward;
 
     public PartnersModel() {
 
     }
 
-    public PartnersModel(String id, String wid, String name, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner, List<RewardsModel> listOfReward) {
+    public PartnersModel(String id, String wid, String bid, String name, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner, List<RewardsModel> listOfReward) {
         this.id = id;
         this.wid = wid;
+        this.bid = bid;
         this.name = name;
         this.alt = alt;
         this.lat = lat;
@@ -41,9 +43,10 @@ public class PartnersModel {
 
     }
 
-    public void addToExampleList(String id, String wid, String nazwa, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner, List<RewardsModel> listOfReward){
+    public void addToExampleList(String id, String wid, String bid, String nazwa, String alt, String lat, String desc, String pic, String miasto, String przelicznik, String ilosc_pkt, String distanceToPartner, List<RewardsModel> listOfReward){
         this.id = id;
         this.wid = wid;
+        this.bid = bid;
         this.name = nazwa;
         this.alt = alt;
         this.lat = lat;
@@ -55,7 +58,7 @@ public class PartnersModel {
         this.distanceToPartner = distanceToPartner;
         this.listOfReward = listOfReward;
 
-        listOfPartners.add(new PartnersModel(id, wid, nazwa, alt, lat, desc, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner, listOfReward));
+        listOfPartners.add(new PartnersModel(id, wid, bid, nazwa, alt, lat, desc, pic, miasto, przelicznik, ilosc_pkt, distanceToPartner, listOfReward));
     }
 
 

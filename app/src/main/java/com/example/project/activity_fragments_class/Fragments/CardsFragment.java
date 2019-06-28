@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +18,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.project.R;
 import com.example.project.Utils.Adaptery.RecyclerViewAdapter_cards;
@@ -27,8 +28,6 @@ import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.CardModelTest;
-import com.example.project.model.LoginModelTest;
-import com.example.project.model.PartnersModel;
 
 import org.w3c.dom.Document;
 
@@ -40,6 +39,9 @@ public class CardsFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter_cards adapter_cards;
 
+    private TextView text_dummy_hint_cardNumber, text_dummy_hint_cardCode;
+    private EditText editText_cardNumber, editText_cardCode;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class CardsFragment extends Fragment {
         final CardModelTest cardModelTest = new CardModelTest();
 
         recyclerView = rootView.findViewById(R.id.recycler_view_fragment_karty);
+
+
 
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         conn = new Connection_INTERNET(getContext());
@@ -60,7 +64,6 @@ public class CardsFragment extends Fragment {
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
 
-                Snackbar.make(view, "Replace wh your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -93,6 +96,7 @@ public class CardsFragment extends Fragment {
 
         return rootView;
     }
+
 
 
     public class CheckingOwnedCards extends AsyncTask<String, String, String> {

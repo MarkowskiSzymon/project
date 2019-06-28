@@ -79,6 +79,7 @@ public class MainFragment extends Fragment{
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        RewardsModel.listOfPromo.clear();
                         PartnersModel.listOfPartners.clear();
                         new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);

@@ -13,6 +13,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -44,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
         setContentView(R.layout.activity_settings);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 
         final Regex_patterns regex_patterns = new Regex_patterns();
@@ -81,6 +83,7 @@ public class SettingsActivity extends AppCompatActivity {
         editPhoneNumber.setText(loginModelTest.getTelefon());
 
         ccp = findViewById(R.id.countryCodePicker_activitySettings);
+        ccp.getDefaultCountryCode();
 
         buttonSaveNewPassword = findViewById(R.id.button_activitySettings_saveNewPassword);
         buttonUpdateNewData = findViewById(R.id.button_activitySettings_updateNewData);

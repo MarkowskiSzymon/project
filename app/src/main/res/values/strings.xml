@@ -88,6 +88,9 @@
     <string name="title_activity_extender_partner">ExtenderPartnerActivity</string>
     <string name="nav_rewards">Nagrody</string>
     <string name="availableSpecialPrizes">Dostępne nagrody specjalne</string>
+    <string name="number">Numer</string>
+    <string name="code">Kod</string>
+    <string name="availablePrizes">Dostępne nagrody</string>
 
 
 </resources>

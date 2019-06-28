@@ -22,8 +22,10 @@ import com.example.project.activity_fragments_class.ExtendedPartnerActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.PartnersModel;
 import com.example.project.model.RewardsModel;
+import com.matthewtamlin.android_utilities_library.collections.ArrayListWithCallbacks;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewAdapter_main.ViewHolder> {
@@ -35,7 +37,7 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, promotionDesc, promotionPoints, distanceFromPartner;
+        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, promotionDesc, distanceFromPartner;
         RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera, extendLayoutPartner;
         LinearLayout wariantNagrody;
         RecyclerView recyclerView;
@@ -53,7 +55,6 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
             wariantNagrody = itemView.findViewById(R.id.wariantNagrody);
             textView_ownedPoints = itemView.findViewById(R.id.textView_layoutPartner_ownedPoints);
             promotionDesc = itemView.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
-            promotionPoints = itemView.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_points);
             image = itemView.findViewById(R.id.zdjecie);
             imageName = itemView.findViewById(R.id.zdjecieTextView);
             textViewPokazNagrody = itemView.findViewById(R.id.textViewPokazNagrody);
@@ -100,9 +101,6 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
                 Bundle bundle = options.toBundle();
                 mContext.startActivity(intent, bundle);
 
-                Log.v("parser", "size: " + currentItem.listOfReward.size());
-
-
             }
         });
 
@@ -113,24 +111,44 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
         }
 
 
+        final List<String> bid = new ArrayList<>();
+        final List<String> descOfPromotion = new ArrayList<>();
+        final List<String> pointsForPromotion = new ArrayList<>();
 
+
+
+
+        for(int i=0; i < currentItem.listOfReward.size(); i++){
+            if(currentItem.listOfReward.get(i).getBid().contains(currentItem.bid)){
+                bid.add(currentItem.listOfReward.get(i).getBid());
+                descOfPromotion.add(currentItem.listOfReward.get(i).getName());
+                pointsForPromotion.add(currentItem.listOfReward.get(i).getPoints());
+            }
+        }
 
         holder.wariantNagrody.removeAllViews();
+        holder.wariantNagrody.setVisibility(View.GONE);
+        holder.layoutSchowajNagrody.setVisibility(View.GONE);
+
+        for (int i = 0; i < descOfPromotion.size(); i++) {
+            View child1 = LayoutInflater.from(mContext).inflate(R.layout.view_layout_extended_description_partner, null);
+            TextView promotionPoints = child1.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_points);
+            TextView promotionDesc = child1.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
+            promotionPoints.setText(pointsForPromotion.get(i));
+            promotionDesc.setText(descOfPromotion.get(i));
+            holder.wariantNagrody.addView(child1);
+        }
+
+
         holder.wariantNagrody.setOrientation(LinearLayout.VERTICAL);
 
         holder.textViewPokazNagrody.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Log.v("parser", "dlugosc listy desc:" + descOfPromotion.size());
+
                 holder.wariantNagrody.setVisibility(View.VISIBLE);
-                holder.wariantNagrody.removeAllViews();
-
-
-
-                for (int i = 0; i < 4; i++) {
-                    View child1 = LayoutInflater.from(mContext).inflate(R.layout.view_layout_extended_description_partner, null);
-                    holder.wariantNagrody.addView(child1);
-                    holder.promotionPoints.setText(String.valueOf(i));
-                }
                 holder.layoutPokazNagrody.setVisibility(View.GONE);
                 holder.layoutSchowajNagrody.setVisibility(View.VISIBLE);
             }

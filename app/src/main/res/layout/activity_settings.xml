@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusableInTouchMode="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <Toolbar
         android:id="@+id/toolbar_activitySetting"
@@ -341,6 +342,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginHorizontal="16dp"
                         app:ccp_countryPreference="PL"
+                        app:ccp_defaultNameCode="PL"
                         android:layout_marginTop="30dp"/>
 
                 </RelativeLayout>

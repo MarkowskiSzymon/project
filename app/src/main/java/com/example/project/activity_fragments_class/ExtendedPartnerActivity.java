@@ -84,6 +84,12 @@ public class ExtendedPartnerActivity extends AppCompatActivity implements OnMapR
             description.setText(Html.fromHtml(desc));
         }
 
+
+
+
+     /// MAPS
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_activtiyExtendedPartner);
         mapFragment.getMapAsync((OnMapReadyCallback) this);
     }

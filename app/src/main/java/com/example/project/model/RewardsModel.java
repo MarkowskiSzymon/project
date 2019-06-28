@@ -5,25 +5,26 @@ import java.util.List;
 
 public class RewardsModel {
 
-    public List<RewardsModel> listOfPromo = new ArrayList<>();
+    public static List<RewardsModel> listOfPromo = new ArrayList<>();
     public String name;
     public String points;
-    public int length;
+    public String bid;
 
     public RewardsModel() {
 
     }
 
-    public RewardsModel(String name, String points, int length) {
+    public RewardsModel(String name, String points, String bid) {
         this.name = name;
         this.points = points;
-        this.length = length;
+        this.bid = bid;
     }
 
-    public void addToPromoList(String name, String points, int length){
+    public void addToPromoList(String name, String points, String bid){
         this.name = name;
         this.points = points;
-        listOfPromo.add(new RewardsModel(name, points, length));
+        this.bid = bid;
+        listOfPromo.add(new RewardsModel(name, points, bid));
     }
 
     public List<RewardsModel> getListOfPromo() {
@@ -32,14 +33,6 @@ public class RewardsModel {
 
     public void setListOfPromo(List<RewardsModel> listOfPromo) {
         this.listOfPromo = listOfPromo;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
     }
 
     public String getName() {
@@ -56,5 +49,13 @@ public class RewardsModel {
 
     public void setPoints(String points) {
         this.points = points;
+    }
+
+    public String getBid() {
+        return bid;
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid;
     }
 }

@@ -27,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_fragments_class.SettingsActivity" />
+
+        <activity android:name=".activity_fragments_class.SettingsActivity" android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity_fragments_class.ExtendedPartnerActivity"/>
         <activity android:name=".activity_fragments_class.HomeActivity" />
         <activity android:name=".activity_fragments_class.RulesActivity" />

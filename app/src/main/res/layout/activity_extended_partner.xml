@@ -149,15 +149,34 @@
                     android:id="@+id/textView_activityExtendedPartner_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="OPIS"/>
 
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relativeLayout_activityExtendedPartneR_listOfRewards"
+                android:layout_below="@id/relativeLayout_activityExtendedPartner_fourth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ExpandableListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="0.5dp">
+
+
+                </ExpandableListView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/relativeLayout_activityExtendedPartneR_map"
+                android:layout_below="@id/relativeLayout_activityExtendedPartneR_listOfRewards"
                 android:layout_width="384dp"
-                android:layout_height="219dp"
-                android:layout_below="@id/relativeLayout_activityExtendedPartner_fourth">
+                android:layout_height="219dp">
 
                 <fragment
                     android:id="@+id/map_activtiyExtendedPartner"
