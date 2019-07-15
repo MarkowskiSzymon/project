@@ -14,7 +14,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +25,6 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.project.R;
 import com.example.project.Utils.Adaptery.RecyclerViewAdapter_partners;
 import com.example.project.Utils.Connection_API;
@@ -35,9 +33,7 @@ import com.example.project.Utils.Parser;
 import com.example.project.activity_fragments_class.HomeActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.PartnersModel;
-
 import org.w3c.dom.Document;
-
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -59,30 +55,21 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_partners, container, false);
         setHasOptionsMenu(true);
-
+        initialize();
         HomeActivity homeActivity = new HomeActivity();
         homeActivity.partnerFragmentStatus = 0;
-
         PartnersModel myListData = new PartnersModel();
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         conn = new Connection_INTERNET(getContext());
-
-        recyclerView = rootView.findViewById(R.id.recycler_reward);
-        swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout_fragmentReward);
-        fullLayout = rootView.findViewById(R.id.relativeLayout_fragmentReward_fullLayout);
-        spinner = rootView.findViewById(R.id.spinner_rewardFragment);
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.numbers, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
         spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
 
-
-
         if(myListData.listOfPartners.isEmpty()) {
             new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
-        }else{
+        } else{
             adapter_rewards = new RecyclerViewAdapter_partners(getContext(), PartnersModel.listOfPartners);
             recyclerView.setAdapter(adapter_rewards);
             recyclerView.setHasFixedSize(true);
@@ -106,15 +93,20 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
         return rootView;
     }
 
+    private void initialize() {
+        recyclerView = rootView.findViewById(R.id.recycler_reward);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout_fragmentReward);
+        fullLayout = rootView.findViewById(R.id.relativeLayout_fragmentReward_fullLayout);
+        spinner = rootView.findViewById(R.id.spinner_rewardFragment);
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_menu_partnerzy_fragment, menu);
         searchItem = menu.findItem(R.id.action_szukaj_partnerow_w_liscie);
-
         searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint("Search");
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -123,7 +115,6 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.v("App", "onQueryTextChange: " + s);
                 adapter_rewards.getFilter().filter(s);
                 return false;
             }
@@ -149,10 +140,8 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
                 transaction.commit();
                 break;
             case (R.id.action_szukaj_partnerow_w_liscie):
-                Log.v("App", "ACTION_SEARCH");
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -176,7 +165,6 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         Toast.makeText(parent.getContext(), "onNothingSelected!", Toast.LENGTH_SHORT).show();
-
     }
 
 
@@ -184,10 +172,10 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
         Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
             @Override
             public int compare(PartnersModel o1, PartnersModel o2) {
-
                 return (o2.getDistanceToPartner()).compareTo(o1.getDistanceToPartner());
             }
         });
+
         adapter_rewards.notifyDataSetChanged();
     }
 
@@ -195,10 +183,10 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
         Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
             @Override
             public int compare(PartnersModel o1, PartnersModel o2) {
-
                 return o1.getDistanceToPartner().compareTo(o2.getDistanceToPartner());
             }
         });
+
         adapter_rewards.notifyDataSetChanged();
     }
 
@@ -206,25 +194,12 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
         Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
             @Override
             public int compare(PartnersModel o1, PartnersModel o2) {
-
                 return o1.getName().compareToIgnoreCase(o2.getName());
             }
         });
+
         adapter_rewards.notifyDataSetChanged();
     }
-
-    private void sortZ_A() {
-        Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
-            @Override
-            public int compare(PartnersModel o1, PartnersModel o2) {
-
-                return o2.getName().compareToIgnoreCase(o1.getName());
-            }
-        });
-        adapter_rewards.notifyDataSetChanged();
-    }
-
-
 
     public class checkingPartners extends AsyncTask<String, String, String> {
         Connection_API C_api = new Connection_API(getActivity());
@@ -245,25 +220,18 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
         protected String doInBackground(String... strings) {
             return C_api.checkingPartners_API(p_fID, p_dID, p_login, p_haslo);
         }
+
         @Override
         protected void onPostExecute(String result) {
             Parser par = new Parser();
-            Log.v("parser", "result: " + result);
             Document doc = par.getDocument(result);
             par.parserPartnersXML(doc, "xd");
-
             adapter_rewards = new RecyclerViewAdapter_partners(getContext(), PartnersModel.listOfPartners);
             sortNumberAscending();
             adapter_rewards.notifyDataSetChanged();
             recyclerView.setAdapter(adapter_rewards);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
         }
-
-
     }
-
-
 }

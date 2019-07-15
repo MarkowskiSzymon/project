@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        initialize();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
@@ -61,43 +61,26 @@ public class LoginActivity extends AppCompatActivity {
         conn = new Connection_INTERNET(getApplicationContext());
         hash = new Password_hash();
 
-        transLayout = findViewById(R.id.layout_activityLogin_transiston_create);
-
-        textinputlayout_activitySettings_cardNumber = findViewById(R.id.textinputlayout_activityLogin_cardNumber);
-        textinputlayout_activitySettings_password = findViewById(R.id.textinputlayout_activityLogin_password);
-
-        editTextCardNumber = findViewById(R.id.editText_activityLogin_cardNumber);
-        editTextPassword = findViewById(R.id.editText_activityLogin_password);
-
-
-        textViewGoToRegistration = findViewById(R.id.textView_ActivityLogin_GoToRegistration);
-        textViewGoToRules = findViewById(R.id.textView_ActivityLogin_Rules);
-
-        text_dummy_hint_cardNumber = findViewById(R.id.textView_activityLogin_dummyHintCardNumber);
-        text_dummy_hint_password = findViewById(R.id.textView_activityLogin_dummyHintPassword);
-
-        button_AcitivityLogin_Login = findViewById(R.id.button_AcitivityLogin_Login);
 
         button_AcitivityLogin_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DoubleClickBlock.preventTwoClick(view);
-
                 if (conn.isInternetAvailable()) {
                     if (TextUtils.isEmpty(editTextCardNumber.getText())) {
                         editTextCardNumber.requestFocus();
                         textinputlayout_activitySettings_cardNumber.setError("Username is required!");
-                    }else if(editTextCardNumber.getText().toString().contains(" ")){
+                    } else if(editTextCardNumber.getText().toString().contains(" ")){
                         textinputlayout_activitySettings_cardNumber.requestFocus();
                         textinputlayout_activitySettings_cardNumber.setError("Space is not allowed!");
-                    }else if (TextUtils.isEmpty(editTextPassword.getText())) {
+                    } else if (TextUtils.isEmpty(editTextPassword.getText())) {
                         textinputlayout_activitySettings_password.requestFocus();
                         textinputlayout_activitySettings_password.setError("sdfsdfsdfsdf");
-                    }else if(editTextPassword.getText().toString().contains(" ")){
+                    } else if(editTextPassword.getText().toString().contains(" ")){
                         editTextPassword.requestFocus();
                         textinputlayout_activitySettings_password.requestFocus();
                         editTextPassword.setError("Space is not allowed");
-                    }else{
+                    } else{
                         new Logowanie(conn.getDeviceId(), StartActivity.login_fID, editTextCardNumber.getText().toString(), hash.tryHash(editTextPassword.getText().toString())).execute();
                     }
                 } else {
@@ -122,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, SignupActivity_FirstStep.class);
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
                     startActivity(intent, options.toBundle());
-                }else{
+                } else{
                     Toast.makeText(LoginActivity.this, "Problem with internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -135,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(conn.isInternetAvailable()){
                     Intent intent  = new Intent(LoginActivity.this, RulesActivity.class);
                     startActivity(intent);
-                }else{
+                } else{
                     Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -146,16 +129,12 @@ public class LoginActivity extends AppCompatActivity {
         editTextCardNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
                             text_dummy_hint_cardNumber.setVisibility(View.VISIBLE);
                             textinputlayout_activitySettings_password.setError(null);
-
                         }
                     }, 100);
                 } else {
@@ -164,7 +143,6 @@ public class LoginActivity extends AppCompatActivity {
                     } else{
                         text_dummy_hint_cardNumber.setVisibility(View.INVISIBLE);
                     }
-
                 }
             }
         });
@@ -173,7 +151,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
 
@@ -191,6 +168,19 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void initialize() {
+        transLayout = findViewById(R.id.layout_activityLogin_transiston_create);
+        textinputlayout_activitySettings_cardNumber = findViewById(R.id.textinputlayout_activityLogin_cardNumber);
+        textinputlayout_activitySettings_password = findViewById(R.id.textinputlayout_activityLogin_password);
+        editTextCardNumber = findViewById(R.id.editText_activityLogin_cardNumber);
+        editTextPassword = findViewById(R.id.editText_activityLogin_password);
+        textViewGoToRegistration = findViewById(R.id.textView_ActivityLogin_GoToRegistration);
+        textViewGoToRules = findViewById(R.id.textView_ActivityLogin_Rules);
+        text_dummy_hint_cardNumber = findViewById(R.id.textView_activityLogin_dummyHintCardNumber);
+        text_dummy_hint_password = findViewById(R.id.textView_activityLogin_dummyHintPassword);
+        button_AcitivityLogin_Login = findViewById(R.id.button_AcitivityLogin_Login);
     }
 
     public class Logowanie extends AsyncTask<String, String, String> {
@@ -233,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                 edit.putString("password", hash.tryHash(editTextPassword.getText().toString()));
                 edit.commit();
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            }else if(loginModelTest.getCzy_zarejestrowany().equals("2")){
+            } else if(loginModelTest.getCzy_zarejestrowany().equals("2")){
                 Intent intent = new Intent(LoginActivity.this, CreatePasswordActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this, transLayout, ViewCompat.getTransitionName(transLayout));
                 startActivity(intent, options.toBundle());
@@ -246,5 +236,4 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-
 }

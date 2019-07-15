@@ -46,51 +46,23 @@ public class SettingsActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
         setContentView(R.layout.activity_settings);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
+        initialize();
 
         final Regex_patterns regex_patterns = new Regex_patterns();
         LoginModelTest loginModelTest = new LoginModelTest();
         myPrefs = getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
-
-        toolbar = findViewById(R.id.toolbar_activitySetting);
-
-        text_dummy_hint_username = findViewById(R.id.textView_activitySettings_dummyHintUsername);
-        text_dummy_hint_dateOfBirth = findViewById(R.id.textView_activitySettings_dummyHintDateOfBirth);
-        text_dummy_hint_zipCode = findViewById(R.id.textView_activitySettings_dummyHintZipCode);
-        text_dummy_hint_email = findViewById(R.id.textView_activitySettings_dummyHintEmail);
-        text_dummy_hint_phoneNumber = findViewById(R.id.textView_activitySettings_dummyPhoneNumber);
-        text_dummy_hint_password = findViewById(R.id.textView_activitySettings_dummyHintPassword);
-        text_dummy_hint_repeatPassword = findViewById(R.id.textView_activitySettings_dummyHintRepeatPassword);
-
-        editUsername = findViewById(R.id.editText_activitySettings_username);
-        editDateOfBirth = findViewById(R.id.editText_activitySettings_date);
-        editZipCode = findViewById(R.id.editText_activitySettings_zipCode);
-        editEmail = findViewById(R.id.editText_activitySettings_email);
-
-        editPhoneNumber = findViewById(R.id.editText_activitySettings_phoneNumber);
         editPhoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
         editPhoneNumber.setTransformationMethod(null);
-        editPassword = findViewById(R.id.editText_activitySettings_password);
-        editRepeatPassword = findViewById(R.id.editText_activitySettings_repeatPassword);
-
-        radioButtonFemale = findViewById(R.id.radiobutton_activitySettings_female);
-        radioButtonMale = findViewById(R.id.radiobutton_activitySettings_male);
-
         editUsername.setText(loginModelTest.getImie());
         editDateOfBirth.setText(loginModelTest.getData_urodzenia());
         editZipCode.setText(loginModelTest.getKod_pocztowy());
         editEmail.setText(loginModelTest.getEmail());
         editPhoneNumber.setText(loginModelTest.getTelefon());
-
-        ccp = findViewById(R.id.countryCodePicker_activitySettings);
         ccp.getDefaultCountryCode();
-
-        buttonSaveNewPassword = findViewById(R.id.button_activitySettings_saveNewPassword);
-        buttonUpdateNewData = findViewById(R.id.button_activitySettings_updateNewData);
 
         if(loginModelTest.listOfInformation.get(0).getPlec().equals("M")){
             radioButtonMale.setChecked(true);
-        }else{
+        } else{
             radioButtonFemale.setChecked(true);
         }
 
@@ -116,14 +88,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-
             }
         });
 
         editUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
 
@@ -145,10 +115,8 @@ public class SettingsActivity extends AppCompatActivity {
         editDateOfBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
                             text_dummy_hint_dateOfBirth.setVisibility(View.VISIBLE);
@@ -170,7 +138,6 @@ public class SettingsActivity extends AppCompatActivity {
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
-
                 DatePickerDialog dialog = new DatePickerDialog(
                         SettingsActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -197,7 +164,6 @@ public class SettingsActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
                             text_dummy_hint_zipCode.setVisibility(View.VISIBLE);
@@ -232,18 +198,14 @@ public class SettingsActivity extends AppCompatActivity {
         editEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
-                            // Show white background behind floating label
                             text_dummy_hint_email.setVisibility(View.VISIBLE);
                         }
                     }, 100);
                 } else {
-                    // Required to show/hide white background behind floating label during focus change
                     if (editEmail.getText().length() > 0)
                         text_dummy_hint_email.setVisibility(View.VISIBLE);
                     else
@@ -255,18 +217,14 @@ public class SettingsActivity extends AppCompatActivity {
         editPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
-                            // Show white background behind floating label
                             text_dummy_hint_phoneNumber.setVisibility(View.VISIBLE);
                         }
                     }, 100);
                 } else {
-                    // Required to show/hide white background behind floating label during focus change
                     if (editPhoneNumber.getText().length() > 0)
                         text_dummy_hint_phoneNumber.setVisibility(View.VISIBLE);
                     else
@@ -287,18 +245,14 @@ public class SettingsActivity extends AppCompatActivity {
         editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
-                            // Show white background behind floating label
                             text_dummy_hint_password.setVisibility(View.VISIBLE);
                         }
                     }, 100);
                 } else {
-                    // Required to show/hide white background behind floating label during focus change
                     if (editPassword.getText().length() > 0)
                         text_dummy_hint_password.setVisibility(View.VISIBLE);
                     else
@@ -310,18 +264,14 @@ public class SettingsActivity extends AppCompatActivity {
         editRepeatPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
-                            // Show white background behind floating label
                             text_dummy_hint_repeatPassword.setVisibility(View.VISIBLE);
                         }
                     }, 100);
                 } else {
-                    // Required to show/hide white background behind floating label during focus change
                     if (editRepeatPassword.getText().length() > 0)
                         text_dummy_hint_repeatPassword.setVisibility(View.VISIBLE);
                     else
@@ -339,23 +289,40 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    private void initialize() {
+        toolbar = findViewById(R.id.toolbar_activitySetting);
+        editPhoneNumber = findViewById(R.id.editText_activitySettings_phoneNumber);
+        editPassword = findViewById(R.id.editText_activitySettings_password);
+        editRepeatPassword = findViewById(R.id.editText_activitySettings_repeatPassword);
+        radioButtonFemale = findViewById(R.id.radiobutton_activitySettings_female);
+        radioButtonMale = findViewById(R.id.radiobutton_activitySettings_male);
+        buttonSaveNewPassword = findViewById(R.id.button_activitySettings_saveNewPassword);
+        buttonUpdateNewData = findViewById(R.id.button_activitySettings_updateNewData);
+        text_dummy_hint_username = findViewById(R.id.textView_activitySettings_dummyHintUsername);
+        text_dummy_hint_dateOfBirth = findViewById(R.id.textView_activitySettings_dummyHintDateOfBirth);
+        text_dummy_hint_zipCode = findViewById(R.id.textView_activitySettings_dummyHintZipCode);
+        text_dummy_hint_email = findViewById(R.id.textView_activitySettings_dummyHintEmail);
+        text_dummy_hint_phoneNumber = findViewById(R.id.textView_activitySettings_dummyPhoneNumber);
+        text_dummy_hint_password = findViewById(R.id.textView_activitySettings_dummyHintPassword);
+        text_dummy_hint_repeatPassword = findViewById(R.id.textView_activitySettings_dummyHintRepeatPassword);
+        editUsername = findViewById(R.id.editText_activitySettings_username);
+        editDateOfBirth = findViewById(R.id.editText_activitySettings_date);
+        editZipCode = findViewById(R.id.editText_activitySettings_zipCode);
+        editEmail = findViewById(R.id.editText_activitySettings_email);
+        ccp = findViewById(R.id.countryCodePicker_activitySettings);
+    }
+
     public String getAge(int year, int month, int day) {
         Calendar dob = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
-
         dob.set(year, month-1, day);
-
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
         if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }
-
         Integer ageInt = new Integer(age);
         String ageS = ageInt.toString();
-
         myAge = ageInt;
-
         return ageS;
     }
 }

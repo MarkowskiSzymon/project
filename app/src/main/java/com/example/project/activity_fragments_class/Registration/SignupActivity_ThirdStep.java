@@ -24,15 +24,12 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
-
 import com.example.project.R;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Parser;
 import com.example.project.Utils.Regex_patterns;
 import com.example.project.activity_fragments_class.StartActivity;
-
 import org.w3c.dom.Document;
-
 import java.util.Calendar;
 
 public class SignupActivity_ThirdStep extends AppCompatActivity {
@@ -55,30 +52,10 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_third_step);
-
-        transLayout = findViewById(R.id.layout_activitySignupThirdStep_transiston_create);
+        initialize();
         final Regex_patterns regex = new Regex_patterns();
         myPrefsRegister = getSharedPreferences(StartActivity.SharedP_REGISTER, MODE_PRIVATE);
-
-        text_dummy_hint_name = findViewById(R.id.textView_activitySignupThirdStep_dummyHintName);
-        text_dummy_hint_dateOfBirth = findViewById(R.id.textView_activitySignupThirdStep_dummyHintDateOfBirth);
-        text_dummy_hint_zipCode = findViewById(R.id.textView_activitySignupThirdStep_dummyHintZipCode);
-
-        editTextName = findViewById(R.id.editText_activitySignupThirdStep_name);
-        edittextZipCode = findViewById(R.id.editText_activitySignupThirdStep_zipCode);
         edittextZipCode.setTransformationMethod(null);
-
-        textViewDateOfBirth = findViewById(R.id.editText_activitySignupThirdStep_dateOfBirth);
-
-        buttonNext = findViewById(R.id.button_activitySignupThirdStep_next);
-
-        toolbar = findViewById(R.id.toolbar_activitySignupThirdStep);
-
-        genderRadioGroup = findViewById(R.id.radioGroup_activitySignupThirdStep);
-
-        rulesCheckBox = findViewById(R.id.checkbox_activitySignupThirdStep);
-
-
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -91,7 +68,6 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
                             text_dummy_hint_name.setVisibility(View.VISIBLE);
@@ -107,7 +83,6 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
             }
         });
 
-
         textViewDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +90,6 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
-
                 DatePickerDialog dialog = new DatePickerDialog(
                         SignupActivity_ThirdStep.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -142,7 +116,6 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
                             text_dummy_hint_zipCode.setVisibility(View.VISIBLE);
@@ -180,7 +153,6 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 maleRadioButton = findViewById(R.id.radioButton_activitySignupThirdStep_male);
                 femaleRadioButton = findViewById(R.id.radioButton_activitySignupThirdStep_female);
-
                 if(maleRadioButton.isChecked()){
                     gender = "M";
                 }else{
@@ -230,30 +202,37 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
         });
     }
 
+    private void initialize() {
+        transLayout = findViewById(R.id.layout_activitySignupThirdStep_transiston_create);
+        text_dummy_hint_name = findViewById(R.id.textView_activitySignupThirdStep_dummyHintName);
+        text_dummy_hint_dateOfBirth = findViewById(R.id.textView_activitySignupThirdStep_dummyHintDateOfBirth);
+        text_dummy_hint_zipCode = findViewById(R.id.textView_activitySignupThirdStep_dummyHintZipCode);
+        editTextName = findViewById(R.id.editText_activitySignupThirdStep_name);
+        edittextZipCode = findViewById(R.id.editText_activitySignupThirdStep_zipCode);
+        textViewDateOfBirth = findViewById(R.id.editText_activitySignupThirdStep_dateOfBirth);
+        buttonNext = findViewById(R.id.button_activitySignupThirdStep_next);
+        toolbar = findViewById(R.id.toolbar_activitySignupThirdStep);
+        genderRadioGroup = findViewById(R.id.radioGroup_activitySignupThirdStep);
+        rulesCheckBox = findViewById(R.id.checkbox_activitySignupThirdStep);
+    }
+
     public String getAge(int year, int month, int day) {
         Calendar dob = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
-
         dob.set(year, month-1, day);
-
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
-
         if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }
-
         Integer ageInt = new Integer(age);
         String ageS = ageInt.toString();
-
         myAge = ageInt;
-
         return ageS;
     }
 
 
 
     public class registerNewUser extends AsyncTask<String, String, String> {
-
         Connection_API C_api = new Connection_API(SignupActivity_ThirdStep.this);
 
         private String p_fID;
@@ -285,7 +264,6 @@ public class SignupActivity_ThirdStep extends AppCompatActivity {
         protected void onPostExecute(String result) {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
-
 
 
             Intent intent = new Intent(SignupActivity_ThirdStep.this, SignupActivity_FourthStep.class);

@@ -8,17 +8,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.project.R;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Parser;
-
 import org.w3c.dom.Document;
 
 public class RewardsFragment extends Fragment {
 
     private View rootView;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_rewards, container, false);
@@ -27,11 +24,9 @@ public class RewardsFragment extends Fragment {
         return rootView;
     }
 
-
-
     public class checkingRewards extends AsyncTask<String, String, String> {
-
         Connection_API C_api = new Connection_API(getActivity());
+
         private String p_fID;
         private String p_dID;
         private String p_login;
@@ -52,8 +47,6 @@ public class RewardsFragment extends Fragment {
         protected void onPostExecute(String result) {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
-
-
         }
     }
 }

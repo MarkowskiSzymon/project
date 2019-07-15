@@ -37,26 +37,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public SharedPreferences myPrefs;
     TextView cardNumber, name;
     public static int partnerFragmentStatus;
+    private Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_home_full);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_activityRules);
+        intialize();
         setSupportActionBar(toolbar);
-
-
         LoginModelTest loginModelTest = new LoginModelTest();
-
         myPrefs = getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
@@ -64,11 +59,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         name = view.findViewById(R.id.textView_leftNavigation_name);
         cardNumber.setText("Numer karty: " + myPrefs.getString("login", ""));
         name.setText(loginModelTest.getImie());
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MainFragment()).commit();
 
+    }
+
+    private void intialize() {
+        toolbar =  findViewById(R.id.toolbar_activityRules);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener;
@@ -78,7 +76,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
-
                 switch (item.getItemId()) {
                     case (R.id.nav_home):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.white)));
@@ -94,7 +91,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
                         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
                         selectedFragment = new PartnersFragment();
-
                         break;
                     case (R.id.nav_presents):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
@@ -127,9 +123,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         if (id == R.id.nav_setting) {
             Log.v("App", "nav_settings");
             startActivity(new Intent(this, SettingsActivity.class));
@@ -142,10 +136,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
             finish();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

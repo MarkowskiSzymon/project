@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.project.R;
 import com.example.project.Utils.Adaptery.RecyclerViewAdapter_transactions;
 import com.example.project.Utils.Connection_API;
@@ -22,7 +21,6 @@ import com.example.project.Utils.Connection_INTERNET;
 import com.example.project.Utils.Parser;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.TransactionsModel;
-
 import org.w3c.dom.Document;
 
 
@@ -33,31 +31,25 @@ public class TransactionsFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerViewAdapter_transactions adapter_transactions;
+    private View rootView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_history, container, false);
+        rootView = inflater.inflate(R.layout.fragment_history, container, false);
         setHasOptionsMenu(true);
-
+        initialize();
         TransactionsModel transactionsModel = new TransactionsModel();
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         conn = new Connection_INTERNET(getContext());
 
-        recyclerView = rootView.findViewById(R.id.recycler_view_fragment_history);
-        swipeRefreshLayout = rootView.findViewById(R.id.swipe_layout_fragment_history);
-
-
-
         if(transactionsModel.listOfTransactions.isEmpty()) {
             new checkingTransactions(StartActivity.checkingTransactions_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
-        }else{
+        } else{
             adapter_transactions = new RecyclerViewAdapter_transactions(getContext(), TransactionsModel.listOfTransactions);
             recyclerView.setAdapter(adapter_transactions);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
-
-
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -73,8 +65,12 @@ public class TransactionsFragment extends Fragment {
             }
         });
 
-
         return rootView;
+    }
+
+    private void initialize() {
+        recyclerView = rootView.findViewById(R.id.recycler_view_fragment_history);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipe_layout_fragment_history);
     }
 
 
@@ -97,16 +93,15 @@ public class TransactionsFragment extends Fragment {
         protected String doInBackground(String... strings) {
             return C_api.checkingTransactions_API(p_fID, p_dID, p_login, p_haslo);
         }
+
         @Override
         protected void onPostExecute(String result) {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
             par.parserTransactionsXML(doc, "xd");
-
             initRecyclerView();
-
-
         }
+
         private void initRecyclerView() {
             adapter_transactions = new RecyclerViewAdapter_transactions(getContext(), TransactionsModel.listOfTransactions);
             recyclerView.setAdapter(adapter_transactions);

@@ -27,20 +27,6 @@ public class QrCodeGenerator {
 }
 
 
-    // The method by which you are able to scan the QR Code from card.
-
-/*
-        public void qrCode(View view) {
-        IntentIntegrator integrator = new IntentIntegrator(SignupActivity_FirstStep.this);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        integrator.setPrompt("Scan");
-        integrator.setCameraId(1);
-        integrator.setBeepEnabled(false);
-        integrator.setBarcodeImageEnabled(false);
-        integrator.initiateScan();
-*/
-
-
 
 
 

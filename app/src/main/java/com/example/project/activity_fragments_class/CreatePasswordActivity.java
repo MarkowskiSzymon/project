@@ -22,23 +22,14 @@ public class CreatePasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_password);
-
+        initialize();
         final Regex_patterns regex_patterns = new Regex_patterns();
-
-        button_savePassword = findViewById(R.id.button_activityCreatePassword_buttonSavePassword);
-
-        text_dummy_hint_password = findViewById(R.id.textView_activityCreatePassword_dummyHintPassword);
-        text_dummy_hint_passwordRepeat = findViewById(R.id.textView_activityCreatePassword_dummyHintPasswordRepeat);
-
-        editText_password = findViewById(R.id.editText_activityCreatePassword_password);
-        editText_passwordRepeat = findViewById(R.id.editText_activityCreatePassword_passwordRepeat);
 
         editText_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
                             text_dummy_hint_password.setVisibility(View.VISIBLE);
@@ -59,7 +50,6 @@ public class CreatePasswordActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
                             text_dummy_hint_passwordRepeat.setVisibility(View.VISIBLE);
@@ -86,14 +76,17 @@ public class CreatePasswordActivity extends AppCompatActivity {
                         Log.v("newpassword", "Hasla sie nie zgadzaja");
                     }else {
                         Log.v("newpassword", "WSZYSTKO JEST OK, WYSYLAM ZAPYTANIE DO API O ZMIANE HASŁA");
-
-                        // WSZYSTKO JEST OK, WYSYLAM ZAPYTANIE DO API O ZMIANE HASŁA
                     }
-
-
                 }
             }
         });
+    }
 
+    private void initialize() {
+        button_savePassword = findViewById(R.id.button_activityCreatePassword_buttonSavePassword);
+        text_dummy_hint_password = findViewById(R.id.textView_activityCreatePassword_dummyHintPassword);
+        text_dummy_hint_passwordRepeat = findViewById(R.id.textView_activityCreatePassword_dummyHintPasswordRepeat);
+        editText_password = findViewById(R.id.editText_activityCreatePassword_password);
+        editText_passwordRepeat = findViewById(R.id.editText_activityCreatePassword_passwordRepeat);
     }
 }

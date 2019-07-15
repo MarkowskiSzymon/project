@@ -38,24 +38,18 @@ public class CardsFragment extends Fragment {
     private Connection_INTERNET conn;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter_cards adapter_cards;
-
-    private TextView text_dummy_hint_cardNumber, text_dummy_hint_cardCode;
-    private EditText editText_cardNumber, editText_cardCode;
+    private FloatingActionButton fab;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_cards, container, false);
+        initialize();
         final CardModelTest cardModelTest = new CardModelTest();
-
-        recyclerView = rootView.findViewById(R.id.recycler_view_fragment_karty);
-
-
-
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         conn = new Connection_INTERNET(getContext());
 
-        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,19 +57,17 @@ public class CardsFragment extends Fragment {
                 myDialog.setContentView(R.layout.add_new_card_popup);
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
-
             }
         });
 
         if(cardModelTest.listOfCards.isEmpty()) {
             new CheckingOwnedCards(StartActivity.checkingOwnedCards_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
-        }else{
+        } else{
             adapter_cards = new RecyclerViewAdapter_cards(getContext(), CardModelTest.listOfCards);
             recyclerView.setAdapter(adapter_cards);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
-        swipeRefreshLayout = rootView.findViewById(R.id.swipeLayoutKarty);
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -92,17 +84,20 @@ public class CardsFragment extends Fragment {
             }
         });
 
-
-
         return rootView;
     }
 
+    private void initialize() {
+        recyclerView = rootView.findViewById(R.id.recycler_view_fragment_karty);
+        fab = rootView.findViewById(R.id.fab);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeLayoutKarty);
+
+    }
 
 
     public class CheckingOwnedCards extends AsyncTask<String, String, String> {
-        CardModelTest cardModelTest = new CardModelTest();
-
         Connection_API C_api = new Connection_API(getActivity());
+
         private String p_fID;
         private String p_dID;
         private String p_login;
@@ -119,16 +114,15 @@ public class CardsFragment extends Fragment {
         protected String doInBackground(String... strings) {
             return C_api.checkingOwnedCards_API(p_fID, p_dID, p_login, p_haslo);
         }
+
         @Override
         protected void onPostExecute(String result) {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
             par.parserLoginXML(doc, "xd");
-
             initRecyclerView();
-
-
         }
+
         private void initRecyclerView() {
             adapter_cards = new RecyclerViewAdapter_cards(getContext(), CardModelTest.listOfCards);
             recyclerView.setAdapter(adapter_cards);
@@ -136,6 +130,4 @@ public class CardsFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
     }
-
-
 }

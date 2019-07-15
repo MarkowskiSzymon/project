@@ -17,13 +17,11 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
-
 import com.example.project.R;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Parser;
 import com.example.project.Utils.Regex_patterns;
 import com.example.project.activity_fragments_class.StartActivity;
-
 import org.w3c.dom.Document;
 
 public class SignupActivity_SecondStep extends AppCompatActivity {
@@ -41,16 +39,9 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_second_step);
+        initialize();
 
-        text_dummy_hint_email = findViewById(R.id.textView_activitySignupThirdStep_dummyHintName);
-        text_dummy_hint_phone = findViewById(R.id.textView_activitySignupThirdStep_dummyHintDateOfBirth);
 
-        editTextCardEmail = findViewById(R.id.editText_activitySignupThirdStep_name);
-        editTextCardPhone = findViewById(R.id.editText_activitySignupThirdStep_dateOfBirth);
-
-        toolbar = findViewById(R.id.toolbar_activitySignupSecondStep);
-
-        buttonNext = findViewById(R.id.button_activitySignupSecondStep_next);
 
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -65,11 +56,9 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
                             text_dummy_hint_email.setVisibility(View.VISIBLE);
-
                         }
                     }, 100);
                 } else {
@@ -78,7 +67,6 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
                     } else{
                         text_dummy_hint_email.setVisibility(View.INVISIBLE);
                     }
-
                 }
             }
         });
@@ -87,18 +75,14 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
         editTextCardPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     new Handler().postDelayed(new Runnable() {
-
                         @Override
                         public void run() {
-                            // Show white background behind floating label
                             text_dummy_hint_phone.setVisibility(View.VISIBLE);
                         }
                     }, 100);
                 } else {
-                    // Required to show/hide white background behind floating label during focus change
                     if (editTextCardPhone.getText().length() > 0)
                         text_dummy_hint_phone.setVisibility(View.VISIBLE);
                     else
@@ -122,11 +106,19 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void initialize() {
+        text_dummy_hint_email = findViewById(R.id.textView_activitySignupThirdStep_dummyHintName);
+        text_dummy_hint_phone = findViewById(R.id.textView_activitySignupThirdStep_dummyHintDateOfBirth);
+        editTextCardEmail = findViewById(R.id.editText_activitySignupThirdStep_name);
+        editTextCardPhone = findViewById(R.id.editText_activitySignupThirdStep_dateOfBirth);
+        toolbar = findViewById(R.id.toolbar_activitySignupSecondStep);
+        buttonNext = findViewById(R.id.button_activitySignupSecondStep_next);
+        transLayout = findViewById(R.id.layout_activitySignupSecondStep_transiston_create);
     }
 
     public class checkingEmail extends AsyncTask<String, String, String> {
-
         Connection_API C_api = new Connection_API(SignupActivity_SecondStep.this);
 
         private String p_fID;
@@ -146,9 +138,7 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
         protected void onPostExecute(String result) {
             Parser par = new Parser();
             Document doc = par.getDocument(result);
-            Log.v("signup","res: " +  result);
             String xsEmail = par.parserXML(doc, "xs");
-            Log.v("signup", "XS EMAILA: " + xsEmail);
             if("1".equals(xsEmail)){
                 new sprawdzanieTelefonu(StartActivity.checkingEmialAndPhone_fID, editTextCardPhone.getText().toString()).execute();
             }else{
@@ -159,7 +149,6 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
 
 
     public class sprawdzanieTelefonu extends AsyncTask<String, String, String> {
-
         Connection_API C_api = new Connection_API(SignupActivity_SecondStep.this);
 
         private String p_fID;
@@ -187,16 +176,13 @@ public class SignupActivity_SecondStep extends AppCompatActivity {
                 edit.putString("email", editTextCardEmail.getText().toString());
                 edit.putString("phone", editTextCardPhone.getText().toString());
                 edit.commit();
-
-                transLayout = findViewById(R.id.layout_activitySignupSecondStep_transiston_create);
+                initialize();
                 Intent intent = new Intent(SignupActivity_SecondStep.this, SignupActivity_ThirdStep.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(SignupActivity_SecondStep.this, transLayout, ViewCompat.getTransitionName(transLayout));
                 startActivity(intent, options.toBundle());
-
-            }else{
+            } else{
                Log.v("signup", "Podany numer telefonu został już zarejestrowany");
             }
         }
-
     }
 }

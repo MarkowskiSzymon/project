@@ -19,25 +19,23 @@ public class RulesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
         setContentView(R.layout.activity_rules);
-        toolbar = findViewById(R.id.toolbar_activityRules);
-        webView = findViewById(R.id.webview_activityRules);
+        initialize();
 
         toolbar.setTitle("Regulamin");
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
-
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 finish();
-
             }
         });
-
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(StartActivity.dellyRulesUrl);
     }
 
+    private void initialize() {
+        toolbar = findViewById(R.id.toolbar_activityRules);
+        webView = findViewById(R.id.webview_activityRules);
+    }
 }
