@@ -5,13 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.project.R;
 import com.example.project.Utils.Connection_API;
 import com.example.project.Utils.Parser;
+
 import org.w3c.dom.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RewardsFragment extends Fragment {
 
@@ -20,9 +27,10 @@ public class RewardsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_rewards, container, false);
         setHasOptionsMenu(true);
-
         return rootView;
     }
+
+
 
     public class checkingRewards extends AsyncTask<String, String, String> {
         Connection_API C_api = new Connection_API(getActivity());

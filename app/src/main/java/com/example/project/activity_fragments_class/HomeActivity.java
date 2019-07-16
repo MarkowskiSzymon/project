@@ -1,11 +1,10 @@
 package com.example.project.activity_fragments_class;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,19 +13,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.project.MainActivity;
 import com.example.project.R;
 import com.example.project.activity_fragments_class.Fragments.CardsFragment;
 import com.example.project.activity_fragments_class.Fragments.MainFragment;
-import com.example.project.activity_fragments_class.Fragments.MapFragment;
 import com.example.project.activity_fragments_class.Fragments.PartnersFragment;
 import com.example.project.activity_fragments_class.Fragments.RewardsFragment;
 import com.example.project.activity_fragments_class.Fragments.TransactionsFragment;
@@ -95,7 +93,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     case (R.id.nav_presents):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
                         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
-                        selectedFragment = new RewardsFragment();
+                        Log.v("tabs", "wyłączam nagrody");
+                        selectedFragment = new MainActivity();
                         break;
                     case (R.id.nav_test):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
@@ -111,19 +110,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+
     }
-
-
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         int id = item.getItemId();
+
         if (id == R.id.nav_setting) {
             Log.v("App", "nav_settings");
             startActivity(new Intent(this, SettingsActivity.class));
@@ -132,9 +126,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(HomeActivity.this, RulesActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.alert_light_frame)
+                    .setTitle(R.string.logout)
+                    .setMessage(R.string.logoutAsking)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

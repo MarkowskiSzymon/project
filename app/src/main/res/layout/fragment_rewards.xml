@@ -6,115 +6,28 @@
     android:layout_height="match_parent"
     android:background="@color/colorDellyGradientBlue">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout_fragmentRewards_availableSpecialPrizesFull"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout_fragmentRewards_availableSpecialPrizesInformation"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/result_tabs"
+            android:background="@color/colorAccent"
+            app:tabTextColor="@color/colorWhite"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabIndicatorColor="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
+            app:tabMode="scrollable"/>
+    </android.support.design.widget.AppBarLayout>
 
-            <TextView
-                android:id="@+id/textView_fragmentRewards_availableSpecialPrizes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="14dp"
-                android:text="@string/availableSpecialPrizes"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout_fragmentRewards_availableSpecialPrizes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/relativeLayout_fragmentRewards_availableSpecialPrizesInformation">
-
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefreshLayout_fragmentRewards_availableSpecialPrizes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
->
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_fragmentRewards_availableSpecialPrizes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fadeScrollbars="true">
-
-                </android.support.v7.widget.RecyclerView>
-
-
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout_fragmentRewards_availablePrizesFull"
-        android:layout_below="@id/relativeLayout_fragmentRewards_availableSpecialPrizesFull"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout_fragmentRewards_availablePrizesInformation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
-
-            <TextView
-                android:id="@+id/textView_fragmentRewards_availablePrizes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="14dp"
-                android:text="@string/availablePrizes"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout_fragmentRewards_availablePrizes"
-            android:layout_width="match_parent"
-            android:layout_height="231dp"
-            android:layout_below="@id/relativeLayout_fragmentRewards_availablePrizesInformation">
-
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefreshLayout_fragmentRewards_availablePrizes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="1dp">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_fragmentRewards_availablePrizes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fadeScrollbars="true">
-
-                </android.support.v7.widget.RecyclerView>
-
-
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-
-
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </RelativeLayout>
 
