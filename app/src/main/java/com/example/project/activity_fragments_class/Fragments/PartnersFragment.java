@@ -56,8 +56,7 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
         rootView = inflater.inflate(R.layout.fragment_partners, container, false);
         setHasOptionsMenu(true);
         initialize();
-        HomeActivity homeActivity = new HomeActivity();
-        homeActivity.partnerFragmentStatus = 0;
+
         PartnersModel myListData = new PartnersModel();
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         conn = new Connection_INTERNET(getContext());

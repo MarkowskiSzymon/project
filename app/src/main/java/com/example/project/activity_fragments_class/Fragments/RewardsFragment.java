@@ -1,9 +1,9 @@
 package com.example.project.activity_fragments_class.Fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,49 +12,59 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.project.R;
-import com.example.project.Utils.Connection_API;
-import com.example.project.Utils.Parser;
 
-import org.w3c.dom.Document;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RewardsFragment extends Fragment {
 
     private View rootView;
+    private ViewPager viewPager;
+    private SectionsPagerAdapter sectionsPagerAdapter;
+    private TabLayout tabs;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_rewards, container, false);
-        setHasOptionsMenu(true);
+        rootView = inflater.inflate(R.layout.fragment_reward, container, false);
+        sectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
+        viewPager = rootView.findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        tabs = rootView.findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
         return rootView;
     }
 
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-
-    public class checkingRewards extends AsyncTask<String, String, String> {
-        Connection_API C_api = new Connection_API(getActivity());
-
-        private String p_fID;
-        private String p_dID;
-        private String p_login;
-        private String p_haslo;
-
-        checkingRewards(String fID, String dID, String login, String password){
-            this.p_fID = fID;
-            this.p_dID = dID;
-            this.p_login = login;
-            this.p_haslo = password;
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
 
         @Override
-        protected String doInBackground(String... strings) {
-            return C_api.checkingPartners_API(p_fID, p_dID, p_login, p_haslo);
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            switch (position) {
+                case 0:
+                    fragment = new ExtraRewardListFragment();
+                    break;
+                case 1:
+                    fragment = new NormalRewardListFragment();
+                    break;
+            }
+            return fragment;
         }
+
         @Override
-        protected void onPostExecute(String result) {
-            Parser par = new Parser();
-            Document doc = par.getDocument(result);
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Nagrody";
+                case 1:
+                    return "Prezenty";
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
         }
     }
 }

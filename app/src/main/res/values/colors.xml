@@ -8,5 +8,6 @@
     <color name="colorDellyGreen">#00A55B</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#837F7F</color>
+    <color name="colorBlack">#000000</color>
     <color name="transparent">#00ffffff</color>
 </resources>

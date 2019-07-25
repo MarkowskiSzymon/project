@@ -1,140 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeLayoutPartnera"
+    android:id="@+id/relativeLayout_viewLayoutPartner_fullPartnerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginBottom="5dp"
     android:elevation="5dp"
-
     android:background="@drawable/kafelek_partnera_tlo">
 
 
     <RelativeLayout
         android:id="@+id/relativeLayout_viewLayoutPartner_upLayout"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content">
 
         <ImageView
-            android:transitionName="example_transistion"
-            android:id="@+id/zdjecie"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/qr_code" />
-
-        <View
-            android:id="@+id/linia"
+            android:id="@+id/imageView_viewLayoutPartner_logo"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_alignBottom="@+id/zdjecie"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/zdjecie"
-            android:layout_toRightOf="@id/zdjecie"
-            android:background="#ACA8A8" />
+            android:layout_height="160dp"
+            android:src="@drawable/ic_ico_call"
+            android:transitionName="example_transistion" />
 
-        <TextView
-            android:id="@+id/zdjecieTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/zdjecie"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="7dp"
-            android:layout_toEndOf="@+id/zdjecie"
-            android:fontFamily="@font/dosis_semibold"
-            android:text="Test"
-            android:textSize="13dp" />
-
-        <TextView
-            android:id="@+id/textView_layoutPartner_ownedPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/linia"
-            android:layout_below="@+id/zdjecieTextView"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="27dp"
-            android:layout_marginBottom="7dp"
-            android:layout_toEndOf="@+id/zdjecie"
-            android:text="10 ptk"
-            android:textColor="#3BB273"
-            android:textSize="10dp" />
-
-        <TextView
-            android:id="@+id/textView_partnerLayout_distanceFromPartner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/linia"
-            android:layout_below="@+id/zdjecieTextView"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="26dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/dosis_medium"
-            android:text="3,8km"
-            android:textSize="10dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_tekstu_pokaz_nagrode"
-        android:layout_below="@id/relativeLayout_viewLayoutPartner_upLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/textViewPokazNagrody"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:fontFamily="@font/dosis_bold"
-            android:text="POKAŻ NAGRODY"
-            android:textColor="@color/colorDellyGradientBlue"
-            android:textSize="13dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/kafelekPartneraLayoutNagrod"
-        android:layout_below="@id/layout_tekstu_pokaz_nagrode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <LinearLayout
-            android:id="@+id/wariantNagrody"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <include layout="@layout/view_layout_extended_description_partner"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/layout_tekstu_schowaj_nagrode"
-        android:visibility="gone"
-        android:layout_below="@+id/kafelekPartneraLayoutNagrod"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/textViewSchowajNagrody"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SCHOWAJ NAGRODY"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/dosis_bold"
-            android:textColor="#42B4DE"/>
+            android:layout_below="@+id/imageView_viewLayoutPartner_logo"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/textView_viewLayoutPartner_partnerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="NameOfPartner"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textView_viewLayoutPartner_ownedPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/linia"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/textView_viewLayoutPartner_partnerName"
+                android:text="15 ptk"
+                android:textColor="@color/colorDellyGreen"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/textView_viewLayoutPartner_distanceFromPartner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/textView_viewLayoutPartner_partnerName"
+                android:layout_alignParentEnd="true"
+                android:text="3,8km"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
+
 </RelativeLayout>

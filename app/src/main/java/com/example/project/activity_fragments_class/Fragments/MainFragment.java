@@ -83,8 +83,8 @@ public class MainFragment extends Fragment{
     }
 
     private void initialize() {
-        swipeRefreshLayout = rootView.findViewById(R.id.swipeLayoutHome);
-        recyclerView = rootView.findViewById(R.id.recycler_view_fragment_home);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout_fragmentHome);
+        recyclerView = rootView.findViewById(R.id.recyclerView_fragmentHome);
         qrCode_image = rootView.findViewById(R.id.imageViewQRCodeGenerator);
         textViewNumerKarty = rootView.findViewById(R.id.textViewNumerKarty);
     }

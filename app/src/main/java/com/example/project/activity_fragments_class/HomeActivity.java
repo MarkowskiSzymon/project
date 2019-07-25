@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.project.MainActivity;
 import com.example.project.R;
 import com.example.project.activity_fragments_class.Fragments.CardsFragment;
 import com.example.project.activity_fragments_class.Fragments.MainFragment;
@@ -94,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
                         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
                         Log.v("tabs", "wyłączam nagrody");
-                        selectedFragment = new MainActivity();
+                        selectedFragment = new RewardsFragment();
                         break;
                     case (R.id.nav_test):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));

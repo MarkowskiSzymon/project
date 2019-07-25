@@ -21,7 +21,6 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,7 +28,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class Parser {
-    public ArrayList<String> lista = new ArrayList<>();
 
     public Document getDocument(String response) {
         DocumentBuilder builder;
@@ -47,14 +45,6 @@ public class Parser {
         return doc;
     }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-    <dane>
-        <xf>99</xf>
-    </dane>
-*/
-
-
     public String parserXML(Document document, String name) {
         NodeList dane = document.getElementsByTagName("dane");
         String ret = null;
@@ -69,16 +59,6 @@ public class Parser {
         return ret;
     }
 
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /*
-    <dane>
-        <xl>
-             <elem>Poprawne logowanie</elem>
-        </xl>
-    </dane>
-    */
 
     public String[] parserXMLArray(Document document, String name, String name2) {
         NodeList dane = document.getElementsByTagName("dane");
@@ -113,24 +93,6 @@ public class Parser {
         }
         return "";
     }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- /*
-    <dane>
-        <xd>
-            <elem>
-                <nr_karty>
-                    <nr>...</nr>
-                    <pic>...</pic>
-                </nr_karty>
-                <nr_karty>
-                    <nr>...</nr>
-                    <pic>...</pic>
-                </nr_karty>
-            </elem>
-        </xd>
-    </dane>
-*/
 
     public List<String> parserCardsXML(Document doc, String name) {
         NodeList dane = doc.getElementsByTagName(name);
@@ -228,40 +190,6 @@ public class Parser {
         return null;
     }
 
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- /*
- <dane>
-        <xd>
-            <id>...</id>
-            <imie>...</imie>
-            <telefon>...</telefon>
-            <email>...</email>
-            <kod_pocztowy>...</kod_pocztowy>
-            <data_urodzenia>...</data_urodzenia>
-            <plec>...</plec>
-            <data_rejestracji>...</data_rejestracji>
-            <czy_zarejestrowany>...</czy_zarejestrowany>
-            <czy_aktywny>...</czy_aktywny>
-        </xd>
-</dane>
-*/
-
-
-
-
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-    <dane>
-        <xl>
-            <elem>...</elem>
-        </xl>
-    </dane>
-*/
-
     public String parserSimpleXML(Document doc, String name) {
         NodeList dane = doc.getElementsByTagName(name);
         String result = null;
@@ -277,7 +205,6 @@ public class Parser {
         }
         return result;
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     public List<String> parserPartnersXML(Document doc, String name) {
@@ -299,6 +226,7 @@ public class Parser {
         String ilosc_pkt = null;
         String nazwaPromocji = null;
         String iloscPunktowPromocji = null;
+        String nid = null;
         if(myListData.listOfPartners.isEmpty()) {
             for (int i = 0; i < dane.getLength(); i++) {
                 NodeList nList1 = dane.item(i).getChildNodes();
@@ -344,10 +272,12 @@ public class Parser {
                                                             nazwaPromocji = nList5.item(n).getTextContent();
                                                         } else if (nList5.item(n).getNodeName().equals("ilosc_pkt")) {
                                                             iloscPunktowPromocji = nList5.item(n).getTextContent();
+                                                        } else if (nList5.item(n).getNodeName().equals("nid")) {
+                                                            nid = nList5.item(n).getTextContent();
                                                         }
                                                     }
                                                 }
-                                                rewardsModel.addToPromoList(nazwaPromocji, iloscPunktowPromocji, bid);
+                                                rewardsModel.addToPromoList(nazwaPromocji, iloscPunktowPromocji, nid, bid);
                                             }
                                         }
                                     }
@@ -368,42 +298,6 @@ public class Parser {
         return null;
     }
 
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-    <dane>
-        <xd>
-        <elem>
-            <trx>
-                <data>...</data>
-                <typ_transakcji_id>...</typ_transakcji_id>
-                <koszt_punktow>...</koszt_punktow>
-                <kwota_zakupow>...</kwota_zakupow>
-                <nr_karty>...</nr_karty>
-                <pic>...</pic>
-                <nazwa>...</nazwa>
-            </trx>
-            <trx>
-                <data>...</data>
-                <typ_transakcji_id>...</typ_transakcji_id>
-                <koszt_punktow>...</koszt_punktow>
-                <kwota_zakupow>...</kwota_zakupow>
-                <nr_karty>...</nr_karty>
-                <pic>...</pic>
-                <nazwa>...</nazwa>
-            </trx>
-            <trx>
-                <data>...</data>
-                <typ_transakcji_id>...</typ_transakcji_id>
-                <koszt_punktow>...</koszt_punktow>
-                <kwota_zakupow>...</kwota_zakupow>
-                <nr_karty>...</nr_karty>
-                <pic>...</pic>
-                <nazwa>...</nazwa>
-            </trx>
-        </elem>
-    </xd>
-*/
 
     public List<String> parserTransactionsXML(Document doc, String name) {
         NodeList dane = doc.getElementsByTagName(name);
@@ -452,7 +346,4 @@ public class Parser {
         }
         return null;
     }
-
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

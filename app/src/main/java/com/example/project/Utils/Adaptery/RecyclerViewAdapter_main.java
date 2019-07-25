@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +20,6 @@ import com.example.project.R;
 import com.example.project.activity_fragments_class.ExtendedPartnerActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.PartnersModel;
-import com.example.project.model.RewardsModel;
-import com.matthewtamlin.android_utilities_library.collections.ArrayListWithCallbacks;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,12 +30,10 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
     private List<PartnersModel> partnerList;
     private Context mContext;
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView imageName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, promotionDesc, distanceFromPartner;
-        RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera, extendLayoutPartner;
+        TextView nameOfPartner, textView_ownedPoints, distanceFromPartner;
+        RelativeLayout relativeLayoutPartnera, extendLayoutPartner;
         LinearLayout wariantNagrody;
         RecyclerView recyclerView;
 
@@ -47,19 +42,12 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
             super(itemView);
 
             extendLayoutPartner = itemView.findViewById(R.id.relativeLayout_viewLayoutPartner_upLayout);
-            distanceFromPartner = itemView.findViewById(R.id.textView_partnerLayout_distanceFromPartner);
-            recyclerView = itemView.findViewById(R.id.recycler_view_fragment_home);
-            layoutSchowajNagrody = itemView.findViewById(R.id.layout_tekstu_schowaj_nagrode);
-            layoutPokazNagrody = itemView.findViewById(R.id.layout_tekstu_pokaz_nagrode);
-            relativeLayoutPartnera = itemView.findViewById(R.id.relativeLayoutPartnera);
-            wariantNagrody = itemView.findViewById(R.id.wariantNagrody);
-            textView_ownedPoints = itemView.findViewById(R.id.textView_layoutPartner_ownedPoints);
-            promotionDesc = itemView.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
-            image = itemView.findViewById(R.id.zdjecie);
-            imageName = itemView.findViewById(R.id.zdjecieTextView);
-            textViewPokazNagrody = itemView.findViewById(R.id.textViewPokazNagrody);
-            textViewSchowajNagrody = itemView.findViewById(R.id.textViewSchowajNagrody);
-            kafelekPartneraLayoutNagrod = itemView.findViewById(R.id.kafelekPartneraLayoutNagrod);
+            distanceFromPartner = itemView.findViewById(R.id.textView_viewLayoutPartner_distanceFromPartner);
+            recyclerView = itemView.findViewById(R.id.recyclerView_fragmentHome);
+            relativeLayoutPartnera = itemView.findViewById(R.id.relativeLayout_viewLayoutPartner_fullPartnerView);
+            textView_ownedPoints = itemView.findViewById(R.id.textView_viewLayoutPartner_ownedPoints);
+            image = itemView.findViewById(R.id.imageView_viewLayoutPartner_logo);
+            nameOfPartner = itemView.findViewById(R.id.textView_viewLayoutPartner_partnerName);
         }
     }
 
@@ -83,86 +71,31 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
         Picasso.get()
                 .load(StartActivity.partners_layout_url + currentItem.getPic())
                 .placeholder(R.drawable.error_image)
+                .centerCrop()
                 .fit()
-                .transform(new picasso_rounded_corners(50, 0, picasso_rounded_corners.CornerType.TOP_LEFT))
+                .centerCrop()
+                .transform(new picasso_rounded_corners(50, 0, picasso_rounded_corners.CornerType.TOP))
                 .into(holder.image);
 
-
-
-
-        holder.imageName.setText(currentItem.getName());
+        holder.nameOfPartner.setText(currentItem.getName());
         holder.distanceFromPartner.setText(currentItem.getDistanceToPartner() + " km");
-        holder.extendLayoutPartner.setOnClickListener(new View.OnClickListener() {
+        holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ExtendedPartnerActivity.class);
                 intent.putExtra("position", String.valueOf(position));
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
-                Bundle bundle = options.toBundle();
-                mContext.startActivity(intent, bundle);
-
+               // ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
+               // Bundle bundle = options.toBundle();
+               // mContext.startActivity(intent, bundle);
+                mContext.startActivity(intent);
             }
         });
 
         if(currentItem.getIlosc_pkt().equals("")){
             holder.textView_ownedPoints.setText("0 pkt");
-        }else{
+        } else{
             holder.textView_ownedPoints.setText(currentItem.getIlosc_pkt() + " pkt");
         }
-
-
-        final List<String> bid = new ArrayList<>();
-        final List<String> descOfPromotion = new ArrayList<>();
-        final List<String> pointsForPromotion = new ArrayList<>();
-
-
-
-
-        for(int i=0; i < currentItem.listOfReward.size(); i++){
-            if(currentItem.listOfReward.get(i).getBid().contains(currentItem.bid)){
-                bid.add(currentItem.listOfReward.get(i).getBid());
-                descOfPromotion.add(currentItem.listOfReward.get(i).getName());
-                pointsForPromotion.add(currentItem.listOfReward.get(i).getPoints());
-            }
-        }
-
-        holder.wariantNagrody.removeAllViews();
-        holder.wariantNagrody.setVisibility(View.GONE);
-        holder.layoutSchowajNagrody.setVisibility(View.GONE);
-
-        for (int i = 0; i < descOfPromotion.size(); i++) {
-            View child1 = LayoutInflater.from(mContext).inflate(R.layout.view_layout_extended_description_partner, null);
-            TextView promotionPoints = child1.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_points);
-            TextView promotionDesc = child1.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
-            promotionPoints.setText(pointsForPromotion.get(i));
-            promotionDesc.setText(descOfPromotion.get(i));
-            holder.wariantNagrody.addView(child1);
-        }
-
-
-        holder.wariantNagrody.setOrientation(LinearLayout.VERTICAL);
-
-        holder.textViewPokazNagrody.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Log.v("parser", "dlugosc listy desc:" + descOfPromotion.size());
-
-                holder.wariantNagrody.setVisibility(View.VISIBLE);
-                holder.layoutPokazNagrody.setVisibility(View.GONE);
-                holder.layoutSchowajNagrody.setVisibility(View.VISIBLE);
-            }
-
-        });
-
-        holder.textViewSchowajNagrody.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.layoutPokazNagrody.setVisibility(View.VISIBLE);
-                holder.wariantNagrody.setVisibility(View.GONE);
-                holder.layoutSchowajNagrody.setVisibility(View.GONE);
-            }
-        });
     }
 
     @Override

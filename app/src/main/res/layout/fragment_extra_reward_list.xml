@@ -6,10 +6,23 @@
     android:background="@color/colorDellyGradientBlue"
     tools:context=".activity_fragments_class.Fragments.NormalRewardListFragment">
 
-    <ImageView
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/test3" />
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout_fragmentExtraRewardList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="1dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView_fragmentExtraRewardList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

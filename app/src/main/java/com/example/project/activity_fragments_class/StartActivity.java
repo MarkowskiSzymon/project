@@ -22,6 +22,7 @@ public class StartActivity extends AppCompatActivity {
     public static String checkingCard_fID = "102";
     public static String checkingEmialAndPhone_fID = "103";
     public static String checkingPartners_fID = "104";
+    public static String checkingExtraRewards_fID = "107";
     public static String scr_url = "https://api.delly.pl/Dkli_0_1_0.php";
     public static String cards_layout_url = "http://delly.pl/layout/images/karty/";
     public static String partners_layout_url = "http://delly.pl/layout/images/partnerzy/";

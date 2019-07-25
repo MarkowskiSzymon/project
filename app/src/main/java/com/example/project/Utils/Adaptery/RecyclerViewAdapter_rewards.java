@@ -47,18 +47,15 @@ public class RecyclerViewAdapter_rewards extends RecyclerView.Adapter<RecyclerVi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            layoutSchowajNagrody = itemView.findViewById(R.id.layout_tekstu_schowaj_nagrode);
-            layoutPokazNagrody = itemView.findViewById(R.id.layout_tekstu_pokaz_nagrode);
-            relativeLayoutPartnera = itemView.findViewById(R.id.relativeLayoutPartnera);
-            wariantNagrody = itemView.findViewById(R.id.wariantNagrody);
-            textView_ownedPoints = itemView.findViewById(R.id.textView_layoutPartner_ownedPoints);
+            relativeLayoutPartnera = itemView.findViewById(R.id.relativeLayout_viewLayoutPartner_fullPartnerView);
+            wariantNagrody = itemView.findViewById(R.id.linearLayout_viewLayoutExtraReward_listOfRewards);
+            textView_ownedPoints = itemView.findViewById(R.id.textView_viewLayoutPartner_ownedPoints);
             opisPromocji = itemView.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
-            image = itemView.findViewById(R.id.zdjecie);
-            imageName = itemView.findViewById(R.id.zdjecieTextView);
-            textViewPokazNagrody = itemView.findViewById(R.id.textViewPokazNagrody);
+            image = itemView.findViewById(R.id.imageView_viewLayoutPartner_logo);
+            imageName = itemView.findViewById(R.id.textView_viewLayoutPartner_partnerName);
             textViewSchowajNagrody = itemView.findViewById(R.id.textViewSchowajNagrody);
-            kafelekPartneraLayoutNagrod = itemView.findViewById(R.id.kafelekPartneraLayoutNagrod);
-            textViewDistanceFromPartner = itemView.findViewById(R.id.textView_partnerLayout_distanceFromPartner);
+            kafelekPartneraLayoutNagrod = itemView.findViewById(R.id.relativeLayout_viewLayoutExtraReward_listOfRewards);
+            textViewDistanceFromPartner = itemView.findViewById(R.id.textView_viewLayoutPartner_distanceFromPartner);
         }
     }
 
@@ -74,8 +71,6 @@ public class RecyclerViewAdapter_rewards extends RecyclerView.Adapter<RecyclerVi
         this.mMultiplier = mPartners_Multiplier;
         this.mOwnedPoints = mPartners_OwnedPoints;
         this.mContext = mContext;
-
-
     }
 
     @Override

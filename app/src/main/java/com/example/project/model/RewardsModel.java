@@ -8,23 +8,26 @@ public class RewardsModel {
     public static List<RewardsModel> listOfPromo = new ArrayList<>();
     public String name;
     public String points;
+    public String nid;
     public String bid;
 
     public RewardsModel() {
 
     }
 
-    public RewardsModel(String name, String points, String bid) {
+    public RewardsModel(String name, String points, String nid, String bid) {
         this.name = name;
         this.points = points;
+        this.nid = nid;
         this.bid = bid;
     }
 
-    public void addToPromoList(String name, String points, String bid){
+    public void addToPromoList(String name, String points, String nid, String bid){
         this.name = name;
         this.points = points;
+        this.nid = nid;
         this.bid = bid;
-        listOfPromo.add(new RewardsModel(name, points, bid));
+        listOfPromo.add(new RewardsModel(name, points, nid, bid));
     }
 
     public List<RewardsModel> getListOfPromo() {
@@ -49,6 +52,14 @@ public class RewardsModel {
 
     public void setPoints(String points) {
         this.points = points;
+    }
+
+    public String getNid() {
+        return nid;
+    }
+
+    public void setNid(String nid) {
+        this.nid = nid;
     }
 
     public String getBid() {

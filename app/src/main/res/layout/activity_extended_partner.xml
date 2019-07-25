@@ -30,7 +30,6 @@
                 android:transitionName="example_transistion"
                 android:scaleType="centerCrop"/>
 
-
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/ext_tooolbar"
                     android:layout_marginTop="20dp"
@@ -43,16 +42,11 @@
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
                 </android.support.v7.widget.Toolbar>
 
-
-
-
-
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:paddingBottom="60dp"
         android:id="@+id/nested_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,7 +61,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            android:layout_marginTop="50dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -79,46 +72,39 @@
                     android:id="@+id/textView_activityExtendedPartner_partnerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Enoteka Pergamin"/>
+                    android:text="Enoteka Pergamin" />
 
                 <TextView
                     android:id="@+id/textView_activityExtendedPartner_ownedPoints"
                     android:layout_below="@id/textView_activityExtendedPartner_partnerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="26ptk"/>
+                    android:textColor="@color/colorDellyGreen"
+                    android:text="0 ptk"/>
+
+                <TextView
+                    android:id="@+id/textView_activityExtendedPartner_distance"
+                    android:layout_below="@id/textView_activityExtendedPartner_partnerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="0,2km" />
 
                 <TextView
                     android:id="@+id/textView_activityExtendedPartner_converter"
-                    android:layout_below="@id/textView_activityExtendedPartner_partnerName"
+                    android:layout_below="@id/textView_activityExtendedPartner_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="15zł/1pkt"/>
 
-                <View
-                    android:id="@+id/line_activityExtendedPartner"
-                    android:layout_below="@id/textView_activityExtendedPartner_converter"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_alignBottom="@+id/zdjecie"
-                    android:layout_alignParentEnd="true"
-                    android:background="#BEBCBC" />
 
                 <TextView
                     android:id="@+id/textView_activityExtendedPartner_adress"
-                    android:layout_below="@id/line_activityExtendedPartner"
+                    android:layout_below="@id/textView_activityExtendedPartner_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Kraków, ul.Grodzka 39"/>
-
-                <TextView
-                    android:id="@+id/textView_activityExtendedPartner_distance"
-                    android:layout_below="@id/line_activityExtendedPartner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="1,2km"/>
 
 
             </RelativeLayout>
