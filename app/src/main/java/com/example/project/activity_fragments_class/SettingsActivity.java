@@ -37,7 +37,6 @@ public class SettingsActivity extends AppCompatActivity {
     private Integer myAge;
     private SharedPreferences myPrefs;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private CountryCodePicker ccp;
     private Button buttonUpdateNewData, buttonSaveNewPassword;
 
     @Override
@@ -46,9 +45,9 @@ public class SettingsActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
         setContentView(R.layout.activity_settings);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initialize();
 
-        final Regex_patterns regex_patterns = new Regex_patterns();
         LoginModelTest loginModelTest = new LoginModelTest();
         myPrefs = getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
         editPhoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -58,7 +57,6 @@ public class SettingsActivity extends AppCompatActivity {
         editZipCode.setText(loginModelTest.getKod_pocztowy());
         editEmail.setText(loginModelTest.getEmail());
         editPhoneNumber.setText(loginModelTest.getTelefon());
-        ccp.getDefaultCountryCode();
 
         if(loginModelTest.listOfInformation.get(0).getPlec().equals("M")){
             radioButtonMale.setChecked(true);
@@ -309,7 +307,6 @@ public class SettingsActivity extends AppCompatActivity {
         editDateOfBirth = findViewById(R.id.editText_activitySettings_date);
         editZipCode = findViewById(R.id.editText_activitySettings_zipCode);
         editEmail = findViewById(R.id.editText_activitySettings_email);
-        ccp = findViewById(R.id.countryCodePicker_activitySettings);
     }
 
     public String getAge(int year, int month, int day) {

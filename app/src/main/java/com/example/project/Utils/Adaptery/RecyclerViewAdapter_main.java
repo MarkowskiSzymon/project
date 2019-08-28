@@ -6,8 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,21 +23,22 @@ import com.example.project.R;
 import com.example.project.activity_fragments_class.ExtendedPartnerActivity;
 import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.PartnersModel;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewAdapter_main.ViewHolder> {
 
     private List<PartnersModel> partnerList;
     private Context mContext;
+    private         boolean visible;
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView nameOfPartner, textView_ownedPoints, distanceFromPartner;
         RelativeLayout relativeLayoutPartnera, extendLayoutPartner;
-        LinearLayout wariantNagrody;
         RecyclerView recyclerView;
 
 
@@ -61,6 +65,7 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_layout_partner, parent, false);
         ViewHolder holder = new ViewHolder(view);
 
+
         return holder;
     }
 
@@ -70,12 +75,13 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
 
         Picasso.get()
                 .load(StartActivity.partners_layout_url + currentItem.getPic())
-                .placeholder(R.drawable.error_image)
-                .centerCrop()
+                .transform(new picasso_rounded_corners(50, 0, picasso_rounded_corners.CornerType.TOP))
                 .fit()
                 .centerCrop()
-                .transform(new picasso_rounded_corners(50, 0, picasso_rounded_corners.CornerType.TOP))
+                .placeholder(R.drawable.error_image)
+                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(holder.image);
+
 
         holder.nameOfPartner.setText(currentItem.getName());
         holder.distanceFromPartner.setText(currentItem.getDistanceToPartner() + " km");
@@ -84,10 +90,15 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ExtendedPartnerActivity.class);
                 intent.putExtra("position", String.valueOf(position));
-               // ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
-               // Bundle bundle = options.toBundle();
-               // mContext.startActivity(intent, bundle);
-                mContext.startActivity(intent);
+
+                TransitionManager.beginDelayedTransition(holder.relativeLayoutPartnera);
+                visible = !visible;
+                holder.nameOfPartner.setVisibility(visible ? View.VISIBLE : View.GONE);
+
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, holder.image, ViewCompat.getTransitionName(holder.image));
+                Bundle bundle = options.toBundle();
+                mContext.startActivity(intent, bundle);
             }
         });
 
@@ -98,9 +109,11 @@ public class RecyclerViewAdapter_main extends RecyclerView.Adapter<RecyclerViewA
         }
     }
 
+
     @Override
     public int getItemCount() {
-        return partnerList.size();
+        //return partnerList.size();
+        return 4;
     }
 
 }

@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.project.R;
 import com.example.project.activity_fragments_class.HomeActivity;
+import com.example.project.activity_fragments_class.StartActivity;
 import com.example.project.model.PartnersModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -41,8 +42,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnMyLocationButto
         setHasOptionsMenu(true);
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        HomeActivity homeActivity = new HomeActivity();
-        homeActivity.partnerFragmentStatus = 1;
+        StartActivity.partnerFragmentChanger = true;
 
         return rootView;
     }

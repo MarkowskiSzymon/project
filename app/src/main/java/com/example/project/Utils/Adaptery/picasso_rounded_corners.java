@@ -24,10 +24,6 @@ public class picasso_rounded_corners implements Transformation {
     private int mMargin;
     private CornerType mCornerType;
 
-    public picasso_rounded_corners(int radius, int margin) {
-        this(radius, margin, CornerType.ALL);
-    }
-
     public picasso_rounded_corners(int radius, int margin, CornerType cornerType) {
         mRadius = radius;
         mDiameter = radius * 2;

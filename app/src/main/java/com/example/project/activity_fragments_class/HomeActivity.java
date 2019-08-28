@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.example.project.R;
 import com.example.project.activity_fragments_class.Fragments.CardsFragment;
 import com.example.project.activity_fragments_class.Fragments.MainFragment;
+import com.example.project.activity_fragments_class.Fragments.MapFragment;
 import com.example.project.activity_fragments_class.Fragments.PartnersFragment;
 import com.example.project.activity_fragments_class.Fragments.RewardsFragment;
 import com.example.project.activity_fragments_class.Fragments.TransactionsFragment;
@@ -87,12 +88,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     case (R.id.nav_partners):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
                         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
-                        selectedFragment = new PartnersFragment();
+                        if(StartActivity.partnerFragmentChanger == false){
+                            selectedFragment = new PartnersFragment();
+                        } else {
+                            selectedFragment = new MapFragment();
+                        }
                         break;
                     case (R.id.nav_presents):
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorDellyGradientBlue)));
                         getWindow().setStatusBarColor(getResources().getColor(R.color.colorDellyGradientBlue));
-                        Log.v("tabs", "wyłączam nagrody");
                         selectedFragment = new RewardsFragment();
                         break;
                     case (R.id.nav_test):

@@ -8,10 +8,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.example.project.R;
+import com.example.project.activity_fragments_class.StartActivity;
 
 
 public class RewardsFragment extends Fragment {
@@ -28,6 +32,7 @@ public class RewardsFragment extends Fragment {
         viewPager.setAdapter(sectionsPagerAdapter);
         tabs = rootView.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+        Log.v("parser", "wynik z mapowania: " + StartActivity.partnerFragmentChanger);
         return rootView;
     }
 

@@ -28,6 +28,9 @@ import com.example.project.model.RewardsModel;
 
 import org.w3c.dom.Document;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 public class ExtraRewardListFragment extends Fragment {
 
     private View rootView;
@@ -44,6 +47,15 @@ public class ExtraRewardListFragment extends Fragment {
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
 
         conn = new Connection_INTERNET(getContext());
+        PartnersModel myListData = new PartnersModel();
+
+
+
+        if(myListData.listOfPartners.isEmpty()) {
+            new checkingExtraRewards(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
+        } else{
+            initRecyclerView();
+        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -56,7 +68,7 @@ public class ExtraRewardListFragment extends Fragment {
                         new checkingExtraRewards(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 2000);
+                }, StartActivity.refreshDelay);
             }
         });
 
@@ -66,6 +78,17 @@ public class ExtraRewardListFragment extends Fragment {
     private void initialize() {
         recyclerView = rootView.findViewById(R.id.recyclerView_fragmentExtraRewardList);
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout_fragmentExtraRewardList);
+    }
+
+    private void sortNumberAscending() {
+        Collections.sort(PartnersModel.listOfPartners, new Comparator<PartnersModel>() {
+            @Override
+            public int compare(PartnersModel o1, PartnersModel o2) {
+                return o1.getDistanceToPartner().compareTo(o2.getDistanceToPartner());
+            }
+        });
+
+        adapter_rewards.notifyDataSetChanged();
     }
 
     public class checkingExtraRewards extends AsyncTask<String, String, String> {
@@ -95,13 +118,14 @@ public class ExtraRewardListFragment extends Fragment {
             par.parserPartnersXML(doc, "xd");
             initRecyclerView();
         }
+    }
 
-        private void initRecyclerView() {
-            adapter_rewards = new RecyclerViewAdapter_extraRewards(getContext(), PartnersModel.listOfPartners);
-            adapter_rewards.notifyDataSetChanged();
-            recyclerView.setAdapter(adapter_rewards);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        }
+    private void initRecyclerView() {
+        adapter_rewards = new RecyclerViewAdapter_extraRewards(getContext(), PartnersModel.listOfPartners);
+        adapter_rewards.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter_rewards);
+        sortNumberAscending();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }

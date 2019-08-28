@@ -36,12 +36,16 @@ public class RecyclerViewAdapter_extraRewards extends RecyclerView.Adapter<Recyc
     private Context mContext;
 
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView partnerLogo;
         TextView partnerName, textViewPokazNagrody, textViewSchowajNagrody, textView_ownedPoints, opisPromocji, distanceFromPartner;
-        RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera, extendLayoutPartner;
+        RelativeLayout kafelekPartneraLayoutNagrod, layoutSchowajNagrody, layoutPokazNagrody, relativeLayoutPartnera, extendLayoutPartner, relativeLayout_viewLayoutExtraReward_upLayout;
         LinearLayout wariantNagrody;
         RecyclerView recyclerView;
+        RelativeLayout layout;
+        RelativeLayout.LayoutParams params;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -54,23 +58,35 @@ public class RecyclerViewAdapter_extraRewards extends RecyclerView.Adapter<Recyc
             partnerLogo = itemView.findViewById(R.id.imageView_viewLayoutExtraReward_logo);
             partnerName = itemView.findViewById(R.id.textView_viewLayoutExtraReward_partnerName);
             kafelekPartneraLayoutNagrod = itemView.findViewById(R.id.relativeLayout_viewLayoutExtraReward_listOfRewards);
+            relativeLayout_viewLayoutExtraReward_upLayout = itemView.findViewById(R.id.relativeLayout_viewLayoutExtraReward_upLayout);
+
         }
     }
+
 
     public RecyclerViewAdapter_extraRewards(Context context, List<PartnersModel> exampleList) {
         this.partnerList = exampleList;
         this.mContext = context;
         exampleListFull = new ArrayList<>(exampleList);
     }
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_layout_extra_reward, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
+
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         PartnersModel currentItem = partnerList.get(position);
+
+        nid.clear();
+        descOfPromotion.clear();
+        pointsForPromotion.clear();
+
         holder.wariantNagrody.setOrientation(LinearLayout.VERTICAL);
         holder.partnerName.setText(currentItem.getName());
 
@@ -80,18 +96,24 @@ public class RecyclerViewAdapter_extraRewards extends RecyclerView.Adapter<Recyc
             holder.textView_ownedPoints.setText(currentItem.getIlosc_pkt());
         }
 
-        nid.clear();
-        descOfPromotion.clear();
-        pointsForPromotion.clear();
-
         for(int i=0; i < currentItem.listOfReward.size(); i++) {
             if (currentItem.listOfReward.get(i).getBid().equals(currentItem.bid)) {
                 if((Integer.parseInt(currentItem.listOfReward.get(i).getPoints()) <= Integer.parseInt(String.valueOf(holder.textView_ownedPoints.getText())))){
-                    nid.add(currentItem.listOfReward.get(i).getBid());
-                    descOfPromotion.add(currentItem.listOfReward.get(i).getName());
-                    pointsForPromotion.add(currentItem.listOfReward.get(i).getPoints());
+                    if(!nid.contains(currentItem.listOfReward.get(i).getBid())){
+                        nid.add(currentItem.listOfReward.get(i).getBid());
+                        descOfPromotion.add(currentItem.listOfReward.get(i).getName());
+                        pointsForPromotion.add(currentItem.listOfReward.get(i).getPoints());
+                    }
                 }
             }
+        }
+
+
+        if(nid.size() > 0){
+            Log.v("parser", currentItem.getName() + " wystepuja nagrody");
+        } else{
+            Log.v("parser", "wyjebalismy: " + currentItem.getName() + " na pozycji: " + position);
+          //  partnerList.remove(holder.getAdapterPosition());
         }
 
             Picasso.get()
@@ -108,19 +130,21 @@ public class RecyclerViewAdapter_extraRewards extends RecyclerView.Adapter<Recyc
                 holder.textView_ownedPoints.setText(currentItem.getIlosc_pkt());
             }
 
-
             holder.wariantNagrody.removeAllViews();
 
+
         for (int i = 0; i < descOfPromotion.size(); i++) {
-            View child1 = LayoutInflater.from(mContext).inflate(R.layout.view_layout_extended_description_partner, null);
-            TextView promotionPoints = child1.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_points);
-            TextView promotionDesc = child1.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
-            promotionPoints.setText(pointsForPromotion.get(i));
-            promotionDesc.setText(descOfPromotion.get(i));
-            holder.wariantNagrody.addView(child1);
+                View child1 = LayoutInflater.from(mContext).inflate(R.layout.view_layout_extended_description_partner, null);
+                TextView promotionPoints = child1.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_points);
+                TextView promotionDesc = child1.findViewById(R.id.textView_viewLayoutExtendedDiscPartner_desc);
+                promotionPoints.setText(pointsForPromotion.get(i));
+                promotionDesc.setText(descOfPromotion.get(i));
+                holder.wariantNagrody.addView(child1);
         }
+        Log.v("parser", "srelemorele");
 
     }
+
 
     @Override
     public int getItemCount() {

@@ -24,10 +24,11 @@
             <ImageView
                 android:id="@+id/imageView_activtiyExtendedPartner_partnerLogo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="160dp"
                 android:background="@color/colorWhite"
                 android:src="@drawable/delly_background"
                 android:transitionName="example_transistion"
+                tools:ignore="UnusedAttribute"
                 android:scaleType="centerCrop"/>
 
                 <android.support.v7.widget.Toolbar

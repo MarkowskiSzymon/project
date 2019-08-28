@@ -127,24 +127,11 @@
         </RelativeLayout>
 
 
-        <Button
-            android:id="@+id/button_AcitivityLogin_Login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/relativeLayout_activityLogin_password"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_border_edittext"
-            android:backgroundTint="@color/colorDellyGreen"
-            android:ems="10"
-            android:text="@string/buttonZalogujSie"
-            android:textColor="@color/colorWhite" />
-
         <TextView
             android:id="@+id/textView_ActivityLogin_GoToRegistration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button_AcitivityLogin_Login"
+            android:layout_below="@+id/my_loading_button"
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
             android:text="@string/nieMaszJeszczeKonta"
@@ -159,6 +146,22 @@
             android:layout_marginTop="20dp"
             android:text="@string/rules"
             android:textSize="15sp" />
+
+        <com.example.myloadingbutton.MyLoadingButton
+            android:id="@+id/my_loading_button"
+            android:layout_below="@id/relativeLayout_activityLogin_password"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+
+            app:mlb_labelSize="5sp"
+            app:mlb_backgroundColor="@color/colorDellyGreen"
+            app:mlb_labelColor="@color/white"
+            app:mlb_setNormalAfterError="false"
+            app:mlb_label="@string/buttonZalogujSie"
+            app:mlb_setErrorIcon="@drawable/ic_progress_cancle"
+            app:mlb_setDoneIcon="@drawable/ic_progress_done" />
 
 
     </RelativeLayout>

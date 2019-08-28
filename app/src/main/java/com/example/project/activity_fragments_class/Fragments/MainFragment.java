@@ -8,12 +8,17 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
+import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.project.R;
@@ -32,11 +37,13 @@ import java.util.Comparator;
 
 public class MainFragment extends Fragment{
     private Connection_INTERNET conn;
+    private NestedScrollView nestedScrollView;
     private View rootView;
     private RecyclerView recyclerView;
     private SharedPreferences myPrefs;
     private ImageView qrCode_image;
     private TextView textViewNumerKarty;
+    private TextView textViewTwojePunkty;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerViewAdapter_main adapter_home;
 
@@ -47,6 +54,7 @@ public class MainFragment extends Fragment{
         initialize();
         PartnersModel myListData = new PartnersModel();
         LoginModelTest loginModelTest = new LoginModelTest();
+        nestedScrollView.setNestedScrollingEnabled(false);
         QrCodeGenerator qrCodeGenerator = new QrCodeGenerator();
         conn = new Connection_INTERNET(getContext());
         myPrefs = getContext().getSharedPreferences(StartActivity.SharedP_LOGIN, Context.MODE_PRIVATE);
@@ -55,7 +63,10 @@ public class MainFragment extends Fragment{
         qrCode_image.setImageBitmap(qrCodeGenerator.QrCodeGenerator(loginModelTest.listOfInformation.get(0).getListOfCard().get(0).getNr()));
 
 
+
+
         if(myListData.listOfPartners.isEmpty()) {
+            Log.v("parser", "generuje liste");
             new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
         } else{
             adapter_home = new RecyclerViewAdapter_main(getContext(), PartnersModel.listOfPartners);
@@ -75,18 +86,23 @@ public class MainFragment extends Fragment{
                         new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 2000);
+                }, StartActivity.refreshDelay);
             }
         });
 
-        return rootView;
+        textViewTwojePunkty.setMovementMethod(new ScrollingMovementMethod());
+        return rootView; 
     }
+
+
 
     private void initialize() {
         swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout_fragmentHome);
         recyclerView = rootView.findViewById(R.id.recyclerView_fragmentHome);
         qrCode_image = rootView.findViewById(R.id.imageViewQRCodeGenerator);
+        nestedScrollView = rootView.findViewById(R.id.nestedScrollView);
         textViewNumerKarty = rootView.findViewById(R.id.textViewNumerKarty);
+        textViewTwojePunkty = rootView.findViewById(R.id.textViewTwojePunkty);
     }
 
 
@@ -133,9 +149,9 @@ public class MainFragment extends Fragment{
 
     private void initRecyclerView() {
         adapter_home = new RecyclerViewAdapter_main(getContext(), PartnersModel.listOfPartners);
-        sortNumberAscending();
         adapter_home.notifyDataSetChanged();
         recyclerView.setAdapter(adapter_home);
+        sortNumberAscending();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

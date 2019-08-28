@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusableInTouchMode="true"
+    android:windowSoftInputMode="stateVisible"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -308,6 +309,7 @@
                         android:id="@+id/editText_activitySettings_phoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number|phone"
                         android:backgroundTint="@android:color/transparent"
                         android:drawableRight="@drawable/ic_ico_call" />
 
@@ -316,44 +318,9 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/relativeLayout_activitySettings_codePhone"
-                android:layout_below="@id/relativeLayout_activitySettings_phoneNumber"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/rounded_border_edittext" />
-
-
-                <RelativeLayout
-                    android:id="@+id/textinputlayout_activitySettings_codePhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/phoneNumber">
-
-                    <com.hbb20.CountryCodePicker
-                        android:id="@+id/countryCodePicker_activitySettings"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginHorizontal="16dp"
-                        app:ccp_countryPreference="PL"
-                        app:ccp_defaultNameCode="PL"
-                        android:layout_marginTop="30dp"/>
-
-                </RelativeLayout>
-
-
-            </RelativeLayout>
-
-
             <Button
                 android:id="@+id/button_activitySettings_updateNewData"
-                android:layout_below="@id/relativeLayout_activitySettings_codePhone"
+                android:layout_below="@id/relativeLayout_activitySettings_phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"

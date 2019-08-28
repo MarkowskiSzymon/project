@@ -54,6 +54,7 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_partners, container, false);
+        StartActivity.partnerFragmentChanger = false;
         setHasOptionsMenu(true);
         initialize();
 
@@ -85,7 +86,7 @@ public class PartnersFragment extends Fragment implements AdapterView.OnItemSele
                         new checkingPartners(StartActivity.checkingPartners_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 2000);
+                }, StartActivity.refreshDelay);
             }
         });
 

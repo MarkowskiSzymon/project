@@ -80,7 +80,7 @@ public class CardsFragment extends Fragment {
                         new CheckingOwnedCards(StartActivity.checkingOwnedCards_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 2000);
+                }, StartActivity.refreshDelay);
             }
         });
 

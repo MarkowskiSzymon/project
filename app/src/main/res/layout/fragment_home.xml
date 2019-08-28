@@ -40,55 +40,48 @@
             android:layout_marginTop="0dp"
             android:text="@string/kartaInfo" />
 
-
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayoutNapisTwojePunkty"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout_fragmentHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorDellyGradientBlue"
         android:layout_below="@+id/cardFargmentFirstPartyRelativeLayout">
 
-        <TextView
-            android:id="@+id/textViewTwojePunkty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:text="Twoje Punkty"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout_fragmentHome_recViewLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/relativeLayoutNapisTwojePunkty"
-        android:background="@color/colorDellyGradientBlue">
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout_fragmentHome"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="1dp">
+            android:overScrollMode="never">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView_fragmentHome"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fadeScrollbars="true">
+                android:orientation="vertical">
 
-            </android.support.v7.widget.RecyclerView>
+                <TextView
+                    android:id="@+id/textViewTwojePunkty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="Twoje Punkty"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp" />
 
-        </android.support.v4.widget.SwipeRefreshLayout>
-    </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_fragmentHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </RelativeLayout>

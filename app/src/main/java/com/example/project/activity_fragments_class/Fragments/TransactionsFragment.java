@@ -61,7 +61,7 @@ public class TransactionsFragment extends Fragment {
                         new checkingTransactions(StartActivity.checkingTransactions_fID, conn.getDeviceId(), myPrefs.getString("login", ""), myPrefs.getString("password", "")).execute();
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 2000);
+                }, StartActivity.refreshDelay);
             }
         });
 

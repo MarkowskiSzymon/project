@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout_viewLayoutPartner_fullPartnerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,8 +20,11 @@
             android:id="@+id/imageView_viewLayoutPartner_logo"
             android:layout_width="match_parent"
             android:layout_height="160dp"
+            android:background="@color/colorDellyGradientBlue"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_ico_call"
-            android:transitionName="example_transistion" />
+            android:transitionName="example_transistion"
+            tools:ignore="UnusedAttribute"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

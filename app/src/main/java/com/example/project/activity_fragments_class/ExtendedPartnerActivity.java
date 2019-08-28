@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telecom.Call;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class ExtendedPartnerActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -35,6 +38,8 @@ public class ExtendedPartnerActivity extends AppCompatActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extended_partner);
         initialize();
+
+        final long start = System.currentTimeMillis();
 
         PartnersModel partnersModel = new PartnersModel();
         String position = getIntent().getStringExtra("position");
@@ -55,7 +60,19 @@ public class ExtendedPartnerActivity extends AppCompatActivity implements OnMapR
 
         Picasso.get()
                 .load(StartActivity.partners_layout_url  + partnersModel.listOfPartners.get(Integer.parseInt(position)).getPic())
-                .into(partnerLogo);
+                .into(partnerLogo, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        supportStartPostponedEnterTransition();
+                        Log.v("parser", "onSuccess: " + (System.currentTimeMillis() - start));
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        supportStartPostponedEnterTransition();
+                    }
+                });
+
 
         partnerName.setText(partnersModel.listOfPartners.get(Integer.parseInt(position)).getName());
         String descHtml = partnersModel.listOfPartners.get(Integer.parseInt(position)).getOpis();
